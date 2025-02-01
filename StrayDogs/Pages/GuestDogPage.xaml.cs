@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StrayDogs.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,17 @@ namespace StrayDogs.Pages
         public GuestDogPage()
         {
             InitializeComponent();
+        }
+
+        private void GuestApplicationBTN_Click(object sender, RoutedEventArgs e)
+        {
+            GuestApplicationWindow guestApplicationWindow = new GuestApplicationWindow();
+            guestApplicationWindow.Show();
+        }
+
+        private void BackBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new GuestHomePage());
         }
     }
 }

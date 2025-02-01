@@ -49,7 +49,8 @@
                 Width="200" Height="200"
                 HorizontalAlignment="Center" Canvas.Left="100" VerticalAlignment="Top" Canvas.Top="67"/>
                         <Grid Width="200">
-                            <Button Background="#F4F7EE"
+                            <Button x:Name="EmloyeeAuthBTN"
+                                Background="#F4F7EE"
                      Foreground="#16343C"
                      Height="40"
                      materialDesign:ButtonAssist.CornerRadius="15"
@@ -57,7 +58,7 @@
                      IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                      Style="{StaticResource MaterialDesignRaisedDarkButton}"
                      ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
-                     Margin="103,282,-103,-282">
+                     Margin="103,282,-103,-282" Click="EmloyeeAuthBTN_Click">
                                 <TextBlock Text="Я сотрудник"/>
                             </Button>
                         </Grid>
@@ -76,7 +77,8 @@
                        Width="200" Height="200"
                        HorizontalAlignment="Center" Canvas.Left="100" VerticalAlignment="Top" Canvas.Top="67"/>
                         <Grid Width="200">
-                            <Button Background="#F4F7EE"
+                            <Button x:Name="GuestAuthBTN"
+                                Background="#F4F7EE"
                             Foreground="#16343C"
                             Height="40"
                             materialDesign:ButtonAssist.CornerRadius="15"
@@ -84,7 +86,7 @@
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
                             ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
-                            Margin="103,282,-103,-282">
+                            Margin="103,282,-103,-282" Click="GuestAuthBTN_Click">
                                 <TextBlock Text="Я гость"/>
                             </Button>
                         </Grid>

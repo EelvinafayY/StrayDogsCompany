@@ -24,5 +24,15 @@ namespace StrayDogs.Pages
         {
             InitializeComponent();
         }
+
+        private void EmloyeeAuthBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AuthorizationPage());
+        }
+
+        private void GuestAuthBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new GuestHomePage());
+        }
     }
 }

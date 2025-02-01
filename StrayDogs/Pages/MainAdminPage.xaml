@@ -76,7 +76,7 @@
                             <RectangleGeometry RadiusX="50" RadiusY="50" Rect="0,0,50,50"/>
                         </Image.Clip>
                     </Image>
-                    <Button
+                    <Button x:Name="BeginBTN" Click="BeginBTN_Click"
                         Background="Transparent"
   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
   Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
@@ -277,8 +277,8 @@ ToolTip="MaterialDesignFloatingActionMiniDarkButton">
                 </Grid>
                 <Grid
 Width="200">
-                    <Button
-                        x:Name="AddDogBT"
+                    <Button Click="AddDogBTN_Click"
+                        x:Name="AddDogBTN"
                       Background="#16343C"
                        Foreground="#F4F7EE"
                         Margin="0 80 0 0"
@@ -286,7 +286,7 @@ Width="200">
   materialDesign:ButtonAssist.CornerRadius="15"
   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
   Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
+  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Cursor="Hand">
                         <TextBlock
     Text="Добавить собаку" />
                     </Button>
@@ -294,7 +294,7 @@ Width="200">
                 <Grid
 Width="200">
                     <Button
-                        x:Name="AddEmployeeBT"
+                        x:Name="AddEmployeeBT" Click="AddEmployeeBT_Click"
                       Background="#16343C"
                        Foreground="#F4F7EE"
                         Margin="0 130 0 0"
@@ -302,7 +302,7 @@ Width="200">
   materialDesign:ButtonAssist.CornerRadius="15"
   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
   Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
+  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Cursor="Hand">
                         <TextBlock
     Text="Добавить сотрудника" />
                     </Button>

@@ -243,7 +243,7 @@ Width="200">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid
 Width="200">
-                    <Button
+                    <Button x:Name="RegistrationBTN"
                       Background="#16343C"
                        Foreground="#F4F7EE"
                        
@@ -251,7 +251,7 @@ Width="200">
   materialDesign:ButtonAssist.CornerRadius="15"
   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
   Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23">
+  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23" Click="RegistrationBTN_Click">
                         <TextBlock
     Text="Зарегистрироваться" />
                     </Button>

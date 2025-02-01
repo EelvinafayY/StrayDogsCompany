@@ -25,6 +25,9 @@ namespace StrayDogs.Pages
             InitializeComponent();
         }
 
-        
+        private void RegistrationBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RegistrationPage());
+        }
     }
 }

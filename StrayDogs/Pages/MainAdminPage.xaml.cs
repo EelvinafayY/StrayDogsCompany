@@ -83,5 +83,20 @@ namespace StrayDogs.Pages
             GuestApplicationWindow guestApplicationWindow = new GuestApplicationWindow();
             guestApplicationWindow.ShowDialog();
         }
+
+        private void BeginBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new BeginPage());
+        }
+
+        private void AddDogBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddDogPage());
+        }
+
+        private void AddEmployeeBT_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddEmployeePage());
+        }
     }
 }
