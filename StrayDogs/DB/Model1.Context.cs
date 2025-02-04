@@ -34,6 +34,7 @@ namespace StrayDogs.DB
         public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<StatusAppointment> StatusAppointment { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TypeAviary> TypeAviary { get; set; }
     }
 }

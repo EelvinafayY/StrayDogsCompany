@@ -1,4 +1,5 @@
-﻿using StrayDogs.Windows;
+﻿using StrayDogs.DB;
+using StrayDogs.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,27 @@ namespace StrayDogs.Pages
     /// </summary>
     public partial class MainAdminPage : Page
     {
+        public static List<Aviary> aviarys { get; set; }
+        public static List<TypeAviary> typeAviaries { get; set; }
+        public static List<Employee> employees { get; set; }
+        public static List<Dog> dogs { get; set; }
+
         public MainAdminPage()
         {
             InitializeComponent();
+            aviarys = DBConnection.stray_Dogs.Aviary.ToList();
+            typeAviaries = DBConnection.stray_Dogs.TypeAviary.ToList();
+            employees = DBConnection.stray_Dogs.Employee.ToList();
+            dogs = DBConnection.stray_Dogs.Dog.ToList();
+            Refresh();
 
-            List<string> list = new List<string>(){"Первый", "Second", "Third", "Fourht", "Five"};
-            VolierLv.ItemsSource = list;    
+        }
 
-            WorkersLv.ItemsSource = list;   
 
+        public void Refresh()
+        {
+            VolierLV.ItemsSource = aviarys;
+            WorkersLV.ItemsSource = employees;
         }
 
         private void TabControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -54,26 +67,26 @@ namespace StrayDogs.Pages
 
         private void ScrollUp_Click(object sender, RoutedEventArgs e)
         {
-            if (VolierLv.Items.Count > 0)
+            if (VolierLV.Items.Count > 0)
             {
-                var index = VolierLv.SelectedIndex;
+                var index = VolierLV.SelectedIndex;
                 if (index > 0)
                 {
-                    VolierLv.SelectedIndex = index - 1;
-                    VolierLv.ScrollIntoView(VolierLv.SelectedItem);
+                    VolierLV.SelectedIndex = index - 1;
+                    VolierLV.ScrollIntoView(VolierLV.SelectedItem);
                 }
             }
         }
 
         private void ScrollDown_Click(object sender, RoutedEventArgs e)
         {
-            if (VolierLv.Items.Count > 0)
+            if (VolierLV.Items.Count > 0)
             {
-                var index = VolierLv.SelectedIndex;
-                if (index < VolierLv.Items.Count - 1)
+                var index = VolierLV.SelectedIndex;
+                if (index < VolierLV.Items.Count - 1)
                 {
-                    VolierLv.SelectedIndex = index + 1;
-                    VolierLv.ScrollIntoView(VolierLv.SelectedItem);
+                    VolierLV.SelectedIndex = index + 1;
+                    VolierLV.ScrollIntoView(VolierLV.SelectedItem);
                 }
             }
         }

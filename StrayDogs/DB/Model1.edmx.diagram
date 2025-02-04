@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2d4adb562ce649318e62e330c859e182" Name="Diagram1">
+      <Diagram DiagramId="10a5a2229c1048899fe3eca86d2be43f" Name="Diagram1">
         <EntityTypeShape EntityType="Stray_DogsModel.Aplication" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Stray_DogsModel.ApplicationStatus" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Stray_DogsModel.Appointments" Width="1.5" PointX="10.5" PointY="4.125" IsExpanded="true" />
@@ -14,6 +14,7 @@
         <EntityTypeShape EntityType="Stray_DogsModel.Gender" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Stray_DogsModel.Post" Width="1.5" PointX="6" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Stray_DogsModel.StatusAppointment" Width="1.5" PointX="8.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stray_DogsModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Stray_DogsModel.TypeAviary" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="Stray_DogsModel.FK_Aplication_ApplicationStatus" ManuallyRouted="false" />
         <AssociationConnector Association="Stray_DogsModel.FK_Aplication_Dog" ManuallyRouted="false" />

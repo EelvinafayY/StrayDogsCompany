@@ -92,20 +92,21 @@
         </Viewbox>
 
 
-        <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,36" Grid.Row="1">
+        <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,50" Grid.Row="1">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Вольеры в приюте" Foreground="#16343C" FontSize="20" Opacity="0.9"/>
+                <TextBlock Text="Вольеры в приюте" Foreground="#16343C" FontSize="20" Opacity="0.9" HorizontalAlignment="Center" Canvas.Top="-7" VerticalAlignment="Top"/>
             </Canvas>
         </Viewbox>
 
         <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="30,0,0,40" VerticalAlignment="Bottom">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ListView x:Name="VolierLv"
+                <ListView x:Name="VolierLV"
                           Margin="0 0 0 0"
                           SelectedIndex="0"
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                           Width="740"
                           Height="140"
+                          ItemsSource="{Binding Aviary}"
                           d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -128,9 +129,9 @@
                                             CornerRadius="10"
                                             Padding="10">
                                         <StackPanel Width="160" Height="60">
-                                            <TextBlock Text="{Binding .}" Foreground="#F4F7EE" Margin="0,12,0,0"/>
-                                            <TextBlock Text="{Binding .}" Foreground="#F4F7EE"/>
-                                            <TextBlock Text="{Binding .}" Foreground="#F4F7EE" FontSize="10"/>
+                                            <TextBlock Text="{Binding Id}" Foreground="#F4F7EE" Margin="0,12,0,0"/>
+                                            <TextBlock Text="{Binding TypeAviary.Name}" Foreground="#F4F7EE"/>
+                                            <TextBlock x:Name="StatusTB" Foreground="#F4F7EE" FontSize="10"/>
                                         </StackPanel>
                                     </Border>
                                 </StackPanel>
@@ -142,7 +143,7 @@
         </Viewbox>
 
 
-        <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,13" Grid.Row="2" Grid.RowSpan="2">
+        <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,20" Grid.Row="2" Grid.RowSpan="2">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Работники приюта" Foreground="#16343C" FontSize="20" Opacity="0.9"/>
             </Canvas>
@@ -151,7 +152,7 @@
 
         <Viewbox Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="30,0,0,45">
             <Canvas Width="800" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ListView x:Name="WorkersLv"
+                <ListView x:Name="WorkersLV"
                           SelectedIndex="0"
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -172,7 +173,7 @@
                                     Padding="12"
                                     Background="#8BA598">
                                 <StackPanel Orientation="Horizontal" Width="915" Height="50" Margin="1,1,1,0">
-                                    <Image Source="/Image/logoMenu.png"
+                                    <Image Source="{Binding }"
                                         Height="50"
                                         Width="50">
                                         <Image.Clip>
