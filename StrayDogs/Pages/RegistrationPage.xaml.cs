@@ -97,7 +97,7 @@ namespace StrayDogs.Pages
                     employee.IdPost = 1;
 
                     string login = LoginTB.Text;
-                    bool loginExists = DBConnection.stray_Dogs.Employee.Any(w => w.Login == login);
+                    bool loginExists = DBConnection.stray_DogsEntities.Employee.Any(w => w.Login == login);
 
                     if (loginExists)
                     {
@@ -143,8 +143,8 @@ namespace StrayDogs.Pages
                         return;
                     }
 
-                    DBConnection.stray_Dogs.Employee.Add(employee);
-                    DBConnection.stray_Dogs.SaveChanges();
+                    DBConnection.stray_DogsEntities.Employee.Add(employee);
+                    DBConnection.stray_DogsEntities.SaveChanges();
                     NavigationService.Navigate(new MainAdminPage());
                 }
             }

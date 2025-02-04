@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="10a5a2229c1048899fe3eca86d2be43f" Name="Diagram1">
+      <Diagram DiagramId="4be5d4ef330a41968e29e439fc72b150" Name="Diagram1">
         <EntityTypeShape EntityType="Stray_DogsModel.Aplication" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Stray_DogsModel.ApplicationStatus" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Stray_DogsModel.Appointments" Width="1.5" PointX="10.5" PointY="4.125" IsExpanded="true" />

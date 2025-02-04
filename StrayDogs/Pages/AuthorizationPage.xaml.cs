@@ -39,8 +39,8 @@ namespace StrayDogs.Pages
                 string login = LoginTB.Text.Trim();
                 string password = PasswordTB.Text.Trim();
 
-                employees = DBConnection.stray_Dogs.Employee.ToList();
-                posts = DBConnection.stray_Dogs.Post.ToList();
+                employees = DBConnection.stray_DogsEntities.Employee.ToList();
+                posts = DBConnection.stray_DogsEntities.Post.ToList();
 
                 var currentEmployee = employees.FirstOrDefault(i => i.Login.Trim() == login && i.Password.Trim() == password);
                 DBConnection.logginedEmployee = currentEmployee;

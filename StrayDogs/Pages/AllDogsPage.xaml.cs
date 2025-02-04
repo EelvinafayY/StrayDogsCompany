@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,14 +45,17 @@ namespace StrayDogs.Pages
             DogsLv.ItemsSource = dogs;
 
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void InfoDogPage_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BeginPageBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            string exePath = Process.GetCurrentProcess().MainModule.FileName;
+            Process.Start(exePath);
+            Application.Current.Shutdown();
         }
     }
 }

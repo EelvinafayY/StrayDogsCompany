@@ -28,16 +28,16 @@ namespace StrayDogs.Pages
         {
             InitializeComponent();
 
-            applicationStatuses = DBConnection.stray_Dogs.ApplicationStatus.ToList();
+            applicationStatuses = DBConnection.stray_DogsEntities.ApplicationStatus.ToList();
 
-            aplications = DBConnection.stray_Dogs.Aplication.ToList();
+            aplications = DBConnection.stray_DogsEntities.Aplication.ToList();
 
             foreach (var application in aplications)
             {
                 application.ApplicationStatus = applicationStatuses.FirstOrDefault(s => s.IDApplicationStatus == application.IDStatusAplication);
             }
 
-            dogs = DBConnection.stray_Dogs.Dog.ToList();
+            dogs = DBConnection.stray_DogsEntities.Dog.ToList();
 
             this.DataContext = this;
         }
@@ -63,7 +63,7 @@ namespace StrayDogs.Pages
                         .FirstOrDefault(s => s.IDApplicationStatus == newStatusId);
 
                     // Сохраняем изменения в базе
-                    DBConnection.stray_Dogs.SaveChanges();
+                    DBConnection.stray_DogsEntities.SaveChanges();
                 }
             }
         }
@@ -104,16 +104,16 @@ namespace StrayDogs.Pages
 
         public void Refresh()
         {
-            aplications = DBConnection.stray_Dogs.Aplication.ToList();
-            ApplicatonLv.ItemsSource = new List<Aplication>(DBConnection.stray_Dogs.Aplication.ToList());
+            aplications = DBConnection.stray_DogsEntities.Aplication.ToList();
+            ApplicatonLv.ItemsSource = new List<Aplication>(DBConnection.stray_DogsEntities.Aplication.ToList());
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.DataContext is Aplication aplication)
             {
-                DBConnection.stray_Dogs.Aplication.Remove(aplication);
-                DBConnection.stray_Dogs.SaveChanges();
+                DBConnection.stray_DogsEntities.Aplication.Remove(aplication);
+                DBConnection.stray_DogsEntities.SaveChanges();
 
                 Refresh();
             }

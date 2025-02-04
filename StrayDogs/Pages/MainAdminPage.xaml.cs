@@ -30,10 +30,10 @@ namespace StrayDogs.Pages
         public MainAdminPage()
         {
             InitializeComponent();
-            aviarys = DBConnection.stray_Dogs.Aviary.ToList();
-            typeAviaries = DBConnection.stray_Dogs.TypeAviary.ToList();
-            employees = DBConnection.stray_Dogs.Employee.ToList();
-            dogs = DBConnection.stray_Dogs.Dog.ToList();
+            aviarys = DBConnection.stray_DogsEntities.Aviary.ToList();
+            typeAviaries = DBConnection.stray_DogsEntities.TypeAviary.ToList();
+            employees = DBConnection.stray_DogsEntities.Employee.ToList();
+            dogs = DBConnection.stray_DogsEntities.Dog.ToList();
             Refresh();
 
         }
