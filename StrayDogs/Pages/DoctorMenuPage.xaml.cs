@@ -38,7 +38,7 @@ namespace StrayDogs.Pages
 
         private void AccountTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            ContentDoctorFrame.NavigationService.Navigate(new AccountPage());
         }
     }
 }

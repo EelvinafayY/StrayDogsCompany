@@ -36,14 +36,14 @@
 
             <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,20,0,0" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Text="Какая-то маленькая подпись" Foreground="#16343C" FontSize="12" Opacity="0.9"/>
+                    <TextBlock Text="Вы вошли в систему как врач" Foreground="#16343C" FontSize="12" Opacity="0.9"/>
                 </Canvas>
             </Viewbox>
 
 
             <Viewbox Grid.Column="2" Grid.ColumnSpan="2" Margin="40,30,0,156" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
                 <Canvas Width="600" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBox Width="570" Foreground="#16343C"
+                    <TextBox Width="570" x:Name="SearchDogsTB" Foreground="#16343C"
                         FontSize="16"
                         VerticalAlignment="Center"
                         
@@ -53,10 +53,10 @@
             </Viewbox>
 
             <Viewbox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Margin="30, 0,0,40">
-                <Canvas Width="400" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock Margin="50 20 0 0" Text="Фамилия Имя Отчество" Foreground="#16343C" FontSize="20" Opacity="0.9"/>
-                        <Image Source="/Image/logoMenu.png" 
+                        <TextBlock Margin="50 20 0 0" x:Name="FIOTB" Text="" Foreground="#16343C" FontSize="20" Opacity="0.9"/>
+                        <Image x:Name="PhotoEmpl" Source="{Binding Photo}" 
      Height="50" 
      Width="50" 
                            Margin="10">
@@ -88,7 +88,7 @@
                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
                           Width="800"
                           Height="340"
-                          d:ItemsSource="{d:SampleData ItemCount=5}">
+                          d:ItemsSource="{Binding dogs}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="3"/>
@@ -103,7 +103,7 @@
                                     Padding="10"
                                     Background="#8BA598">
                                     <StackPanel Width="230" Height="130" Orientation="Horizontal">
-                                        <Image Source="/Image/dog.jpg"
+                                        <Image Source="{Binding Photo}"
                                         Height="50"
                                         Width="50">
                                             <Image.Clip>
@@ -111,32 +111,28 @@
                                             </Image.Clip>
                                         </Image>
                                         <StackPanel Orientation="Vertical" Margin="8 0 0 0">
-                                            <TextBlock Text="{Binding .}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
-                                            <TextBlock Text="{Binding .}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
-                                            <TextBlock Text="{Binding .}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
-                                            <TextBlock Text="{Binding .}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
-                                            <TextBlock Text="{Binding .}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
-                                            <TextBlock Text="{Binding .}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
-                                            <TextBlock Text="{Binding .}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
-                                        </StackPanel>
-
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="90 80 0 0">
-                                            <Button Margin ="0 10 0 0" HorizontalAlignment="Right" Background="#16343C" 
-                                                    
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding OrdinalNumber}" Foreground="#F4F7EE" Margin="0,10,0,0"/>
+                                                <Button Margin ="100 0 0 0" HorizontalAlignment="Right" Background="#16343C" 
                                                     BorderBrush="Transparent" 
                                                     Click="Button_Click"
                                                     Width="25"
-                                                    Height="25"
-                                                    
-IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-ToolTip="MaterialDesignFloatingActionMiniDarkButton" Cursor="Hand">
-                                                <materialDesign:PackIcon HorizontalAlignment="Right"
-                                                                 
-  Width="15"
-  Height="15"
-  Kind="ArrowRight"/>
+                                                    Height="25"                                                   
+                                                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                                        ToolTip="MaterialDesignFloatingActionMiniDarkButton" Cursor="Hand">
+                                                <materialDesign:PackIcon HorizontalAlignment="Right" Width="15" Height="15" Kind="ArrowRight"/>
                                             </Button>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding Height, StringFormat = 'Рост: {0} см'}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
+                                            <TextBlock Text="{Binding Weight, StringFormat = 'Вес: {0} кг'}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
+                                            <TextBlock Text="{Binding Age, StringFormat = 'Возраст: {0} лет'}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
+                                            <TextBlock Text="{Binding Gender.Name, StringFormat='{}'}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
+                                            <TextBlock Text="{Binding Aviary.TypeAviary.Name, StringFormat='Вольер: {0}'}" Foreground="#F4F7EE" Margin="0,1,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="90 80 0 0">
+
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>
