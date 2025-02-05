@@ -154,7 +154,7 @@ namespace StrayDogs.Pages
             }
             else if (result == MessageBoxResult.No) { Refresh(); }
         }
-
+        //
         private void DeleteBTN_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
