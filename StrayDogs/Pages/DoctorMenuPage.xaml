@@ -72,6 +72,32 @@
             </TabControl>
         </materialDesign:Card>
 
+        <materialDesign:Card>
+            <TabControl 
+                  VerticalContentAlignment="Bottom" 
+                  materialDesign:ColorZoneAssist.Mode="PrimaryMid" 
+                  Style="{StaticResource MaterialDesignNavigationRailTabControl}">
+                <TabItem x:Name="ExitTI"
+                         MouseDoubleClick="ExitTI_MouseDoubleClick"
+                         Margin="0 20 0 0">
+                    <TabItem.Header>
+                        <StackPanel
+                            Width="auto" 
+                            Height="auto">
+                            <materialDesign:PackIcon 
+                                  Width="24" 
+                                  Height="24" 
+                                  HorizontalAlignment="Center" 
+                                  Kind="ExitToApp"/>
+                            <TextBlock 
+                                  HorizontalAlignment="Center" 
+                                  Text="Выход" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+        </materialDesign:Card>
+
         <Frame Grid.Column="1"
                x:Name="ContentDoctorFrame">
         </Frame>

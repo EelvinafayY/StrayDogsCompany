@@ -29,36 +29,56 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid Width="200">
+                    <Button x:Name="BackBTN"
+                      Background="#16343C"
+                       Foreground="#F4F7EE"
+                        Height="35"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="124,-10,-124,10">
+                        <TextBlock
+                            Text="Назад" />
+                    </Button>
+                </Grid>
+            </Canvas>
+        </Viewbox>
         <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Редактирование сотрудника" Foreground="#16343C" FontSize="30" Opacity="0.9"
                    FontWeight="Bold"
                    HorizontalAlignment="Left"
-                   VerticalAlignment="Center" Canvas.Left="91" Canvas.Top="-10"></TextBlock>
+                   VerticalAlignment="Center" Canvas.Left="121" Canvas.Top="-10"></TextBlock>
             </Canvas>
         </Viewbox>
 
-        <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+        <Viewbox Grid.Row="1"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
-  materialDesign:HintAssist.Hint="Фамилия"
-  materialDesign:TextFieldAssist.HasClearButton="True"
-  DropDownElevation="Dp0"
-  Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-  Suggestions="{Binding AutoSuggestBox2Suggestions}"
-  Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-  ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
+                    x:Name="SurnameTB"
+                    materialDesign:HintAssist.Hint="Фамилия"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    DropDownElevation="Dp0"
+                    Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+                    Suggestions="{Binding AutoSuggestBox2Suggestions}"
+                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
                                 <Border
-          Width="20"
-          Height="20"
-          Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
-          CornerRadius="10" />
+                                    Width="20"
+                                    Height="20"
+                                    Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+                                    CornerRadius="10" />
                                 <TextBlock
-          Margin="10,0,0,0"
-          Text="{Binding Key}" />
+                                    Margin="10,0,0,0"
+                                    Text="{Binding Key}" />
                             </DockPanel>
                         </DataTemplate>
                     </materialDesign:AutoSuggestBox.ItemTemplate>
@@ -69,24 +89,25 @@
         <Viewbox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
-  materialDesign:HintAssist.Hint="Имя"
-  materialDesign:TextFieldAssist.HasClearButton="True"
-  DropDownElevation="Dp0"
-  Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-  Suggestions="{Binding AutoSuggestBox2Suggestions}"
-  Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-  ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
+                    x:Name="NameTB"
+                    materialDesign:HintAssist.Hint="Имя"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    DropDownElevation="Dp0"
+                    Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+                    Suggestions="{Binding AutoSuggestBox2Suggestions}"
+                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
                                 <Border
-          Width="20"
-          Height="20"
-          Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
-          CornerRadius="10" />
+                                    Width="20"
+                                    Height="20"
+                                    Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+                                    CornerRadius="10" />
                                 <TextBlock
-          Margin="10,0,0,0"
-          Text="{Binding Key}" />
+                                    Margin="10,0,0,0"
+                                    Text="{Binding Key}" />
                             </DockPanel>
                         </DataTemplate>
                     </materialDesign:AutoSuggestBox.ItemTemplate>
@@ -97,24 +118,28 @@
         <Viewbox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
-materialDesign:HintAssist.Hint="Отчество"
-materialDesign:TextFieldAssist.HasClearButton="True"
-DropDownElevation="Dp0"
-Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
+                    x:Name="PatronymicTB"
+                    materialDesign:HintAssist.Hint="Отчество"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    DropDownElevation="Dp0"
+                    Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+                    Suggestions="{Binding AutoSuggestBox2Suggestions}"
+                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ValueMember="Key"
+                    HorizontalAlignment="Left"
+                    Canvas.Left="63"
+                    VerticalAlignment="Center"
+                    Width="438">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
-                                <Border
-        Width="20"
-        Height="20"
-        Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
-        CornerRadius="10" />
+                                <Border Width="20"
+                                    Height="20"
+                                    Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+                                    CornerRadius="10" />
                                 <TextBlock
-        Margin="10,0,0,0"
-        Text="{Binding Key}" />
+                                    Margin="10,0,0,0"
+                                    Text="{Binding Key}" />
                             </DockPanel>
                         </DataTemplate>
                     </materialDesign:AutoSuggestBox.ItemTemplate>
@@ -124,34 +149,38 @@ ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment=
 
         <Viewbox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <DatePicker
-  Width="438"
-  materialDesign:HintAssist.Hint="Дата рождения"
-  Style="{StaticResource MaterialDesignOutlinedDatePicker}" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" />
+                <DatePicker x:Name="DateDP"
+                    Width="438"
+                    materialDesign:HintAssist.Hint="Дата рождения"
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                    HorizontalAlignment="Left"
+                    Canvas.Left="63"
+                    VerticalAlignment="Center" />
             </Canvas>
         </Viewbox>
 
         <Viewbox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
-materialDesign:HintAssist.Hint="Логин"
-materialDesign:TextFieldAssist.HasClearButton="True"
-DropDownElevation="Dp0"
-Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
+                    x:Name="LoginTB"
+                    materialDesign:HintAssist.Hint="Логин"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    DropDownElevation="Dp0"
+                    Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+                    Suggestions="{Binding AutoSuggestBox2Suggestions}"
+                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
                                 <Border
-        Width="20"
-        Height="20"
-        Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
-        CornerRadius="10" />
+                                    Width="20"
+                                    Height="20"
+                                    Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+                                    CornerRadius="10" />
                                 <TextBlock
-        Margin="10,0,0,0"
-        Text="{Binding Key}" />
+                                    Margin="10,0,0,0"
+                                    Text="{Binding Key}" />
                             </DockPanel>
                         </DataTemplate>
                     </materialDesign:AutoSuggestBox.ItemTemplate>
@@ -162,24 +191,24 @@ ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment=
         <Viewbox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
-materialDesign:HintAssist.Hint="Пароль"
-materialDesign:TextFieldAssist.HasClearButton="True"
-DropDownElevation="Dp0"
-Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-ValueMember="Key" HorizontalAlignment="Center" Canvas.Left="63" VerticalAlignment="Top" Width="438" Canvas.Top="-15">
+                    x:Name="PasswordTB"
+                    materialDesign:HintAssist.Hint="Пароль"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    DropDownElevation="Dp0"
+                    Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+                    Suggestions="{Binding AutoSuggestBox2Suggestions}"
+                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ValueMember="Key" HorizontalAlignment="Center" Canvas.Left="63" VerticalAlignment="Top" Width="438" Canvas.Top="-15">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
-                                <Border
-        Width="20"
-        Height="20"
-        Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
-        CornerRadius="10" />
+                                <Border Width="20"
+                                    Height="20"
+                                    Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+                                    CornerRadius="10" />
                                 <TextBlock
-        Margin="10,0,0,0"
-        Text="{Binding Key}" />
+                                    Margin="10,0,0,0"
+                                    Text="{Binding Key}" />
                             </DockPanel>
                         </DataTemplate>
                     </materialDesign:AutoSuggestBox.ItemTemplate>
@@ -189,9 +218,12 @@ ValueMember="Key" HorizontalAlignment="Center" Canvas.Left="63" VerticalAlignmen
 
         <Viewbox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="4">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Source="/Image/logoMenu.png"
-Height="250"
-Width="250" Canvas.Left="200" Canvas.Top="-90">
+                <Image Source="/Image/person.png"
+                    Height="250"
+                    Width="250"
+                    Canvas.Left="200"
+                    Canvas.Top="-90"
+                    x:Name="PhotoWorker">
                     <Image.Clip>
                         <RectangleGeometry RadiusX="240" RadiusY="240" Rect="0,0,240,240"/>
                     </Image.Clip>
@@ -201,19 +233,17 @@ Width="250" Canvas.Left="200" Canvas.Top="-90">
 
         <Viewbox Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid
-Width="200">
-                    <Button
-                      Background="#16343C"
-                       Foreground="#F4F7EE"
-                       
-  Height="35"
-  materialDesign:ButtonAssist.CornerRadius="15"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23">
+                <Grid Width="200">
+                    <Button x:Name="AddPhotoBTN"
+                        Background="#16343C"
+                        Foreground="#F4F7EE"
+                        Height="35"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23">
                         <TextBlock
-    Text="Изменить фото" />
+                            Text="Добавить фото" />
                     </Button>
                 </Grid>
             </Canvas>
@@ -221,38 +251,17 @@ Width="200">
 
         <Viewbox Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid
-Width="200">
-                    <Button
-                      Background="Transparent"
-                       Foreground="#16343C"
-                       
-  Height="35"
-  materialDesign:ButtonAssist.CornerRadius="15"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-52,-226,52">
+                <Grid Width="200">
+                    <Button x:Name="DeletePhotoBTN"
+                        Background="Transparent"
+                        Foreground="#16343C"
+                        Height="35"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-52,-226,52">
                         <TextBlock
-    Text="Удалить фото" />
-                    </Button>
-                </Grid>
-            </Canvas>
-        </Viewbox>
-        <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid
-Width="200">
-                    <Button
-                      Background="#16343C"
-                       Foreground="#F4F7EE"
-                       
-  Height="35"
-  materialDesign:ButtonAssist.CornerRadius="15"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="124,-10,-124,10">
-                        <TextBlock
-    Text="Назад" />
+                            Text="Удалить фото" />
                     </Button>
                 </Grid>
             </Canvas>
@@ -260,19 +269,16 @@ Width="200">
 
         <Viewbox Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid
-Width="200">
-                    <Button
-                      Background="#16343C"
-                       Foreground="#F4F7EE"
-                       
-  Height="35"
-  materialDesign:ButtonAssist.CornerRadius="15"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23">
-                        <TextBlock
-    Text="Сохранить" />
+                <Grid Width="200">
+                    <Button x:Name="SaveBTN"
+                        Background="#16343C"
+                        Foreground="#F4F7EE"
+                        Height="35"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23" Click="SaveBTN_Click">
+                        <TextBlock Text="Сохранить" />
                     </Button>
                 </Grid>
             </Canvas>
@@ -280,14 +286,14 @@ Width="200">
 
         <Viewbox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ComboBox
-  HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438"
-  materialDesign:HintAssist.Hint="Роль"
-  Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                    ,
+                <ComboBox x:Name="PostCB"
+                          ItemsSource="{Binding Post}"
+                HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438"
+                materialDesign:HintAssist.Hint="Роль"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock/>
+                            <TextBlock Text="{Binding Name}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>

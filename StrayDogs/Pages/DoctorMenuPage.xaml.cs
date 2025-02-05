@@ -40,5 +40,10 @@ namespace StrayDogs.Pages
         {
             ContentDoctorFrame.NavigationService.Navigate(new AccountPage());
         }
+
+        private void ExitTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new BeginPage());
+        }
     }
 }

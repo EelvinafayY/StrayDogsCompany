@@ -23,31 +23,27 @@ namespace StrayDogs.Pages
         public AdminMenuPage()
         {
             InitializeComponent();
-            ContentDoctorFrame.NavigationService.Navigate(new MainAdminPage());
+            NaFr.NavigationService.Navigate(new MainAdminPage());
         }
 
-        private void AppointmentsTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void EmployeeTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
         private void HomeTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ContentDoctorFrame.NavigationService.Navigate(new MainAdminPage());
+            NaFr.NavigationService.Navigate(new MainAdminPage());
         }
 
         private void DogTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ContentDoctorFrame.NavigationService.Navigate(new AllDogsPage());
+            NaFr.NavigationService.Navigate(new AllDogsPage());
         }
 
         private void AccountTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            NaFr.NavigationService.Navigate(new AccountPage());
+        }
 
+        private void ExitTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new BeginPage());
         }
     }
 }

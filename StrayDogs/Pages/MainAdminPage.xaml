@@ -27,7 +27,7 @@
         </Grid.ColumnDefinitions>
        
 
-        <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="30, 0,0,40">
+        <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="30 0 0 40">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox Margin="3 10 0 0"
   materialDesign:HintAssist.Hint="Поиск"
@@ -64,34 +64,32 @@
             </Canvas>
         </Viewbox>
 
-        <Viewbox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Margin="30, 0,0,40">
-            <Canvas Width="400" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Margin="50 20 0 0" Text="Фамилия Имя Отчество" Foreground="#16343C" FontSize="20" Opacity="0.9"/>
-                    <Image Source="/Image/logoMenu.png"
-     Height="50"
-     Width="50"
+        <Viewbox Grid.Row="0" Grid.Column="4"
+                 Grid.ColumnSpan="2"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Right"
+                 Margin="0 0 20 0">
+            <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                <TextBlock Margin="0 0 0 0" x:Name="FioTB"
+                               Text="Фамилия Имя Отчество"
+                               Foreground="#16343C"
+                               FontSize="15"
+                               Opacity="0.9"
+                               VerticalAlignment="Center"/>
+                <Image Source="/Image/person.png"
+                        Height="40"
+                        Width="40"
+                       x:Name="WorkerPhoto"
                            Margin="10">
-                        <Image.Clip>
-                            <RectangleGeometry RadiusX="50" RadiusY="50" Rect="0,0,50,50"/>
-                        </Image.Clip>
-                    </Image>
-                    <Button x:Name="BeginBTN" Click="BeginBTN_Click"
-                        Background="Transparent"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-  ToolTip="MaterialDesignFloatingActionMiniLightButton">
-                        <materialDesign:PackIcon
-    Width="20"
-    Height="20"
-    Kind="AccountArrowLeft" 
-                            Foreground="#16343C"/>
-                    </Button>
-                </StackPanel>
-            </Canvas>
+                    <Image.Clip>
+                        <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,40,40"/>
+                    </Image.Clip>
+                </Image>
+            </StackPanel>
         </Viewbox>
-
-
+        
         <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,50" Grid.Row="1">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Вольеры в приюте" Foreground="#16343C" FontSize="20" Opacity="0.9" HorizontalAlignment="Center" Canvas.Top="-7" VerticalAlignment="Top"/>
@@ -158,6 +156,7 @@
                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
                           Width="972"
                           Height="350"
+                          ItemsSource="{Binding Employee}"
                           d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="-40">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -173,37 +172,50 @@
                                     Padding="12"
                                     Background="#8BA598">
                                 <StackPanel Orientation="Horizontal" Width="915" Height="50" Margin="1,1,1,0">
-                                    <Image Source="{Binding }"
+                                    <Image Source="{Binding Photo}"
                                         Height="50"
-                                        Width="50">
+                                        Width="50"
+                                        Stretch="Fill">
                                         <Image.Clip>
                                             <RectangleGeometry RadiusX="50" RadiusY="50" Rect="0,0,50,50"/>
                                         </Image.Clip>
                                     </Image>
-                                    <StackPanel Width="160" Height="45" HorizontalAlignment="Left">
-                                        <TextBlock Text="{Binding .}" Margin="20,10,0,0" Foreground="#16343C" 
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Center"
+                                                Width="730">
+                                        <TextBlock Text="{Binding Surname}" Margin="20 0 10 0" Foreground="#16343C" 
+                                                   HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Name}" Margin="0 0" Foreground="#16343C" 
+                                                   HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Patronymic}" Margin="10 0" Foreground="#16343C" 
                                                    HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Center"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="600 0 0 0">
-                                        <Button HorizontalAlignment="Right" Background="#16343C" BorderBrush="Transparent"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-  ToolTip="MaterialDesignFloatingActionMiniDarkButton">
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="30 0 0 0">
+                                        <Button HorizontalAlignment="Right"
+                                                Background="#16343C"
+                                                BorderBrush="Transparent"
+                                                x:Name="EditBTN"
+                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                            ToolTip="MaterialDesignFloatingActionMiniDarkButton" Click="EditBTN_Click">
                                             <materialDesign:PackIcon HorizontalAlignment="Right"
-                                                                   
-    Width="25"
-    Height="25"
-    Kind="Pencil" />
+                                                Width="25"
+                                                Height="25"
+                                                Kind="Pencil" />
                                         </Button>
-                                        <Button Margin ="10 0 0 0" HorizontalAlignment="Right" Background="#16343C" BorderBrush="Transparent"
-IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-ToolTip="MaterialDesignFloatingActionMiniDarkButton">
+                                        <Button Margin ="10 0 0 0"
+                                                HorizontalAlignment="Right"
+                                                Background="#16343C"
+                                                BorderBrush="Transparent"
+                                                x:Name="DeleteBTN"
+                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                            ToolTip="MaterialDesignFloatingActionMiniDarkButton" Click="DeleteBTN_Click">
                                             <materialDesign:PackIcon HorizontalAlignment="Right"
-                                                                 
-  Width="25"
-  Height="25"
-  Kind="Trash" />
+                                                Width="25"
+                                                Height="25"
+                                                Kind="Trash" />
                                         </Button>
                                     </StackPanel>
                                 </StackPanel>
@@ -214,7 +226,7 @@ ToolTip="MaterialDesignFloatingActionMiniDarkButton">
             </Canvas>
         </Viewbox>
 
-        <Viewbox  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,50,0,0"
+        <Viewbox  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10 50 0 0"
                     Grid.Row="1"
                     Grid.RowSpan="2"
                     Grid.Column="5">
@@ -260,13 +272,13 @@ ToolTip="MaterialDesignFloatingActionMiniDarkButton">
         <Viewbox Grid.Row="2" Grid.RowSpan="3" Grid.Column="5" Margin="0,41,30,4">
             <Canvas Width="200" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid
-  Width="200">
+                    Width="200">
                     <Button
                         Click="AddAviaryBT_Click"
                         Margin="0 30 0 0"
                         x:Name="AddAviaryBT"
                         Background="#16343C"
-                         Foreground="#F4F7EE"
+                        Foreground="#F4F7EE"
     Height="35"
     materialDesign:ButtonAssist.CornerRadius="15"
     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
