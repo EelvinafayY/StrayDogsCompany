@@ -41,6 +41,11 @@ namespace StrayDogs.Pages
             NaFr.NavigationService.Navigate(new AccountPage());
         }
 
+        private void AppointmentsTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new BeginPage());
+        }
+
         private void ExitTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             NavigationService.Navigate(new BeginPage());

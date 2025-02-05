@@ -85,15 +85,6 @@
                         </StackPanel>
                     </TabItem.Header>
                 </TabItem>
-            </TabControl>
-        </materialDesign:Card>
-        
-
-        <materialDesign:Card>
-            <TabControl 
-                  VerticalContentAlignment="Bottom" 
-                  materialDesign:ColorZoneAssist.Mode="PrimaryMid" 
-                  Style="{StaticResource MaterialDesignNavigationRailTabControl}">
                 <TabItem x:Name="ExitTI"
                          MouseDoubleClick="ExitTI_MouseDoubleClick"
                          Margin="0 20 0 0">
