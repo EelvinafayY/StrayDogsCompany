@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:StrayDogs.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Оставьте заявку" Height="280" Width="450">
+        Icon=""
+        WindowStartupLocation="CenterScreen"
+        Title="Оставьте заявку" Height="450" Width="800">
     <Grid Background="#F4F7EE">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -17,19 +19,19 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="75"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4">
+        <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Margin="35,0,110,0">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Оставьте свой номер телефона" Foreground="#16343C" FontSize="30" Opacity="0.9"
         FontWeight="Bold"
-        HorizontalAlignment="Left"
-        VerticalAlignment="Top" Canvas.Left="71" Canvas.Top="-12"></TextBlock>
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top" Canvas.Left="71" Canvas.Top="10"></TextBlock>
             </Canvas>
         </Viewbox>
 
@@ -42,7 +44,7 @@ DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
 Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="87" VerticalAlignment="Center" Width="325" Canvas.Top="-30">
+ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="73" VerticalAlignment="Center" Width="417" Canvas.Top="-30">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
@@ -63,19 +65,16 @@ ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="87" VerticalAlignment=
 
         <Viewbox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid
-Width="250">
+                <Grid Width="250">
                     <Button
                       Background="#16343C"
                        Foreground="#F4F7EE"
-                       
-  Height="35"
-  materialDesign:ButtonAssist.CornerRadius="15"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="152,-23,-188,23">
-                        <TextBlock
-    Text="Отправить заявку" />
+                        Height="35"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="191,-23,-231,23">
+                        <TextBlock Text="Отправить заявку" />
                     </Button>
                 </Grid>
             </Canvas>
