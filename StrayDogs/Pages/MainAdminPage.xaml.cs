@@ -58,7 +58,7 @@ namespace StrayDogs.Pages
 
         public void Refresh()
         {
-            VolierLV.ItemsSource = aviarys;
+            VoliersLV.ItemsSource = aviarys;
             WorkersLV.ItemsSource = employees;
         }
 
@@ -84,34 +84,33 @@ namespace StrayDogs.Pages
 
         private void ScrollUp_Click(object sender, RoutedEventArgs e)
         {
-            if (VolierLV.Items.Count > 0)
+            if (VoliersLV.Items.Count > 0)
             {
-                var index = VolierLV.SelectedIndex;
+                var index = VoliersLV.SelectedIndex;
                 if (index > 0)
                 {
-                    VolierLV.SelectedIndex = index - 1;
-                    VolierLV.ScrollIntoView(VolierLV.SelectedItem);
+                    VoliersLV.SelectedIndex = index - 1;
+                    VoliersLV.ScrollIntoView(VoliersLV.SelectedItem);
                 }
             }
         }
 
         private void ScrollDown_Click(object sender, RoutedEventArgs e)
         {
-            if (VolierLV.Items.Count > 0)
+            if (VoliersLV.Items.Count > 0)
             {
-                var index = VolierLV.SelectedIndex;
-                if (index < VolierLV.Items.Count - 1)
+                var index = VoliersLV.SelectedIndex;
+                if (index < VoliersLV.Items.Count - 1)
                 {
-                    VolierLV.SelectedIndex = index + 1;
-                    VolierLV.ScrollIntoView(VolierLV.SelectedItem);
+                    VoliersLV.SelectedIndex = index + 1;
+                    VoliersLV.ScrollIntoView(VoliersLV.SelectedItem);
                 }
             }
         }
 
         private void AddAviaryBT_Click(object sender, RoutedEventArgs e)
         {
-            GuestApplicationWindow guestApplicationWindow = new GuestApplicationWindow();
-            guestApplicationWindow.ShowDialog();
+            NavigationService.Navigate(new AddAviaryPage());
         }
 
         private void AddDogBTN_Click(object sender, RoutedEventArgs e)
@@ -130,7 +129,7 @@ namespace StrayDogs.Pages
             var worker = (sender as Button).DataContext as Employee;
             if (result == MessageBoxResult.Yes)
             {
-                using (var db = new Stray_DogsEntities1())
+                using (var db = new Stray_DogsEntities())
                 {
                     var serviceToDelete = DBConnection.stray_DogsEntities.Employee.Find(worker.Id);
 
@@ -140,13 +139,11 @@ namespace StrayDogs.Pages
                         DBConnection.stray_DogsEntities.SaveChanges();
 
                         MessageBox.Show("Данные сохранены.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-                        return;
                         Refresh();
                     }
                     else
                     {
                         MessageBox.Show("Сотрудник не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
                         Refresh();
                     }
                 }
@@ -161,7 +158,7 @@ namespace StrayDogs.Pages
             var worker = (sender as Button).DataContext as Employee;
             if (result == MessageBoxResult.Yes)
             {
-                using (var db = new Stray_DogsEntities1())
+                using (var db = new Stray_DogsEntities())
                 {
                     // Находим клиента по его ID
                     var serviceToDelete = DBConnection.stray_DogsEntities.Employee.Find(worker.Id);
@@ -173,13 +170,11 @@ namespace StrayDogs.Pages
                         DBConnection.stray_DogsEntities.SaveChanges();
 
                         MessageBox.Show("Сотрудник удален.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-                        return;
                         Refresh();
                     }
                     else
                     {
                         MessageBox.Show("Сотрудник не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
                         Refresh();
                     }
                 }
@@ -188,10 +183,15 @@ namespace StrayDogs.Pages
             else if (result == MessageBoxResult.No) { Refresh(); }
         }
 
-        private void BeginBTN_Click(object sender, RoutedEventArgs e)
+        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            NavigationService.Navigate(new AuthorizationPage());
-            NavigationService.Navigate(new BeginPage());
+            if (SearchTB.Text.Length > 0)
+            {
+                WorkersLV.ItemsSource = DBConnection.stray_DogsEntities.Employee.Where(i => i.Surname.ToLower().StartsWith(SearchTB.Text.Trim().ToLower()) 
+                || i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower()) || i.Patronymic.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
+                VoliersLV.ItemsSource = DBConnection.stray_DogsEntities.Aviary.Where(i => i.TypeAviary.Name.StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
+            }
+            else { Refresh(); }
         }
     }
 }

@@ -17,7 +17,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="75"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -29,14 +29,14 @@
                 <TextBlock Text="История лечения" Foreground="#16343C" FontSize="30" Opacity="0.9"
             FontWeight="Bold"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top" Canvas.Left="197" Canvas.Top="-12"></TextBlock>
+            VerticalAlignment="Center" Canvas.Left="172" Canvas.Top="-12"></TextBlock>
             </Canvas>
         </Viewbox>
 
         <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ComboBox
-HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438"
+HorizontalAlignment="Left" Canvas.Left="-33" Width="438"
 materialDesign:HintAssist.Hint="Сортировка по дате"
 Style="{StaticResource MaterialDesignOutlinedComboBox}">
                     <ComboBoxItem
@@ -59,14 +59,13 @@ Content="Все" />
             <Canvas Width="600" Height="20" HorizontalAlignment="Center"
                           VerticalAlignment="Center">
                 <ListView x:Name="PriemsLv" 
-                        Margin="0 0 0 0" 
                         SelectedIndex="0" 
                         ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
                         Width="950" 
                         Height="200" 
                         Background="#8BA598"
                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                        d:ItemsSource="{d:SampleData ItemCount=5}">
+                        d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Left" Canvas.Left="-88" VerticalAlignment="Center">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="2"/>

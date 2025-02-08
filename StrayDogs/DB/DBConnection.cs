@@ -12,7 +12,7 @@ namespace StrayDogs.DB
         //public static Stray_DogsEntities stray_DogsEntities = new Stray_DogsEntities();
 
         //Подключение базы данных (Камилла, Model 2)
-        public static Stray_DogsEntities1 stray_DogsEntities = new Stray_DogsEntities1();
+        public static Stray_DogsEntities stray_DogsEntities = new Stray_DogsEntities();
 
         public static Employee logginedEmployee;
     }

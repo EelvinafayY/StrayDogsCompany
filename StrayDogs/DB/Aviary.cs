@@ -21,6 +21,8 @@ namespace StrayDogs.DB
         }
     
         public int Id { get; set; }
+        public Nullable<int> Number { get; set; }
+        public Nullable<int> Square { get; set; }
         public Nullable<int> IdType { get; set; }
     
         public virtual TypeAviary TypeAviary { get; set; }

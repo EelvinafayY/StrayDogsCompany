@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:StrayDogs"
         Icon="\Resourses\StrayDogsIcon.png"
         mc:Ignorable="d"
-        Title="Stray Dogs" MinHeight="450" MinWidth="800">
+        Title="Stray Dogs"
+        MinHeight="450"
+        MinWidth="800"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Frame x:Name="navFr" NavigationUIVisibility="Hidden"/>
         

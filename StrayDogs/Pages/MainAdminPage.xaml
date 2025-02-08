@@ -25,19 +25,20 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-       
+
 
         <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="30 0 0 40">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialDesign:AutoSuggestBox Margin="3 10 0 0"
+                <materialDesign:AutoSuggestBox
   materialDesign:HintAssist.Hint="Поиск"
   materialDesign:TextFieldAssist.HasClearButton="True"
   DropDownElevation="Dp0"
-  BorderBrush="#3C5D6C"                                             
+  BorderBrush="#3C5D6C"   
+                    x:Name="SearchTB"
   Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
   Suggestions="{Binding AutoSuggestBox2Suggestions}"
   Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-  ValueMember="Key" HorizontalAlignment="Left" VerticalAlignment="Center" Width="450" Height="50">
+  ValueMember="Key" HorizontalAlignment="Left" VerticalAlignment="Top" Width="450" Height="50" Canvas.Left="8" Canvas.Top="10" TextChanged="SearchTB_TextChanged">
                     <materialDesign:AutoSuggestBox.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="60"/>
@@ -89,7 +90,7 @@
                 </Image>
             </StackPanel>
         </Viewbox>
-        
+
         <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,50" Grid.Row="1">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Вольеры в приюте" Foreground="#16343C" FontSize="20" Opacity="0.9" HorizontalAlignment="Center" Canvas.Top="-7" VerticalAlignment="Top"/>
@@ -98,7 +99,7 @@
 
         <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="30,0,0,40" VerticalAlignment="Bottom">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ListView x:Name="VolierLV"
+                <ListView x:Name="VoliersLV"
                           Margin="0 0 0 0"
                           SelectedIndex="0"
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
