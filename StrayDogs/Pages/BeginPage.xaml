@@ -1,0 +1,99 @@
+﻿<Page x:Class="StrayDogs.Pages.BeginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StrayDogs.Pages"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Начальная страница">
+
+    <Grid Background="#F4F7EE">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4">
+            <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Как вы хотите авторизоваться в системе?" Foreground="#16343C" FontSize="30" Opacity="0.9"
+                     FontWeight="Bold"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top" Canvas.Left="65"/>
+            </Canvas>
+        </Viewbox>
+
+        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4"
+ Background="#9916343C" CornerRadius="40" Padding="10">
+            <StackPanel Orientation="Vertical">
+                <Viewbox>
+                    <Canvas Width="400" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="">
+                        <Image Source="/Image/admin.png"
+                Width="200" Height="200"
+                HorizontalAlignment="Center" Canvas.Left="100" VerticalAlignment="Top" Canvas.Top="67"/>
+                        <Grid Width="200">
+                            <Button x:Name="EmloyeeAuthBTN"
+                                Background="#F4F7EE"
+                     Foreground="#16343C"
+                     Height="40"
+                     materialDesign:ButtonAssist.CornerRadius="15"
+                     FontSize="20"
+                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                     ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
+                     Margin="103,282,-103,-282" Click="EmloyeeAuthBTN_Click">
+                                <TextBlock Text="Я сотрудник"/>
+                            </Button>
+                        </Grid>
+                    </Canvas>
+                </Viewbox>
+            </StackPanel>
+        </Border>
+
+
+        <Border Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="4"
+        Background="#9916343C" CornerRadius="40" Padding="10">
+            <StackPanel Orientation="Vertical">
+                <Viewbox>
+                    <Canvas Width="400" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="">
+                        <Image Source="/Image/user.png"
+                       Width="200" Height="200"
+                       HorizontalAlignment="Center" Canvas.Left="100" VerticalAlignment="Top" Canvas.Top="67"/>
+                        <Grid Width="200">
+                            <Button x:Name="GuestAuthBTN"
+                                Background="#F4F7EE"
+                            Foreground="#16343C"
+                            Height="40"
+                            materialDesign:ButtonAssist.CornerRadius="15"
+                            FontSize="20"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
+                            Margin="103,282,-103,-282" Click="GuestAuthBTN_Click">
+                                <TextBlock Text="Я гость"/>
+                            </Button>
+                        </Grid>
+                    </Canvas>
+                </Viewbox>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Page>
