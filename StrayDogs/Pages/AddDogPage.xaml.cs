@@ -31,7 +31,7 @@ namespace StrayDogs.Pages
             genders = DBConnection.stray_DogsEntities.Gender.ToList();
             aviaries = DBConnection.stray_DogsEntities.Aviary.ToList();
         }
-
+           
         private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
             try
