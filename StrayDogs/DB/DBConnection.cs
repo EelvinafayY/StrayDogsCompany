@@ -11,7 +11,6 @@ namespace StrayDogs.DB
         //Подключение базы данных (Варя, Model 1)
         //public static Stray_DogsEntities stray_DogsEntities = new Stray_DogsEntities();
 
-        //Подключение базы данных (Камилла, Model 2)
         public static Stray_DogsEntities stray_DogsEntities = new Stray_DogsEntities();
 
         public static Employee logginedEmployee;
