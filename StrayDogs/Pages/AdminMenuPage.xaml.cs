@@ -43,7 +43,13 @@ namespace StrayDogs.Pages
 
         private void AppointmentsTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new BeginPage());
+            NavigationService.Navigate(new AllAppointmentsAdminPage());
+        }
+
+        private void AplicationTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            NaFr.NavigationService.Navigate(new AllApplicationPage());
+
         }
 
         private void ExitTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -92,7 +92,8 @@
         <Viewbox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="158" Canvas.Top="-69" VerticalAlignment="Top">
-                    <Image Source="/Image/logoMenu.png"
+                    <Image Source="/Image/dogIcon.png"
+                           x:Name="dogPhoto"
                         Height="150"
                         Width="150">
                         <Image.Clip>
@@ -109,7 +110,7 @@
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                 ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
-                                Margin="25,36,-61,-36">
+                                Margin="25,36,-61,-36" Click="AddPhotoBTN_Click">
                                 <TextBlock Text="Добавить фото" />
                             </Button>
                         </Grid> 
@@ -121,7 +122,7 @@
                                 materialDesign:ButtonAssist.CornerRadius="15"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="25,57,-61,-57">
+                                ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="25,57,-61,-57" Click="DeletePhotoBTN_Click">
                                 <TextBlock Text="Удалить фото" />
                             </Button>
                         </Grid>
@@ -216,7 +217,7 @@
                         Style="{StaticResource MaterialDesignOutlinedComboBox}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock x:Name="Name"/>
+                                <TextBlock Text="{Binding Name}"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -255,7 +256,10 @@
                         Style="{StaticResource MaterialDesignOutlinedComboBox}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Number}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Number}"/>
+                                    <TextBlock Text="{Binding TypeAviary.Name, StringFormat=' {0}'}"/>
+                                </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>

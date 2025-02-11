@@ -69,6 +69,23 @@
                         </StackPanel>
                     </TabItem.Header>
                 </TabItem>
+                <TabItem x:Name="AplicationTI" MouseDoubleClick="AplicationTI_MouseDoubleClick">
+                    <TabItem.Header>
+                        <StackPanel 
+                            Width="auto" 
+                            Height="auto">
+                            <materialDesign:PackIcon 
+                                Width="24" 
+                                Height="24" 
+                                HorizontalAlignment="Center" 
+                                Kind="ApplicationArrayOutline" />
+                            <TextBlock 
+                                HorizontalAlignment="Center" 
+                                Text="Заявки" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+
                 <TabItem x:Name="AccountTI" MouseDoubleClick="AccountTI_MouseDoubleClick">
                     <TabItem.Header>
                         <StackPanel 

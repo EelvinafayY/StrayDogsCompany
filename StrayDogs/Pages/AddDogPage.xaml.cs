@@ -1,6 +1,8 @@
-﻿using StrayDogs.DB;
+﻿using Microsoft.Win32;
+using StrayDogs.DB;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,12 +27,14 @@ namespace StrayDogs.Pages
         public static Dog dog = new Dog();
         public static List<Gender> genders { get; set; }
         public static List<Aviary> aviaries { get; set; }
+        public static List<TypeAviary> typeAviaries { get; set; }
 
         public AddDogPage()
         {
             InitializeComponent();
             genders = DBConnection.stray_DogsEntities.Gender.ToList();
             aviaries = DBConnection.stray_DogsEntities.Aviary.ToList();
+            typeAviaries = DBConnection.stray_DogsEntities.TypeAviary.ToList();
             this.DataContext = this;
         }
 
@@ -39,6 +43,21 @@ namespace StrayDogs.Pages
             // Используем регулярное выражение для проверки, является ли введенный символ цифрой
             Regex regex = new Regex("[^0-9]");
             e.Handled = regex.IsMatch(e.Text);
+
+            TextBox textBox = (TextBox)sender;
+            string currentText = textBox.Text;
+            if (currentText.Length >= 3 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            string currentText2 = AgeTB.Text;
+            if (currentText2.Length >= 2 && !string.IsNullOrEmpty(e.Text))
+            {
+                e.Handled = true;
+                return;
+            }
         }
 
         private void AddBTN_Click(object sender, RoutedEventArgs e)
@@ -54,11 +73,6 @@ namespace StrayDogs.Pages
                 }
                 else
                 {
-                    dog.OrdinalNumber = NumberTB.Text.Trim();
-                    dog.Height = int.Parse(HeightTB.Text.Trim());
-                    dog.Weight = int.Parse(WeightTB.Text.Trim());
-                    dog.Age = int.Parse(AgeTB.Text.Trim()); ;
-
                     string number = NumberTB.Text;
                     bool numberExists = DBConnection.stray_DogsEntities.Dog.Any(w => w.OrdinalNumber == number);
 
@@ -85,13 +99,41 @@ namespace StrayDogs.Pages
                         }
                     }
 
-                    if ()
+                    if (int.Parse(HeightTB.Text.Trim()) < 1 || int.Parse(HeightTB.Text.Trim()) > 200)
                     {
-
+                        MessageBox.Show("Введите нормальное значение.");
+                        return;
                     }
                     else
                     {
                         dog.Height = int.Parse(HeightTB.Text.Trim());
+                    }
+
+                    if (int.Parse(WeightTB.Text.Trim()) < 1 || int.Parse(WeightTB.Text.Trim()) > 200)
+                    {
+                        MessageBox.Show("Введите нормальное значение.");
+                        return;
+                    }
+                    else
+                    {
+                        dog.Weight = int.Parse(WeightTB.Text.Trim());
+                    }
+
+                    if (int.Parse(AgeTB.Text.Trim()) < 1 || int.Parse(AgeTB.Text.Trim()) > 40)
+                    {
+                        MessageBox.Show("Введите нормальное значение.");
+                        return;
+                    }
+                    else
+                    {
+                        dog.Age = int.Parse(AgeTB.Text.Trim());
+                    }
+                    
+                    // ВАРЯ СДЕЛАЙ1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    if (dogPhoto.Source is BitmapImage bitmap && bitmap.UriSource?.OriginalString == "/Image/dogIcon.png")
+                    {
+                        MessageBox.Show("Добавьте фотографию собаки!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return; // Прерываем сохранение
                     }
 
                     var a = VolierCB.SelectedItem as Aviary;
@@ -106,9 +148,26 @@ namespace StrayDogs.Pages
             }
             catch
             {
-
+                MessageBox.Show("Непредвиденная ошибка!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
 
+        private void AddPhotoBTN_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "*.png|*.png|*.jpeg|*.jpeg|*.jpg|*.jpg"
+            };
+            if (openFileDialog.ShowDialog().GetValueOrDefault())
+            {
+                dog.Photo = File.ReadAllBytes(openFileDialog.FileName);
+                dogPhoto.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+        }
+
+        private void DeletePhotoBTN_Click(object sender, RoutedEventArgs e)
+        {
+            dogPhoto.Source = new BitmapImage(new Uri("/Image/dogIcon.png", UriKind.Relative));
         }
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)
