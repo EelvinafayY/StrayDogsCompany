@@ -39,7 +39,7 @@
                         materialDesign:ButtonAssist.CornerRadius="15"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="124,-10,-124,10">
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="124,-10,-124,10" Click="BackBTN_Click">
                         <TextBlock
                             Text="Назад" />
                     </Button>

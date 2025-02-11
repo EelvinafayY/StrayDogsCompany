@@ -36,7 +36,8 @@
 
             <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,20,0,0" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Text="Вы вошли в систему как врач" Foreground="#16343C" FontSize="12" Opacity="0.9"/>
+                    <TextBlock x:Name="WelcomeTB"
+                        Foreground="#16343C" FontSize="12" Opacity="0.9"/>
                 </Canvas>
             </Viewbox>
 
@@ -64,17 +65,6 @@
                                 <RectangleGeometry RadiusX="50" RadiusY="50" Rect="0,0,50,50"/>
                             </Image.Clip>
                         </Image>
-                        <Button x:Name="BeginPageBTN" Click="BeginPageBTN_Click"
-                        Background="Transparent" 
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" 
-  Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
-  ToolTip="MaterialDesignFloatingActionMiniLightButton">
-                            <materialDesign:PackIcon 
-    Width="20" 
-    Height="20" 
-    Kind="ArrowBack"  
-                            Foreground="#16343C"/>
-                        </Button>
                     </StackPanel>
                 </Canvas>
             </Viewbox>

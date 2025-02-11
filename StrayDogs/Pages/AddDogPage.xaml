@@ -144,6 +144,7 @@
             <Canvas Width="1200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Canvas.Left="72" Canvas.Top="-30">
                     <materialDesign:AutoSuggestBox x:Name="HeightTB"
+                                                   PreviewTextInput="TextBox_PreviewTextInput"
                         materialDesign:HintAssist.Hint="Рост"
                         materialDesign:TextFieldAssist.HasClearButton="True"
                         DropDownElevation="Dp0"
@@ -165,6 +166,7 @@
                         </materialDesign:AutoSuggestBox.ItemTemplate>
                     </materialDesign:AutoSuggestBox>
                     <materialDesign:AutoSuggestBox x:Name="WeightTB"
+                                                   PreviewTextInput="TextBox_PreviewTextInput"
                         materialDesign:HintAssist.Hint="Вес"
                         materialDesign:TextFieldAssist.HasClearButton="True"
                         DropDownElevation="Dp0"
@@ -186,6 +188,7 @@
                         </materialDesign:AutoSuggestBox.ItemTemplate>
                     </materialDesign:AutoSuggestBox>
                     <materialDesign:AutoSuggestBox x:Name="AgeTB"
+                                                   PreviewTextInput="TextBox_PreviewTextInput"
                         materialDesign:HintAssist.Hint="Возраст"
                         materialDesign:TextFieldAssist.HasClearButton="True"
                         DropDownElevation="Dp0"
