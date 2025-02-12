@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StrayDogs.Pages"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -30,18 +31,18 @@
 
             <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,156" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Text="Здравствуйте, Имя врача" Foreground="#16343C" FontSize="28" Opacity="0.9"/>
+                    <TextBlock Text="Добро пожаловать!" Foreground="#16343C" FontSize="28" Opacity="0.9"/>
                 </Canvas>
             </Viewbox>
 
-            <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,20,0,0" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
+            <!--<Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,20,0,0" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Text="Какая-то маленькая подпись" Foreground="#16343C" FontSize="12" Opacity="0.9"/>
                 </Canvas>
-            </Viewbox>
+            </Viewbox>-->
 
 
-            <Viewbox Grid.Column="3" Grid.ColumnSpan="2" Margin="0,4,0,156" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
+            <!--<Viewbox Grid.Column="3" Grid.ColumnSpan="2" Margin="0,4,0,156" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
                 <Canvas Width="600" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Vertical" Width="320" Height="140" Margin="5,10,10,0">
                         <Border BorderBrush="#8BA598" 
@@ -57,33 +58,32 @@
                         </Border>
                     </StackPanel>
                 </Canvas>
-            </Viewbox>
+            </Viewbox>-->
 
-            <Viewbox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Margin="30, 0,0,40">
-                <Canvas Width="400" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock Margin="50 20 0 0" Text="Фамилия Имя Отчество" Foreground="#16343C" FontSize="20" Opacity="0.9"/>
-                        <Image Source="/Image/person.png" 
-     Height="50" 
-     Width="50" 
+            <Viewbox Grid.Row="0" Grid.Column="4"
+                 Grid.ColumnSpan="2"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Right"
+                 Margin="0 0 20 0">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                    <TextBlock Margin="0 0 0 0" x:Name="FioTB"
+                               Text="Фамилия Имя Отчество"
+                               Foreground="#16343C"
+                               FontSize="15"
+                               Opacity="0.9"
+                               VerticalAlignment="Center"/>
+                    <Image Source="/Image/person.png"
+                        Height="40"
+                        Width="40"
+                       x:Name="WorkerPhoto"
                            Margin="10">
-                            <Image.Clip>
-                                <RectangleGeometry RadiusX="50" RadiusY="50" Rect="0,0,50,50"/>
-                            </Image.Clip>
-                        </Image>
-                        <Button 
-                        Background="Transparent" 
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" 
-  Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
-  ToolTip="MaterialDesignFloatingActionMiniLightButton">
-                            <materialDesign:PackIcon 
-    Width="20" 
-    Height="20" 
-    Kind="ArrowBack"  
-                            Foreground="#16343C"/>
-                        </Button>
-                    </StackPanel>
-                </Canvas>
+                        <Image.Clip>
+                            <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,40,40"/>
+                        </Image.Clip>
+                    </Image>
+                </StackPanel>
             </Viewbox>
 
             <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,156" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center">
@@ -103,7 +103,7 @@
                           Height="200" 
                           Background="#8BA598"
                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                          d:ItemsSource="{d:SampleData ItemCount=5}">
+                          d:ItemsSource="{Binding appointments}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="2"/>
@@ -119,11 +119,15 @@
                                     Padding="12">
                                     <StackPanel Orientation="Horizontal" Width="400" Height="55" Margin="0,1,0,0">
                                         <StackPanel Width="360" Height="70" HorizontalAlignment="Left">
-                                            <TextBlock Text="{Binding .}" Margin="5,0,0,0" Foreground="#F4F7EE" 
+                                            <StackPanel Orientation="Horizontal" Width="360">
+                                                <TextBlock Text="{Binding StatusAppointment.Name, StringFormat='Тип приема: {0}'}" Margin="5,0,0,0" Foreground="#F4F7EE" 
                                                    HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{Binding .}" Margin="5,0,0,0" Foreground="#F4F7EE" 
-                                                   HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{Binding .}" Margin="5,0,0,0" Foreground="#F4F7EE" 
+                                                <TextBlock Text="{Binding Date, StringFormat='dd.m, HH:MM'}" Margin="95,0,0,0" Foreground="#F4F7EE" 
+                                                   HorizontalAlignment="Right" FontSize="14" VerticalAlignment="Center"/>
+
+                                            </StackPanel>
+
+                                            <TextBlock Text="{Binding Dog.OrdinalNumber, StringFormat='Собака: {0}'}" Margin="5,10,0,0" Foreground="#F4F7EE" 
                                                    HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -145,12 +149,44 @@
                 </Canvas>
             </Viewbox>
 
+            <Viewbox Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="5" Margin="0,0,10,0">
+                <Canvas Width="800" Height="60">
+                    <TextBlock
+FontSize="18"
+HorizontalAlignment="Left"
+Text="График о количестве приемов за месяц" 
+Foreground="#16343C"
+Canvas.Left="250" Canvas.Top="-68" VerticalAlignment="Center"/>
+
+                    <lvc:CartesianChart x:Name="AppointmentsChart" Width="800" Height="150" HorizontalAlignment="Center" Canvas.Top="-36" VerticalAlignment="Top">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Labels="{Binding Days}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY> 
+                            <lvc:Axis Title=""/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+
+
+                    <!-- Стрелки для смены месяца -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"
+        Canvas.Left="818" Canvas.Top="72" VerticalAlignment="Top">
+                        <Button Content="←" Width="30" Height="25" FontSize="14" Padding="2"
+        Click="PreviousMonth_Click"/>
+                        <TextBlock x:Name="MonthLabel" FontSize="12" FontWeight="Bold"
+           Margin="8,0,8,0" VerticalAlignment="Center"/>
+                        <Button Content="→" Width="30" Height="25" FontSize="14" Padding="2"
+        Click="NextMonth_Click"/>
+                    </StackPanel>
+                </Canvas>
+            </Viewbox>
+
             <Viewbox Grid.Row="3" Grid.RowSpan="2" Grid.Column="5" Margin="0,41,30,4">
                 <Canvas Width="200" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid
 Width="200">
                         <Button
-                        x:Name="AddDogBT"
+                        x:Name="SaveExcelBT" Click="SaveExcelBT_Click"
                       Background="#16343C"
                        Foreground="#F4F7EE"
                         Margin="0 80 0 0"
@@ -160,13 +196,13 @@ Width="200">
   Style="{StaticResource MaterialDesignRaisedDarkButton}"
   ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
                             <TextBlock
-    Text="Сохранить как хл" />
+    Text="Сохранить как EXCEL" />
                         </Button>
                     </Grid>
                     <Grid
 Width="200">
                         <Button
-                        x:Name="AddEmployeeBT"
+                        x:Name="SavePDFBT" Click="SavePDFBT_Click"
                       Background="#16343C"
                        Foreground="#F4F7EE"
                         Margin="0 130 0 0"
@@ -176,7 +212,7 @@ Width="200">
   Style="{StaticResource MaterialDesignRaisedDarkButton}"
   ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
                             <TextBlock
-    Text="Сохранить как пдф" />
+    Text="Сохранить как PDF" />
                         </Button>
                     </Grid>
                 </Canvas>

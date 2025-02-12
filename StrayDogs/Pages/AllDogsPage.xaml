@@ -27,17 +27,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,156" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Text="Все собаки" Foreground="#16343C" FontSize="28" Opacity="0.9"/>
-                </Canvas>
-            </Viewbox>
-
-            <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,20,0,0" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
-                <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock x:Name="WelcomeTB"
-                        Foreground="#16343C" FontSize="12" Opacity="0.9"/>
                 </Canvas>
             </Viewbox>
 
@@ -47,26 +40,37 @@
                     <TextBox Width="570" x:Name="SearchDogsTB" Foreground="#16343C"
                         FontSize="16"
                         VerticalAlignment="Center"
-                        
+                        TextChanged="SearchDogsTB_TextChanged"
                         materialDesign:HintAssist.Hint="Поиск по собакам"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 </Canvas>
             </Viewbox>
+            
 
-            <Viewbox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Margin="30, 0,0,40">
-                <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock Margin="50 20 0 0" x:Name="FIOTB" Text="" Foreground="#16343C" FontSize="20" Opacity="0.9"/>
-                        <Image x:Name="PhotoEmpl" Source="{Binding Photo}" 
-     Height="50" 
-     Width="50" 
+            <Viewbox Grid.Row="0" Grid.Column="4"
+                 Grid.ColumnSpan="2"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Right"
+                 Margin="0 0 20 0">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                    <TextBlock Margin="0 0 0 0" x:Name="FioTB"
+                               Text="Фамилия Имя Отчество"
+                               Foreground="#16343C"
+                               FontSize="15"
+                               Opacity="0.9"
+                               VerticalAlignment="Center"/>
+                    <Image Source="/Image/person.png"
+                        Height="40"
+                        Width="40"
+                       x:Name="WorkerPhoto"
                            Margin="10">
-                            <Image.Clip>
-                                <RectangleGeometry RadiusX="50" RadiusY="50" Rect="0,0,50,50"/>
-                            </Image.Clip>
-                        </Image>
-                    </StackPanel>
-                </Canvas>
+                        <Image.Clip>
+                            <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,40,40"/>
+                        </Image.Clip>
+                    </Image>
+                </StackPanel>
             </Viewbox>
 
             <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="30,0,0,40" VerticalAlignment="Bottom">

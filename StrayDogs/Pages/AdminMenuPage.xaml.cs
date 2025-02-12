@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,7 +55,15 @@ namespace StrayDogs.Pages
 
         private void ExitTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new BeginPage());
+            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите выйти из системы?", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.OK)
+            {
+                //ПЕРЕЗАПУСК ПРОГРАММЫ
+                string exePath = Process.GetCurrentProcess().MainModule.FileName;
+                Process.Start(exePath);
+                Application.Current.Shutdown();
+            }
         }
     }
 }
