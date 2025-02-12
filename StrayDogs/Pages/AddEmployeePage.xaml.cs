@@ -78,7 +78,7 @@ namespace StrayDogs.Pages
             }
         }
 
-        private void RegistrationBTN_Click(object sender, RoutedEventArgs e)
+        private void AddWorkerBTN_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -137,10 +137,10 @@ namespace StrayDogs.Pages
                         employee.Password = PasswordTB.Text.Trim();
                     }
 
-                    if (employee.Photo == null)
+                    if (PhotoWorker.Source is BitmapImage bitmap && bitmap.UriSource?.OriginalString == "/Image/person.png")
                     {
-                        MessageBox.Show("Добавьте фото.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
+                        MessageBox.Show("Добавьте фотографию собаки!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return; // Прерываем сохранение
                     }
 
                     DBConnection.stray_DogsEntities.Employee.Add(employee);
@@ -170,7 +170,7 @@ namespace StrayDogs.Pages
 
         private void DeletePhotoBTN_Click(object sender, RoutedEventArgs e)
         {
-            PhotoWorker.Source = null;
+            PhotoWorker.Source = new BitmapImage(new Uri("/Image/person.png", UriKind.Relative));
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)

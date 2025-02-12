@@ -61,6 +61,7 @@
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
                     x:Name="SurnameTB"
+                    PreviewTextInput="TextBox_PreviewTextInput"
                     materialDesign:HintAssist.Hint="Фамилия"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     DropDownElevation="Dp0"
@@ -90,6 +91,7 @@
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
                     x:Name="NameTB"
+                    PreviewTextInput="TextBox_PreviewTextInput"
                     materialDesign:HintAssist.Hint="Имя"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     DropDownElevation="Dp0"
@@ -119,6 +121,7 @@
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
                     x:Name="PatronymicTB"
+                    PreviewTextInput="TextBox_PreviewTextInput"
                     materialDesign:HintAssist.Hint="Отчество"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     DropDownElevation="Dp0"
@@ -241,7 +244,7 @@
                         materialDesign:ButtonAssist.CornerRadius="15"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23">
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23" Click="AddPhotoBTN_Click">
                         <TextBlock
                             Text="Добавить фото" />
                     </Button>
@@ -259,7 +262,8 @@
                         materialDesign:ButtonAssist.CornerRadius="15"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-52,-226,52">
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-52,-226,52" Click="DeletePhotoBTN_Click"
+                            Cursor="Hand">
                         <TextBlock
                             Text="Удалить фото" />
                     </Button>
@@ -277,7 +281,7 @@
                         materialDesign:ButtonAssist.CornerRadius="15"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23">
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23" Click="AddWorkerBTN_Click">
                         <TextBlock Text="Добавить сотрудника" />
                     </Button>
                 </Grid>
