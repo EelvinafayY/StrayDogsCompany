@@ -36,21 +36,30 @@
                     </Canvas>
                 </Viewbox>
 
-                <Viewbox Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Margin="30, 0,0,40">
-                    <Canvas Width="400" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock Margin="50 20 0 0" Text="Фамилия Имя Отчество" Foreground="#16343C" FontSize="20" Opacity="0.9"/>
-                            <Image Source="/Image/admin.png" 
-     Height="50" 
-     Width="50" 
+                <Viewbox Grid.Row="0" Grid.Column="4"
+                 Grid.ColumnSpan="2"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Right"
+                 Margin="0 0 20 0">
+                    <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                        <TextBlock Margin="0 0 0 0" x:Name="FioTB"
+                               Text="Фамилия Имя Отчество"
+                               Foreground="#16343C"
+                               FontSize="15"
+                               Opacity="0.9"
+                               VerticalAlignment="Center"/>
+                        <Image Source="/Image/person.png"
+                        Height="40"
+                        Width="40"
+                       x:Name="WorkerPhoto"
                            Margin="10">
-                                <Image.Clip>
-                                    <RectangleGeometry RadiusX="50" RadiusY="50" Rect="0,0,50,50"/>
-                                </Image.Clip>
-                            </Image>
-
-                        </StackPanel>
-                    </Canvas>
+                            <Image.Clip>
+                                <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,0,40,40"/>
+                            </Image.Clip>
+                        </Image>
+                    </StackPanel>
                 </Viewbox>
 
                 <Viewbox Grid.Column="2" Grid.ColumnSpan="5" Margin="-40,40,0,156" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center">

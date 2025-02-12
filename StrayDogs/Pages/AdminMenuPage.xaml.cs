@@ -44,7 +44,7 @@ namespace StrayDogs.Pages
 
         private void AppointmentsTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new AllAppointmentsAdminPage());
+            NaFr.NavigationService.Navigate(new AllAppointmentsAdminPage());
         }
 
         private void AplicationTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -55,15 +55,16 @@ namespace StrayDogs.Pages
 
         private void ExitTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите выйти из системы?", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите выйти из системы?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-            if (result == MessageBoxResult.OK)
+            if (result == MessageBoxResult.Yes)
             {
                 //ПЕРЕЗАПУСК ПРОГРАММЫ
                 string exePath = Process.GetCurrentProcess().MainModule.FileName;
                 Process.Start(exePath);
                 Application.Current.Shutdown();
             }
+            else { }
         }
     }
 }

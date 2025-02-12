@@ -78,14 +78,15 @@
                     <ListView x:Name="DogsLv"
                           Margin="0 0 0 0"
                           SelectedIndex="0"
-                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
                           Width="800"
                           Height="340"
                           d:ItemsSource="{Binding dogs}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="3"/>
+                                <UniformGrid Columns="3"
+                                             VerticalAlignment="Top"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>

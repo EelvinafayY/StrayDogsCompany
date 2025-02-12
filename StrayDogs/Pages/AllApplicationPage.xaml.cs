@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace StrayDogs.Pages
         public static List<Aplication> aplications { get; set; }
         public static List<ApplicationStatus> applicationStatuses { get; set; }
         public static List<Dog> dogs { get; set; }
+        public static List<Employee> employees { get; set; }
+        Employee loggedEmployee;
         public AllApplicationPage()
         {
             InitializeComponent();
@@ -35,6 +38,21 @@ namespace StrayDogs.Pages
                 application.ApplicationStatus = applicationStatuses.FirstOrDefault(s => s.IDApplicationStatus == application.IDStatusAplication);
             }
             dogs = DBConnection.stray_DogsEntities.Dog.ToList();
+            employees = DBConnection.stray_DogsEntities.Employee.ToList();
+            loggedEmployee = DBConnection.logginedEmployee;
+            FioTB.Text = loggedEmployee.Surname + " " + loggedEmployee.Name + " " + loggedEmployee.Patronymic;
+            if (loggedEmployee.Photo != null)
+            {
+                using (var stream = new MemoryStream(loggedEmployee.Photo))
+                {
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = stream;
+                    bitmap.EndInit();
+                    WorkerPhoto.Source = bitmap;
+                }
+            }
             this.DataContext = this;
         }
         private bool isUpdating = false; // Флаг предотвращает зацикливание
