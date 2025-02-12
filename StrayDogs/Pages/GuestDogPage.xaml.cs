@@ -1,4 +1,5 @@
-﻿using StrayDogs.Windows;
+﻿using StrayDogs.DB;
+using StrayDogs.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,20 @@ namespace StrayDogs.Pages
     /// </summary>
     public partial class GuestDogPage : Page
     {
-        public GuestDogPage()
+        Dog contextDog;
+        public GuestDogPage(Dog dog)
         {
             InitializeComponent();
+            var dogs = DB.DBConnection.stray_DogsEntities.Dog.ToList();
+            DataContext = contextDog = dog;
         }
 
         private void GuestApplicationBTN_Click(object sender, RoutedEventArgs e)
         {
-            GuestApplicationWindow guestApplicationWindow = new GuestApplicationWindow();
-            guestApplicationWindow.Show();
+            
+            GuestApplicationWindow guestApplicationWindow = new GuestApplicationWindow(contextDog);
+            guestApplicationWindow.ShowDialog();
+            NavigationService.Navigate(new GuestHomePage());
         }
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)

@@ -48,17 +48,7 @@
                                     <RectangleGeometry RadiusX="50" RadiusY="50" Rect="0,0,50,50"/>
                                 </Image.Clip>
                             </Image>
-                            <Button 
-                        Background="Transparent" 
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" 
-  Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
-  ToolTip="MaterialDesignFloatingActionMiniLightButton">
-                                <materialDesign:PackIcon 
-    Width="20" 
-    Height="20" 
-    Kind="ArrowBack"  
-                            Foreground="#16343C"/>
-                            </Button>
+
                         </StackPanel>
                     </Canvas>
                 </Viewbox>
@@ -91,7 +81,7 @@
                             
                             VerticalAlignment="Center">
                         <ListView x:Name="ApplicatonLv" Height="240" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Hidden"
-  ItemsSource="{Binding aplications}" SelectionChanged="ApplicatonLv_SelectionChanged" Canvas.Top="20">
+  ItemsSource="{Binding aplications}" Canvas.Top="20">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header=" " Width="50" >
@@ -116,7 +106,7 @@
                                     <GridViewColumn Width="210" Header="Номер для связи">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Phone}" HorizontalAlignment="Right" Margin="25 0 0 0"/>
+                                                <TextBlock Text="{Binding Phone}" HorizontalAlignment="Right" Margin="15 0 0 0"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -124,7 +114,7 @@
                                     <GridViewColumn Width="200" Header="Номер собаки">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Dog.OrdinalNumber}" HorizontalAlignment="Right" Margin="25 0 0 0"/>
+                                                <TextBlock Text="{Binding Dog.OrdinalNumber}" HorizontalAlignment="Right" Margin="43 0 0 0"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -134,11 +124,10 @@
                                             <DataTemplate>
                                                 <ComboBox x:Name="StatusCb"
                       ItemsSource="{Binding DataContext.applicationStatuses, RelativeSource={RelativeSource AncestorType=Page}}"
-                      DisplayMemberPath="Name"
+                      DisplayMemberPath="Name" DropDownClosed="StatusCb_DropDownClosed"
                       SelectedValuePath="IDApplicationStatus"
                       SelectedValue="{Binding IDStatusAplication, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Width="160"
-                      SelectionChanged="StatusCb_SelectionChanged"/>
+                      Width="160" Loaded="StatusCb_Loaded"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -151,7 +140,3 @@
         </Grid>
     </Grid>
 </Page>
-
-
-
-

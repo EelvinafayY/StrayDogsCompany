@@ -44,9 +44,9 @@ namespace StrayDogs.Pages
 
         private void ExitTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите выйти из системы?", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите выйти из системы?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-            if (result == MessageBoxResult.OK)
+            if (result == MessageBoxResult.Yes)
             {
                 //ПЕРЕЗАПУСК ПРОГРАММЫ
                 string exePath = Process.GetCurrentProcess().MainModule.FileName;

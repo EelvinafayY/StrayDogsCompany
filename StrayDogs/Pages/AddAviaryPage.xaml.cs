@@ -55,7 +55,7 @@ namespace StrayDogs.Pages
                     aviary.Square = int.Parse(SquareTB.Text.Trim());
 
                     var a = TypeCB.SelectedItem as TypeAviary;
-                    aviary.IdType = aviary.Id;
+                    aviary.IdType = a.Id;
 
                     DBConnection.stray_DogsEntities.Aviary.Add(aviary);
                     DBConnection.stray_DogsEntities.SaveChanges();

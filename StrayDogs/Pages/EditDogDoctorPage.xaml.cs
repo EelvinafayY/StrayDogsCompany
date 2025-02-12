@@ -99,7 +99,7 @@ namespace StrayDogs.Pages
 
         private void BeginBTN_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new DoctorMenuPage());
+            NavigationService.Navigate(new MainDoctorPage());
         }
 
         private void appoitmentsBTN_Click(object sender, RoutedEventArgs e)
