@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Stray_DogsModel1" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище Stray_DogsModel1" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aplication">
           <Key>
             <PropertyRef Name="IDApplication" />
@@ -32,6 +32,7 @@
           <Property Name="IdDoctor" Type="int" />
           <Property Name="Disease" Type="nvarchar(max)" />
           <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="IdStatusPriem" Type="int" />
         </EntityType>
         <EntityType Name="Aviary">
           <Key>
@@ -88,12 +89,29 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Priem_Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="StatusAppointment">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TypeAviary">
           <Key>
@@ -147,6 +165,18 @@
             </Principal>
             <Dependent Role="Appointments">
               <PropertyRef Name="IdDoctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointments_Priem_Status">
+          <End Role="Priem_Status" Type="Self.Priem_Status" Multiplicity="0..1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priem_Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="IdStatusPriem" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -219,7 +249,9 @@
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Priem_Status" EntityType="Self.Priem_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusAppointment" EntityType="Self.StatusAppointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeAviary" EntityType="Self.TypeAviary" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Aplication_ApplicationStatus" Association="Self.FK_Aplication_ApplicationStatus">
             <End Role="ApplicationStatus" EntitySet="ApplicationStatus" />
@@ -235,6 +267,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Appointments_Employee" Association="Self.FK_Appointments_Employee">
             <End Role="Employee" EntitySet="Employee" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments_Priem_Status" Association="Self.FK_Appointments_Priem_Status">
+            <End Role="Priem_Status" EntitySet="Priem_Status" />
             <End Role="Appointments" EntitySet="Appointments" />
           </AssociationSet>
           <AssociationSet Name="FK_Appointments_StatusAppointment" Association="Self.FK_Appointments_StatusAppointment">
@@ -258,8 +294,7 @@
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Stray_DogsModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -296,6 +331,8 @@
           <NavigationProperty Name="Dog" Relationship="Self.FK_Appointments_Dog" FromRole="Appointments" ToRole="Dog" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Appointments_Employee" FromRole="Appointments" ToRole="Employee" />
           <NavigationProperty Name="StatusAppointment" Relationship="Self.FK_Appointments_StatusAppointment" FromRole="Appointments" ToRole="StatusAppointment" />
+          <Property Name="IdStatusPriem" Type="Int32" />
+          <NavigationProperty Name="Priem_Status" Relationship="Stray_DogsModel1.FK_Appointments_Priem_Status" FromRole="Appointments" ToRole="Priem_Status" />
         </EntityType>
         <EntityType Name="Aviary">
           <Key>
@@ -533,7 +570,43 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <EntitySet Name="Priem_Status" EntityType="Stray_DogsModel1.Priem_Status" />
+          <EntitySet Name="sysdiagrams" EntityType="Stray_DogsModel1.sysdiagrams" />
+          <AssociationSet Name="FK_Appointments_Priem_Status" Association="Stray_DogsModel1.FK_Appointments_Priem_Status">
+            <End Role="Priem_Status" EntitySet="Priem_Status" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Priem_Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="Stray_DogsModel1.FK_Appointments_Priem_Status" FromRole="Priem_Status" ToRole="Appointments" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Appointments_Priem_Status">
+          <End Type="Stray_DogsModel1.Priem_Status" Role="Priem_Status" Multiplicity="0..1" />
+          <End Type="Stray_DogsModel1.Appointments" Role="Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priem_Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="IdStatusPriem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -561,6 +634,7 @@
           <EntitySetMapping Name="Appointments">
             <EntityTypeMapping TypeName="Stray_DogsModel1.Appointments">
               <MappingFragment StoreEntitySet="Appointments">
+                <ScalarProperty Name="IdStatusPriem" ColumnName="IdStatusPriem" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdDog" ColumnName="IdDog" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -644,6 +718,25 @@
               <MappingFragment StoreEntitySet="TypeAviary">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Priem_Status">
+            <EntityTypeMapping TypeName="Stray_DogsModel1.Priem_Status">
+              <MappingFragment StoreEntitySet="Priem_Status">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Stray_DogsModel1.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

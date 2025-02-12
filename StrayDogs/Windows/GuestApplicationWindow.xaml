@@ -6,9 +6,8 @@
         xmlns:local="clr-namespace:StrayDogs.Windows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Icon=""
         WindowStartupLocation="CenterScreen"
-        Title="Оставьте заявку" Height="450" Width="800">
+        Title="Оставьте заявку" MinHeight="450" MinWidth="800"  MaxHeight="450" MaxWidth="800">
     <Grid Background="#F4F7EE">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -30,28 +29,33 @@
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Оставьте свой номер телефона" Foreground="#16343C" FontSize="30" Opacity="0.9"
         FontWeight="Bold"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Top" Canvas.Left="71" Canvas.Top="10"></TextBlock>
+        HorizontalAlignment="Left"
+        VerticalAlignment="Center" Canvas.Left="37"/>
             </Canvas>
         </Viewbox>
 
         <Viewbox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
             <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialDesign:AutoSuggestBox
-materialDesign:HintAssist.Hint="Номер телефона"
-materialDesign:TextFieldAssist.HasClearButton="True"
-DropDownElevation="Dp0"
-Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="73" VerticalAlignment="Center" Width="417" Canvas.Top="-30">
+                <materialDesign:AutoSuggestBox x:Name="PhoneTbx"
+    materialDesign:HintAssist.Hint="Номер телефона"
+    PreviewTextInput="AutoSuggestBox_PreviewTextInput"
+    PreviewKeyDown="AutoSuggestBox_PreviewKeyDown"
+    TextChanged="AutoSuggestBox_TextChanged"
+    materialDesign:TextFieldAssist.HasClearButton="False"
+    DropDownElevation="Dp0"
+    Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+    Suggestions="{Binding AutoSuggestBox2Suggestions}"
+    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+    ValueMember="Key" 
+    HorizontalAlignment="Left"
+    Width="416" Canvas.Left="42" VerticalAlignment="Center">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
                                 <Border
         Width="20"
         Height="20"
-        Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+        Background="{Binding Value}"
         CornerRadius="10" />
                                 <TextBlock
         Margin="10,0,0,0"
@@ -73,7 +77,7 @@ ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="73" VerticalAlignment=
                         materialDesign:ButtonAssist.CornerRadius="15"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="191,-23,-231,23">
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="156,-23,-196,23" Click="Button_Click">
                         <TextBlock Text="Отправить заявку" />
                     </Button>
                 </Grid>

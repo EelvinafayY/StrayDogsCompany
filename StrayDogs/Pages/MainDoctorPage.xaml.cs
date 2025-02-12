@@ -356,6 +356,22 @@ namespace StrayDogs.Pages
             {
                 MessageBox.Show("Пожалуйста, выберите прием с собакой для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
+            if (PriemsLv.SelectedItem == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите прием для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning); return;
+            }
+            var selectedAppointmentt = (sender as Button).DataContext as Appointments;
+
+            if (selectedAppointmentt != null)
+            {
+                
+                NavigationService.Navigate(new EditAppointmentPage(selectedAppointmentt));
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите прием с собакой для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
     }

@@ -28,8 +28,8 @@ namespace StrayDogs.Pages
 
         private void GuestApplicationBTN_Click(object sender, RoutedEventArgs e)
         {
-            GuestApplicationWindow guestApplicationWindow = new GuestApplicationWindow();
-            guestApplicationWindow.Show();
+            //GuestApplicationWindow guestApplicationWindow = new GuestApplicationWindow();
+            //guestApplicationWindow.Show();
         }
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)

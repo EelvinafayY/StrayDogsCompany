@@ -12,20 +12,18 @@ namespace StrayDogs.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Appointments
+    public partial class Priem_Status
     {
-        public int Id { get; set; }
-        public Nullable<int> IdDog { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> IdStatus { get; set; }
-        public Nullable<int> IdDoctor { get; set; }
-        public string Disease { get; set; }
-        public string Comment { get; set; }
-        public Nullable<int> IdStatusPriem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Priem_Status()
+        {
+            this.Appointments = new HashSet<Appointments>();
+        }
     
-        public virtual Dog Dog { get; set; }
-        public virtual Employee Employee { get; set; }
-        public virtual StatusAppointment StatusAppointment { get; set; }
-        public virtual Priem_Status Priem_Status { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Appointments> Appointments { get; set; }
     }
 }

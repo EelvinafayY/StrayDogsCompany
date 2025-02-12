@@ -24,6 +24,9 @@
         <AssociationConnector Association="Stray_DogsModel1.FK_Dog_Aviary" ManuallyRouted="false" />
         <AssociationConnector Association="Stray_DogsModel1.FK_Dog_Gender" ManuallyRouted="false" />
         <AssociationConnector Association="Stray_DogsModel1.FK_Employee_Post" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Stray_DogsModel1.Priem_Status" Width="1.5" PointX="0.75" PointY="7.875" />
+        <EntityTypeShape EntityType="Stray_DogsModel1.sysdiagrams" Width="1.5" PointX="2.75" PointY="7.75" />
+        <AssociationConnector Association="Stray_DogsModel1.FK_Appointments_Priem_Status" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -55,18 +55,22 @@ namespace StrayDogs.Pages
                     aviary.Square = int.Parse(SquareTB.Text.Trim());
 
                     var a = TypeCB.SelectedItem as TypeAviary;
-                    aviary.IdType = aviary.Id;
+                    aviary.IdType = a.Id;
 
                     DBConnection.stray_DogsEntities.Aviary.Add(aviary);
                     DBConnection.stray_DogsEntities.SaveChanges();
                     MessageBox.Show("Вы добавили новый вольер. Вернуться на главную?", "Успех!", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     MessageBoxResult messageBoxResult = new MessageBoxResult();
+
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
                         NavigationService.Navigate(new MainAdminPage());
                     }
-                    else { }
+                    else 
+                    {
+                        
+                    }
                 }
             }
             catch
