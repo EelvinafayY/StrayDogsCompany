@@ -41,13 +41,13 @@
 
             <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:AutoSuggestBox IsReadOnly="True"
+                    <materialDesign:AutoSuggestBox IsReadOnly="True" x:Name="SurnameTB"
   materialDesign:HintAssist.Hint="Фамилия"
-  materialDesign:TextFieldAssist.HasClearButton="True"
+  materialDesign:TextFieldAssist.HasClearButton="{Binding IsClearButtonVisible}"
   DropDownElevation="Dp0"
   Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-  Suggestions="{Binding AutoSuggestBox2Suggestions}"
-  Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+  Suggestions="{Binding SurnameBoxSuggestions}"
+  Text="{Binding SurnameBoxText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
   ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                         <materialDesign:AutoSuggestBox.ItemTemplate>
                             <DataTemplate>
@@ -59,7 +59,7 @@
           CornerRadius="10" />
                                     <TextBlock
           Margin="10,0,0,0"
-          Text="{Binding Key}" />
+          Text="{Binding Surname}" />
                                 </DockPanel>
                             </DataTemplate>
                         </materialDesign:AutoSuggestBox.ItemTemplate>
@@ -69,13 +69,13 @@
 
             <Viewbox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:AutoSuggestBox  IsReadOnly="True"
+                    <materialDesign:AutoSuggestBox  IsReadOnly="True" x:Name="NameTB"
   materialDesign:HintAssist.Hint="Имя"
-  materialDesign:TextFieldAssist.HasClearButton="True"
+  materialDesign:TextFieldAssist.HasClearButton="{Binding IsClearButtonVisible}"
   DropDownElevation="Dp0"
   Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-  Suggestions="{Binding AutoSuggestBox2Suggestions}"
-  Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+  Suggestions="{Binding NametBoxSuggestions}"
+  Text="{Binding NameBoxText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
   ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                         <materialDesign:AutoSuggestBox.ItemTemplate>
                             <DataTemplate>
@@ -87,7 +87,7 @@
           CornerRadius="10" />
                                     <TextBlock
           Margin="10,0,0,0"
-          Text="{Binding Key}" />
+          Text="{Binding Name}" />
                                 </DockPanel>
                             </DataTemplate>
                         </materialDesign:AutoSuggestBox.ItemTemplate>
@@ -97,13 +97,13 @@
 
             <Viewbox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:AutoSuggestBox IsReadOnly="True"
+                    <materialDesign:AutoSuggestBox IsReadOnly="True" x:Name="PatrNameTB"
 materialDesign:HintAssist.Hint="Отчество"
-materialDesign:TextFieldAssist.HasClearButton="True"
+  materialDesign:TextFieldAssist.HasClearButton="{Binding IsClearButtonVisible}"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+Suggestions="{Binding PatronymicBoxSuggestions}"
+Text="{Binding PatronymicBoxText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
 ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                         <materialDesign:AutoSuggestBox.ItemTemplate>
                             <DataTemplate>
@@ -125,22 +125,27 @@ ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment=
 
             <Viewbox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <DatePicker
-  Width="438"
-  materialDesign:HintAssist.Hint="Дата рождения"
-  Style="{StaticResource MaterialDesignOutlinedDatePicker}" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" />
+                    <DatePicker x:Name="BHDP" IsEnabled="False"
+            Width="438" 
+            materialDesign:HintAssist.Hint="Дата рождения" 
+            Style="{StaticResource MaterialDesignOutlinedDatePicker}" 
+            Text="{Binding loginedEmployee.DateOfBirth, Mode=TwoWay}" 
+            HorizontalAlignment="Left" 
+            Canvas.Left="63" 
+            VerticalAlignment="Center"/>
                 </Canvas>
             </Viewbox>
 
+
             <Viewbox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:AutoSuggestBox IsReadOnly="True"
+                    <materialDesign:AutoSuggestBox IsReadOnly="True" x:Name="LoginTB"
 materialDesign:HintAssist.Hint="Логин"
-materialDesign:TextFieldAssist.HasClearButton="True"
+  materialDesign:TextFieldAssist.HasClearButton="{Binding IsClearButtonVisible}"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+Suggestions="{Binding LoginBoxSuggestions}"
+Text="{Binding LoginBoxText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
 ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                         <materialDesign:AutoSuggestBox.ItemTemplate>
                             <DataTemplate>
@@ -162,13 +167,13 @@ ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment=
 
             <Viewbox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:AutoSuggestBox IsReadOnly="True"
+                    <materialDesign:AutoSuggestBox IsReadOnly="True" x:Name="PasswordTB"
 materialDesign:HintAssist.Hint="Пароль"
-materialDesign:TextFieldAssist.HasClearButton="True"
+  materialDesign:TextFieldAssist.HasClearButton="{Binding IsClearButtonVisible}"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+Suggestions="{Binding PasswordBoxSuggestions}"
+Text="{Binding PasswordBoxText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
 ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438" Cursor="" Canvas.Top="-15">
                         <materialDesign:AutoSuggestBox.ItemTemplate>
                             <DataTemplate>
@@ -190,7 +195,7 @@ ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment=
 
             <Viewbox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="4">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Source="/Image/logoMenu.png"
+                    <Image Source="/Image/logoMenu.png" x:Name="PhotoEmpl"
 Height="250"
 Width="250" Canvas.Left="200" Canvas.Top="-90">
                         <Image.Clip>
@@ -204,7 +209,7 @@ Width="250" Canvas.Left="200" Canvas.Top="-90">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid
 Width="200">
-                        <Button
+                        <Button x:Name="OKBTN" Visibility="Collapsed" Click="OKBTN_Click"
                       Background="#16343C"
                        Foreground="#F4F7EE"
                        
@@ -222,19 +227,23 @@ Width="200">
 
             <Viewbox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ComboBox IsReadOnly="True"
-  HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438"
-  materialDesign:HintAssist.Hint="Роль"
-  Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                        ,
+                    <ComboBox x:Name="PostCB" IsReadOnly="True" IsEnabled="False"
+            Width="438" 
+            materialDesign:HintAssist.Hint="Роль" 
+            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+            ItemsSource="{Binding posts}"
+            HorizontalAlignment="Left" 
+            Canvas.Left="63" 
+            VerticalAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock/>
+                                <TextBlock Text="{Binding Name}" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </Canvas>
             </Viewbox>
+
         </Grid>
     </Grid>
 </Page>
