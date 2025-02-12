@@ -176,11 +176,10 @@ ValueMember="Key" Width="220" Margin="60 0 0 0">
                         </materialDesign:AutoSuggestBox.ItemTemplate>
                     </materialDesign:AutoSuggestBox>
 
-                    <ComboBox x:Name="GenderCB" IsReadOnly="True" IsEditable="False" ItemsSource="{Binding genders}"
+                    <ComboBox x:Name="GenderCB" IsReadOnly="True" IsEditable="False"
 HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="220" Margin="60 0 0 0"
 materialDesign:HintAssist.Hint="Пол"
-Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                        ,
+Style="{StaticResource MaterialDesignOutlinedComboBox}" ItemsSource="{Binding genders}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}"/>
@@ -219,14 +218,16 @@ ValueMember="Key" Width="500" TextWrapping="Wrap">
                         </materialDesign:AutoSuggestBox.ItemTemplate>
                     </materialDesign:AutoSuggestBox>
 
-                    <ComboBox x:Name="AviaryCB" IsReadOnly="True" IsEditable="False" ItemsSource="{Binding aviaries}"
+                    <ComboBox x:Name="AviaryCB" IsReadOnly="True" IsEditable="False"
 HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="220" Margin="60 0 0 0"
 materialDesign:HintAssist.Hint="Вольер"
-Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                        ,
+Style="{StaticResource MaterialDesignOutlinedComboBox}" ItemsSource="{Binding aviaries}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Number}"/>
+                                    <TextBlock Text="{Binding TypeAviary.Name, StringFormat=' {0}'}"/>
+                                </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>

@@ -334,42 +334,29 @@ namespace StrayDogs.Pages
                 }
             }
         }
-
         private void InfoDogPageBTN_Click(object sender, RoutedEventArgs e)
         {
-            try
+            // Проверяем, что выбран элемент в ListView
+            if (PriemsLv.SelectedItem == null)
             {
-                if (sender is Button button && button.DataContext is Appointments appointment)
-                {
-                    // Извлекаем IdDog из выбранного назначения
-                    var dogId = appointment.IdDog;
-
-                    using (var db = new Stray_DogsEntities())
-                    {
-                        // Находим собаку по IdDog
-                        var dog = db.Dog.FirstOrDefault(d => d.Id == dogId);
-
-                        // Если собака найдена, переходим на страницу редактирования
-                        if (dog != null)
-                        {
-                            // Переходим на страницу редактирования собаки и передаем объект собаки
-                            NavigationService.Navigate(new EditDogDoctorPage(dog));
-                        }
-                        else
-                        {
-                            MessageBox.Show("Собака не найдена.");
-                        }
-                    }
-                }
+                MessageBox.Show("Пожалуйста, выберите прием для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return; // Прерываем выполнение метода, если ничего не выбрано
             }
-            catch (Exception ex)
+
+            // Получаем выбранный прием (Appointments) из ListView
+            Appointments selectedAppointment = PriemsLv.SelectedItem as Appointments;
+
+            // Проверяем, что выбранный прием имеет привязанную собаку
+            if (selectedAppointment?.Dog != null)
             {
-                MessageBox.Show("Ошибка: " + ex.Message);
+                // Переходим на страницу редактирования собаки, передавая выбранную собаку
+                NavigationService.Navigate(new EditDogDoctorPage(selectedAppointment.Dog));
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите прием с собакой для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-
-
-
 
     }
 }

@@ -47,8 +47,6 @@ namespace StrayDogs.Pages
             contextDog = dog;
             InfoView();
 
-
-
             this.DataContext = this;
 
         }
@@ -65,13 +63,25 @@ namespace StrayDogs.Pages
             WeightBoxText = contextDog.Weight.ToString();
             AgeBoxText = contextDog.Age.ToString();
             DescriptionBoxText = contextDog?.Description;
-            //PhoneBoxText = contextDog.NumberPhoneHost.ToString();
+            if (contextDog.NumberPhoneHost == null) { PhoneBoxText = " "; }
+            else {PhoneBoxText = contextDog.NumberPhoneHost.ToString(); }
+
 
             GenderCB.SelectedIndex = (int)contextDog.IdGender - 1;
-            AviaryCB.SelectedIndex = (int)contextDog.IdAviary - 1;
+            if (contextDog.IdAviary != null)
+            {
+                AviaryCB.SelectedIndex = (int)contextDog.IdAviary - 1;
+            }
+            else
+            {
+                AviaryCB.Text = "ddd";
+            }
 
-            IsDeadCKB.IsChecked = contextDog.IsDie;
-            IsGiveCKB.IsChecked= contextDog.IsGive;
+
+            // Устанавливаем значения для флажков, учитывая возможное значение null
+            IsDeadCKB.IsChecked = contextDog.IsDie.HasValue ? contextDog.IsDie.Value : false;
+            IsGiveCKB.IsChecked = contextDog.IsGive.HasValue ? contextDog.IsGive.Value : false;
+
 
             if (contextDog.Photo != null)
             {
