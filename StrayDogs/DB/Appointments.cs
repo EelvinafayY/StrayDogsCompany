@@ -25,7 +25,7 @@ namespace StrayDogs.DB
     
         public virtual Dog Dog { get; set; }
         public virtual Employee Employee { get; set; }
-        public virtual StatusAppointment StatusAppointment { get; set; }
         public virtual Priem_Status Priem_Status { get; set; }
+        public virtual StatusAppointment StatusAppointment { get; set; }
     }
 }

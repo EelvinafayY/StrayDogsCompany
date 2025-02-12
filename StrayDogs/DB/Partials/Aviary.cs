@@ -8,15 +8,15 @@ namespace StrayDogs.DB
 {
     public partial class Aviary
     {
-        public string Status
-        {
-            get
-            {
-                string Status1 = 'Занят';
-                string Status2 = 'Свободен';
+        //public string Status
+        //{
+        //    //get
+        //    //{
+        //    //    string Status1 = 'Занят';
+        //    //    string Status2 = 'Свободен';
 
-                var status = DBConnection.stray_DogsEntities.Aviary.Any(i => i.Id == dddd).ToList();
-            }
-        }
+        //    //    var status = DBConnection.stray_DogsEntities.Aviary.Any(i => i.Id == dddd).ToList();
+        //    //}
+        //}
     }
 }

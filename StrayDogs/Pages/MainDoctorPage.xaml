@@ -122,7 +122,7 @@
                                             <StackPanel Orientation="Horizontal" Width="360">
                                                 <TextBlock Text="{Binding StatusAppointment.Name, StringFormat='Тип приема: {0}'}" Margin="5,0,0,0" Foreground="#F4F7EE" 
                                                    HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Date, StringFormat='dd.m, HH:MM'}" Margin="95,0,0,0" Foreground="#F4F7EE" 
+                                                <TextBlock Text="{Binding Date, StringFormat='dd.MM.yyyy, HH:MM'}" Margin="95,0,0,0" Foreground="#F4F7EE" 
                                                    HorizontalAlignment="Right" FontSize="14" VerticalAlignment="Center"/>
 
                                             </StackPanel>
