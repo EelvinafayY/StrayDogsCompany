@@ -131,7 +131,8 @@
                                                    HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                            <Button HorizontalAlignment="Right" Background="#F4F7EE" Foreground="#16343C" BorderBrush="Transparent"
+                                            <Button x:Name="InfoDogPageBTN" Click="InfoDogPageBTN_Click"
+                                                HorizontalAlignment="Right" Background="#F4F7EE" Foreground="#16343C" BorderBrush="Transparent"
   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
   Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
   ToolTip="MaterialDesignFloatingActionMiniDarkButton">

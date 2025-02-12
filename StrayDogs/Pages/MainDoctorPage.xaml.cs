@@ -21,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
 
 namespace StrayDogs.Pages
 {
@@ -333,5 +334,42 @@ namespace StrayDogs.Pages
                 }
             }
         }
+
+        private void InfoDogPageBTN_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (sender is Button button && button.DataContext is Appointments appointment)
+                {
+                    // Извлекаем IdDog из выбранного назначения
+                    var dogId = appointment.IdDog;
+
+                    using (var db = new Stray_DogsEntities())
+                    {
+                        // Находим собаку по IdDog
+                        var dog = db.Dog.FirstOrDefault(d => d.Id == dogId);
+
+                        // Если собака найдена, переходим на страницу редактирования
+                        if (dog != null)
+                        {
+                            // Переходим на страницу редактирования собаки и передаем объект собаки
+                            NavigationService.Navigate(new EditDogDoctorPage(dog));
+                        }
+                        else
+                        {
+                            MessageBox.Show("Собака не найдена.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
+        }
+
+
+
+
     }
 }
