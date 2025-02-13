@@ -116,8 +116,48 @@ namespace StrayDogs.Pages
         {
             try
             {
-                loginedEmployee.Name = NameBoxText;
-                DBConnection.stray_DogsEntities.SaveChanges();
+                StringBuilder error = new StringBuilder();
+                Employee employee = loginedEmployee;
+
+                if(string.IsNullOrWhiteSpace(SurnameBoxText) || string.IsNullOrWhiteSpace(NameBoxText)
+                    || string.IsNullOrWhiteSpace(PatronymicBoxText) || string.IsNullOrWhiteSpace(SurnameBoxText) 
+                    || string.IsNullOrWhiteSpace(LoginBoxText) || string.IsNullOrWhiteSpace(PasswordBoxText)
+                    || string.IsNullOrWhiteSpace(BHDP.SelectedDate.ToString()) || string.IsNullOrWhiteSpace(SurnameBoxText))
+                {
+                    error.AppendLine("Заполните все поля!");
+                    return;
+                }
+                if(error.Length > 0)
+                {
+                    MessageBox.Show(error.ToString());
+                }
+
+                if(BHDP.SelectedDate != null && (DateTime.Now - (DateTime)BHDP.SelectedDate).TotalDays < 365 * 18 + 4)
+                {
+                    MessageBox.Show("Клиент не может быть младше 18 лет!");
+                    BHDP.Text = loginedEmployee.DateOfBirth.ToString();
+                    return;
+                }
+
+                var result = MessageBox.Show($"Проверьте верность введенных данных:\n" +
+                    $"ФИО: {SurnameBoxText} {NameBoxText} {PatronymicBoxText},\n" +
+                    $"Дата рождения: {BHDP.Text}, должность: {PostCB.SelectedItem.ToString()}, \n" +
+                    $"Логин: {LoginBoxText} Пароль: {PasswordBoxText}", "", MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                if(result == MessageBoxResult.Yes)
+                {
+                    loginedEmployee.Surname = SurnameBoxText;
+                    loginedEmployee.Name = NameBoxText;
+                    loginedEmployee.Patronymic = PatronymicBoxText;
+                    loginedEmployee.IdPost = (PostCB.SelectedItem as Post).Id;
+                    loginedEmployee.DateOfBirth = Convert.ToDateTime(BHDP.Text);
+                    loginedEmployee.Login = LoginBoxText;
+                    loginedEmployee.Password = PasswordBoxText;
+                    DBConnection.stray_DogsEntities.SaveChanges();
+                    MessageBox.Show("Пользователь обновлен успешно!", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                }
+
             }
             catch 
             {
