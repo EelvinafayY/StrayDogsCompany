@@ -38,15 +38,19 @@
         <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid Width="200">
-                    <Button x:Name="BackBTN"
-                      Background="#16343C"
-                       Foreground="#F4F7EE"
-                        Height="35"
-                        materialDesign:ButtonAssist.CornerRadius="15"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="124,-10,-124,10" Click="BackBTN_Click">
-                        <TextBlock Text="Назад"/>
+                    <Button x:Name="BackBtn" Margin ="0 0 0 0" HorizontalAlignment="Center" Background="#16343C" 
+                        BorderBrush="Transparent" 
+            Click="BackBtn_Click_1"
+            Width="45"
+            Height="45"                                                   
+            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+            ToolTip="MaterialDesignFloatingActionMiniDarkButton" Cursor="Hand">
+                        <materialDesign:PackIcon HorizontalAlignment="Center" 
+                                                 VerticalAlignment="Center"
+                                                 Width="25"
+                                                 Foreground="#F4F7EE"
+                                                 Height="25" Kind="ArrowLeftTop"/>
                     </Button>
                 </Grid>
             </Canvas>

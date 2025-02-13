@@ -73,5 +73,10 @@ namespace StrayDogs.Pages
         {
             NavigationService.Navigate(new BeginPage());
         }
+
+        private void BackBtn_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new BeginPage());
+        }
     }
 }

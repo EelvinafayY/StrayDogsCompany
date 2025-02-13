@@ -38,7 +38,7 @@ namespace StrayDogs.Pages
 
         public bool IsClearButtonVisible { get; set; }
 
-        public static List<Employee> employees {  get; set; }
+        public static List<Employee> employees { get; set; }
         public static List<Post> posts { get; set; }
 
         Employee loginedEmployee;
@@ -119,52 +119,57 @@ namespace StrayDogs.Pages
                 StringBuilder error = new StringBuilder();
                 Employee employee = loginedEmployee;
 
-                if(string.IsNullOrWhiteSpace(SurnameBoxText) || string.IsNullOrWhiteSpace(NameBoxText)
-                    || string.IsNullOrWhiteSpace(PatronymicBoxText) || string.IsNullOrWhiteSpace(SurnameBoxText) 
-                    || string.IsNullOrWhiteSpace(LoginBoxText) || string.IsNullOrWhiteSpace(PasswordBoxText)
-                    || string.IsNullOrWhiteSpace(BHDP.SelectedDate.ToString()) || string.IsNullOrWhiteSpace(SurnameBoxText))
+                if (string.IsNullOrWhiteSpace(SurnameBoxText) ||
+                    string.IsNullOrWhiteSpace(NameBoxText) ||
+                    string.IsNullOrWhiteSpace(PatronymicBoxText) ||
+                    string.IsNullOrWhiteSpace(LoginBoxText) ||
+                    string.IsNullOrWhiteSpace(PasswordBoxText))
                 {
                     error.AppendLine("Заполните все поля!");
+                    MessageBox.Show(error.ToString());
                     return;
                 }
-                if(error.Length > 0)
+
+                if (BHDP.SelectedDate == null)
                 {
-                    MessageBox.Show(error.ToString());
+                    MessageBox.Show("Укажите дату рождения!\n Внимание, сотрудник должен быть старше 18 лет.");
+                    return;
                 }
 
-                if(BHDP.SelectedDate != null && (DateTime.Now - (DateTime)BHDP.SelectedDate).TotalDays < 365 * 18 + 4)
+                if (BHDP.SelectedDate != null && (DateTime.Now - (DateTime)BHDP.SelectedDate).TotalDays < 365 * 18 + 4)
                 {
-                    MessageBox.Show("Клиент не может быть младше 18 лет!");
+                    MessageBox.Show("Клиент не может быть младше 18 лет!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                     BHDP.Text = loginedEmployee.DateOfBirth.ToString();
                     return;
                 }
 
+                // Получаем выбранную должность
+                var selectedPost = PostCB.SelectedItem as Post;
+                string postName = selectedPost != null ? selectedPost.Name : "Не выбрана";
+
                 var result = MessageBox.Show($"Проверьте верность введенных данных:\n" +
                     $"ФИО: {SurnameBoxText} {NameBoxText} {PatronymicBoxText},\n" +
-                    $"Дата рождения: {BHDP.Text}, должность: {PostCB.SelectedItem.ToString()}, \n" +
-                    $"Логин: {LoginBoxText} Пароль: {PasswordBoxText}", "", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    $"Дата рождения: {BHDP.Text}, Должность: {postName}, \n" +
+                    $"Логин: {LoginBoxText}, Пароль: {PasswordBoxText}", "", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
-                if(result == MessageBoxResult.Yes)
+                if (result == MessageBoxResult.Yes)
                 {
                     loginedEmployee.Surname = SurnameBoxText;
                     loginedEmployee.Name = NameBoxText;
                     loginedEmployee.Patronymic = PatronymicBoxText;
-                    loginedEmployee.IdPost = (PostCB.SelectedItem as Post).Id;
+                    loginedEmployee.IdPost = selectedPost.Id;
                     loginedEmployee.DateOfBirth = Convert.ToDateTime(BHDP.Text);
                     loginedEmployee.Login = LoginBoxText;
                     loginedEmployee.Password = PasswordBoxText;
                     DBConnection.stray_DogsEntities.SaveChanges();
                     MessageBox.Show("Пользователь обновлен успешно!", " ", MessageBoxButton.OK, MessageBoxImage.Information);
-
                 }
-
             }
-            catch 
+            catch
             {
                 MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
             }
-
         }
+    
     }
 }
