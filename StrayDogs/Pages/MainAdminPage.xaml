@@ -91,20 +91,21 @@
             </StackPanel>
         </Viewbox>
 
-        <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,50" Grid.Row="1">
+        <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,110" Grid.Row="1">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Вольеры в приюте" Foreground="#16343C" FontSize="20" Opacity="0.9" HorizontalAlignment="Center" Canvas.Top="-7" VerticalAlignment="Top"/>
             </Canvas>
         </Viewbox>
 
-        <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="30,0,0,40" VerticalAlignment="Bottom">
+        <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="30,0,0,80" VerticalAlignment="Bottom">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ListView x:Name="VoliersLV"
                           Margin="0 0 0 0"
                           SelectedIndex="0"
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
                           Width="740"
-                          Height="140"
+                          Height="90"
                           ItemsSource="{Binding Aviary}"
                           d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListView.ItemsPanel>
@@ -118,28 +119,63 @@
                                     Margin="0,0,15,0"
                                     BorderThickness="0.1"
                                     CornerRadius="10"
-                                    Padding="10"
+                                    Padding="15 5"
                                     Background="#3C5D6C">
-                                <StackPanel Orientation="Vertical" Width="180" Height="90" Margin="5,10,10,0">
-                                    <Border BorderBrush="#627077"
+                                <Border BorderBrush="#627077"
                                             Background="#627077"
                                             Opacity="0.8"
                                             BorderThickness="1"
-                                            CornerRadius="10"
-                                            Padding="10">
-                                        <StackPanel Width="160" Height="60">
-                                            <TextBlock Text="{Binding Id}" Foreground="#F4F7EE" Margin="0,12,0,0"/>
-                                            <TextBlock Text="{Binding TypeAviary.Name}" Foreground="#F4F7EE"/>
-                                            <TextBlock x:Name="StatusTB" Foreground="#F4F7EE" FontSize="10"/>
-                                        </StackPanel>
-                                    </Border>
-                                </StackPanel>
+                                            CornerRadius="10">
+                                    <StackPanel Width="110" Height="60"
+                                                Margin="5"
+                                                    VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Id}" Foreground="#F4F7EE" FontSize="15"/>
+                                        <TextBlock Text="{Binding TypeAviary.Name}" Foreground="#F4F7EE"/>
+                                        <TextBlock Text="{Binding Status}" Foreground="#F4F7EE"/>
+                                    </StackPanel>
+                                </Border>
                             </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </Canvas>
         </Viewbox>
+
+        <Viewbox Grid.Column="1" Grid.ColumnSpan="2"
+                 Grid.Row="2"
+                 Margin="0 0 10 30">
+            <Canvas Width="600" Height="20">
+                <ComboBox x:Name="TypeCB" SelectionChanged="TypeCB_SelectionChanged"
+                    ItemsSource="{Binding typeAviaries}"      
+                    HorizontalAlignment="Center" Canvas.Left="35" Width="400"
+                    materialDesign:HintAssist.Hint="Тип"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          VerticalAlignment="Top">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Canvas>
+        </Viewbox>
+
+        <Viewbox Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Margin="0 0 10 30">
+            <Canvas Width="600" Height="20">
+                <ComboBox x:Name="StatusCB"      
+                  HorizontalAlignment="Center" Canvas.Left="150" Width="400"
+                  materialDesign:HintAssist.Hint="Статус"
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                  VerticalAlignment="Top">
+                    <ComboBox.Items>
+                        <ComboBoxItem Content="Показать все"/>
+                        <ComboBoxItem Content="Занят"/>
+                        <ComboBoxItem Content="Свободен"/>
+                    </ComboBox.Items>
+                </ComboBox>
+            </Canvas>
+        </Viewbox>
+
 
 
         <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,20" Grid.Row="2" Grid.RowSpan="2">

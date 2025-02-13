@@ -52,7 +52,21 @@ namespace StrayDogs.Pages
             typeAviaries = DBConnection.stray_DogsEntities.TypeAviary.ToList();
             employees = DBConnection.stray_DogsEntities.Employee.ToList();
             dogs = DBConnection.stray_DogsEntities.Dog.ToList();
+
+            this.DataContext = this;
             Refresh();
+        }
+
+        public void Refresh(int i)
+        {
+            var allVoliers = DBConnection.stray_DogsEntities.Aviary.ToList();
+            var filter = allVoliers.AsQueryable();
+
+            var name = TypeCB.SelectedItem as TypeAviary;
+            if(VoliersLV.SelectedIndex >= 0 && name != null)
+            {
+                filter = filter.Where(x => x.TypeAviary.Name == name.Name);
+            }
         }
 
 
@@ -192,6 +206,11 @@ namespace StrayDogs.Pages
                 VoliersLV.ItemsSource = DBConnection.stray_DogsEntities.Aviary.Where(i => i.TypeAviary.Name.StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
             }
             else { Refresh(); }
+        }
+
+        private void TypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Refresh(0);
         }
     }
 }
