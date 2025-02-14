@@ -79,7 +79,7 @@
                                FontSize="15"
                                Opacity="0.9"
                                VerticalAlignment="Center"/>
-                <Image Source="/Image/person.png"
+                <Image Source="{Binding Photo}"
                         Height="40"
                         Width="40"
                        x:Name="WorkerPhoto"

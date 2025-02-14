@@ -33,20 +33,15 @@ namespace StrayDogs.Pages
         {
             InitializeComponent();
             loggedEmployee = DBConnection.logginedEmployee;
-
-            if (loggedEmployee.Photo != null)
+            using (var stream = new MemoryStream(loggedEmployee.Photo))
             {
-                using (var stream = new MemoryStream(loggedEmployee.Photo))
-                {
-                    var bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.StreamSource = stream;
-                    bitmap.EndInit();
-                    WorkerPhoto.Source = bitmap;
-                }
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                WorkerPhoto.Source = bitmap;
             }
-
             FioTB.Text = loggedEmployee.Surname + " " + loggedEmployee.Name + " " + loggedEmployee.Patronymic;
             aviarys = DBConnection.stray_DogsEntities.Aviary.ToList();
             typeAviaries = DBConnection.stray_DogsEntities.TypeAviary.ToList();
