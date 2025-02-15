@@ -64,7 +64,6 @@ namespace StrayDogs.Pages
             }
         }
 
-
         public void Refresh()
         {
             VoliersLV.ItemsSource = aviarys;
@@ -205,7 +204,20 @@ namespace StrayDogs.Pages
 
         private void TypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Refresh(0);
+            if (TypeCB.SelectedValue != null)
+            {
+                int selectedTypeId = (int)TypeCB.SelectedValue; // Приведение к типу int (или какому у вас типу Id)
+                VoliersLV.ItemsSource = aviarys.Where(i => i.Id == selectedTypeId);
+            }
+            else
+            {
+                VoliersLV.ItemsSource = null; // Или другой вариант обработки пустого выбора
+            }
+        }
+
+        private void StatusCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -91,9 +91,9 @@
             </StackPanel>
         </Viewbox>
 
-        <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,110" Grid.Row="1">
+        <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="0,4,300,110" Grid.Row="1">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Вольеры в приюте" Foreground="#16343C" FontSize="20" Opacity="0.9" HorizontalAlignment="Center" Canvas.Top="-7" VerticalAlignment="Top"/>
+                <TextBlock Text="Вольеры в приюте" Foreground="#16343C" FontSize="80" Opacity="0.9" HorizontalAlignment="Center" Canvas.Top="-7" VerticalAlignment="Top"/>
             </Canvas>
         </Viewbox>
 
@@ -166,7 +166,7 @@
                   HorizontalAlignment="Center" Canvas.Left="150" Width="400"
                   materialDesign:HintAssist.Hint="Статус"
                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                  VerticalAlignment="Top">
+                  VerticalAlignment="Top" SelectionChanged="StatusCB_SelectionChanged">
                     <ComboBox.Items>
                         <ComboBoxItem Content="Показать все"/>
                         <ComboBoxItem Content="Занят"/>
