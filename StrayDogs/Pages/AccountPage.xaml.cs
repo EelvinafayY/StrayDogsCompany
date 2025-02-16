@@ -30,11 +30,15 @@ namespace StrayDogs.Pages
         public string PatronymicBoxText { get; set; }
         public string LoginBoxText { get; set; }
         public string PasswordBoxText { get; set; }
+        public string DateOfBirthBoxText { get; set; }
+        public string PostBoxText { get; set; }
         public ObservableCollection<SuggestionItem> SurnameBoxSuggestions { get; set; }
         public ObservableCollection<SuggestionItem> NameBoxSuggestions { get; set; }
         public ObservableCollection<SuggestionItem> PatronymicBoxSuggestions { get; set; }
         public ObservableCollection<SuggestionItem> LoginBoxSuggestions { get; set; }
         public ObservableCollection<SuggestionItem> PasswordBoxSuggestions { get; set; }
+        public ObservableCollection<SuggestionItem> DateOfBirthBoxSuggestions { get; set; }
+        public ObservableCollection<SuggestionItem> PostBoxSuggestions { get; set; }
 
         public bool IsClearButtonVisible { get; set; }
 
@@ -71,8 +75,13 @@ namespace StrayDogs.Pages
             LoginBoxText = loginedEmployee.Login;
             PasswordBoxText = loginedEmployee.Password;
 
+            DateOfBirthBoxText = ((DateTime)loginedEmployee.DateOfBirth).ToString("dd.MM.yyyy");
+
+
             BHDP.Text = loginedEmployee.DateOfBirth.ToString();
             PostCB.SelectedIndex = (int)loginedEmployee.IdPost - 1;
+
+            PostBoxText = loginedEmployee.Post.Name;
 
             if (DBConnection.logginedEmployee.Photo != null)
             {
@@ -100,9 +109,14 @@ namespace StrayDogs.Pages
             PasswordTB.IsReadOnly = false;
 
             BHDP.IsEnabled = true;
+            BHDP.Visibility = Visibility;
+            DateBHTB.Visibility = Visibility.Collapsed;
 
             PostCB.IsEnabled = true;
             PostCB.IsReadOnly = false;
+
+            PostCB.Visibility = Visibility;
+            PostTB.Visibility = Visibility.Collapsed;
 
         }
 

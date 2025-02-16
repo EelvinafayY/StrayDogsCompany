@@ -39,12 +39,12 @@
                             <TextBlock Margin="5 50 0 0" Text="Телефон:" Foreground="#F4F7EE" FontSize="30"  Width="196" TextWrapping="Wrap" FontWeight="DemiBold"/>
                             <TextBlock Margin="5 0 0 0" Text="8 (927) 403-88-22" Foreground="#F4F7EE" FontSize="30"  Width="196" TextWrapping="Wrap"/>
 
-                            <Button x:Name="ExitBT"
+                            <Button x:Name="ExitBT" FontSize="25"
   Background="Transparent"
               Margin="0 30 0 0"
    Foreground="#F4F7EE"
                                     BorderBrush="#F4F7EE"
-    Height="35"
+    Height="40"
     materialDesign:ButtonAssist.CornerRadius="15"
     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
     Style="{StaticResource MaterialDesignRaisedDarkButton}"

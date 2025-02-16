@@ -96,6 +96,7 @@ namespace StrayDogs.Pages
                     employee.DateOfBirth = DateOfBirthDP.SelectedDate;
                     employee.IdPost = 1;
 
+
                     string login = LoginTB.Text;
                     bool loginExists = DBConnection.stray_DogsEntities.Employee.Any(w => w.Login == login);
 
@@ -170,6 +171,7 @@ namespace StrayDogs.Pages
 
         private void DeletePhotoBTN_Click(object sender, RoutedEventArgs e)
         {
+            employee.Photo = null;
             Photo.Source = null;
         }
 
