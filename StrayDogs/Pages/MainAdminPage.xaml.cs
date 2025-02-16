@@ -1,4 +1,5 @@
-﻿using StrayDogs.DB;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using StrayDogs.DB;
 using StrayDogs.Windows;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace StrayDogs.Pages
     /// <summary>
     /// Логика взаимодействия для MainAdminPage.xaml
     /// </summary>
-    public partial class MainAdminPage : Page
+    public partial class MainAdminPage : System.Windows.Controls.Page
     {
         Employee loggedEmployee;
         public static List<Aviary> aviarys { get; set; }
@@ -33,61 +34,37 @@ namespace StrayDogs.Pages
         {
             InitializeComponent();
             loggedEmployee = DBConnection.logginedEmployee;
-            using (var stream = new MemoryStream(loggedEmployee.Photo))
+
+            if (loggedEmployee.Photo != null)
             {
-                var bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.StreamSource = stream;
-                bitmap.EndInit();
-                WorkerPhoto.Source = bitmap;
+                using (var stream = new MemoryStream(loggedEmployee.Photo))
+                {
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = stream;
+                    bitmap.EndInit();
+                    WorkerPhoto.Source = bitmap;
+                }
             }
+
             FioTB.Text = loggedEmployee.Surname + " " + loggedEmployee.Name + " " + loggedEmployee.Patronymic;
             aviarys = DBConnection.stray_DogsEntities.Aviary.ToList();
             typeAviaries = DBConnection.stray_DogsEntities.TypeAviary.ToList();
             employees = DBConnection.stray_DogsEntities.Employee.ToList();
             dogs = DBConnection.stray_DogsEntities.Dog.ToList();
 
+            StatusCB.SelectedIndex = 0;
+            typeAviaries.Insert(0, new TypeAviary { Name = "Показать все" });
+            TypeCB.SelectedIndex = 0;
+
             this.DataContext = this;
             Refresh();
         }
 
-        public void Refresh(int i)
+        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var allVoliers = DBConnection.stray_DogsEntities.Aviary.ToList();
-            var filter = allVoliers.AsQueryable();
-
-            var name = TypeCB.SelectedItem as TypeAviary;
-            if(VoliersLV.SelectedIndex >= 0 && name != null)
-            {
-                filter = filter.Where(x => x.TypeAviary.Name == name.Name);
-            }
-        }
-
-        public void Refresh()
-        {
-            VoliersLV.ItemsSource = aviarys;
-            WorkersLV.ItemsSource = employees;
-        }
-
-        private void TabControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void probaI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            //NavigationService.Navigate(new ProbaPage());
-        }
-
-        private void Lv_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            Refresh();
         }
 
         private void ScrollUp_Click(object sender, RoutedEventArgs e)
@@ -139,14 +116,11 @@ namespace StrayDogs.Pages
             {
                 using (var db = new Stray_DogsEntities())
                 {
-                    var serviceToDelete = DBConnection.stray_DogsEntities.Employee.Find(worker.Id);
+                    var serviceToEdit = DBConnection.stray_DogsEntities.Employee.Find(worker.Id);
 
-                    if (serviceToDelete != null)
+                    if (serviceToEdit != null)
                     {
                         NavigationService.Navigate(new EditEmployeePage(worker));
-                        DBConnection.stray_DogsEntities.SaveChanges();
-
-                        MessageBox.Show("Данные сохранены.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                         Refresh();
                     }
                     else
@@ -159,7 +133,7 @@ namespace StrayDogs.Pages
             }
             else if (result == MessageBoxResult.No) { Refresh(); }
         }
-        //
+
         private void DeleteBTN_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Вы уверены?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -168,12 +142,10 @@ namespace StrayDogs.Pages
             {
                 using (var db = new Stray_DogsEntities())
                 {
-                    // Находим клиента по его ID
                     var serviceToDelete = DBConnection.stray_DogsEntities.Employee.Find(worker.Id);
 
                     if (serviceToDelete != null)
                     {
-                        // Удаляем клиента из контекста
                         DBConnection.stray_DogsEntities.Employee.Remove(worker);
                         DBConnection.stray_DogsEntities.SaveChanges();
 
@@ -191,33 +163,95 @@ namespace StrayDogs.Pages
             else if (result == MessageBoxResult.No) { Refresh(); }
         }
 
-        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (SearchTB.Text.Length > 0)
-            {
-                WorkersLV.ItemsSource = DBConnection.stray_DogsEntities.Employee.Where(i => i.Surname.ToLower().StartsWith(SearchTB.Text.Trim().ToLower()) 
-                || i.Name.ToLower().StartsWith(SearchTB.Text.Trim().ToLower()) || i.Patronymic.ToLower().StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
-                VoliersLV.ItemsSource = DBConnection.stray_DogsEntities.Aviary.Where(i => i.TypeAviary.Name.StartsWith(SearchTB.Text.Trim().ToLower())).ToList();
-            }
-            else { Refresh(); }
-        }
+
 
         private void TypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (TypeCB.SelectedValue != null)
-            {
-                int selectedTypeId = (int)TypeCB.SelectedValue; // Приведение к типу int (или какому у вас типу Id)
-                VoliersLV.ItemsSource = aviarys.Where(i => i.Id == selectedTypeId);
-            }
-            else
-            {
-                VoliersLV.ItemsSource = null; // Или другой вариант обработки пустого выбора
-            }
+            Refresh();
         }
 
         private void StatusCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Refresh();
+        }
 
+        private void Refresh()
+        {
+            var filterWorker = DBConnection.stray_DogsEntities.Employee.ToList();
+            var filterVoliers = DBConnection.stray_DogsEntities.Aviary.ToList();
+
+            if (SearchTB.Text.Length > 0)
+            {
+                filterWorker = filterWorker
+                    .Where(i => i.Surname.ToLower().Contains(SearchTB.Text.Trim().ToLower())
+                             || i.Name.ToLower().Contains(SearchTB.Text.Trim().ToLower())
+                             || i.Patronymic.ToLower().Contains(SearchTB.Text.Trim().ToLower()))
+                    .ToList();
+
+                filterVoliers = filterVoliers
+                    .Where(i => i.TypeAviary.Name.ToLower().Contains(SearchTB.Text.Trim().ToLower()))
+                    .ToList();
+            }
+
+            var typeAviary = TypeCB.SelectedItem as TypeAviary;
+            if (TypeCB.SelectedIndex > 0)
+                filterVoliers = filterVoliers.Where(x => x.IdType == typeAviary.Id).ToList();
+
+            var statusAviary = StatusCB.SelectedItem as ComboBoxItem;
+            if (StatusCB.SelectedIndex > 0)
+            {
+                string selectedStatus = statusAviary.Content.ToString();
+                filterVoliers = filterVoliers.Where(x => x.Status == selectedStatus).ToList();
+            }
+
+            VoliersLV.ItemsSource = filterVoliers;
+            WorkersLV.ItemsSource = filterWorker;
+
+            WorkersLV.LayoutUpdated += WorkersLV_LayoutUpdated;
+        }
+        private void WorkersLV_LayoutUpdated(object sender, EventArgs e)
+        {
+            foreach (var item in WorkersLV.Items)
+            {
+                ListViewItem listViewItem = (ListViewItem)WorkersLV.ItemContainerGenerator.ContainerFromItem(item);
+                if (listViewItem != null)
+                {
+                    Button deleteButton = FindChild<Button>(listViewItem, "DeleteBTN");
+                    if (deleteButton != null)
+                    {
+                        var employee = item as Employee;
+                        if (employee != null && employee.Id == loggedEmployee.Id)
+                        {
+                            deleteButton.Visibility = Visibility.Collapsed;
+                        }
+                        else
+                        {
+                            deleteButton.Visibility = Visibility.Visible;
+                        }
+                    }
+                }
+            }
+
+            WorkersLV.LayoutUpdated -= WorkersLV_LayoutUpdated;
+        }
+        private T FindChild<T>(DependencyObject parent, string childName) where T : FrameworkElement
+        {
+            if (parent == null) return null;
+
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < childrenCount; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is T frameworkElement && frameworkElement.Name == childName)
+                    return frameworkElement;
+
+                T foundChild = FindChild<T>(child, childName);
+                if (foundChild != null)
+                    return foundChild;
+            }
+
+            return null;
         }
     }
 }

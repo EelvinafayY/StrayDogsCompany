@@ -61,12 +61,13 @@
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
                     x:Name="SurnameTB"
+                    PreviewTextInput="TextBox_PreviewTextInput"
                     materialDesign:HintAssist.Hint="Фамилия"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     DropDownElevation="Dp0"
                     Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
                     Suggestions="{Binding AutoSuggestBox2Suggestions}"
-                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
@@ -90,12 +91,13 @@
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
                     x:Name="NameTB"
+                    PreviewTextInput="TextBox_PreviewTextInput"
                     materialDesign:HintAssist.Hint="Имя"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     DropDownElevation="Dp0"
                     Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
                     Suggestions="{Binding AutoSuggestBox2Suggestions}"
-                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
@@ -119,12 +121,13 @@
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
                     x:Name="PatronymicTB"
+                    PreviewTextInput="TextBox_PreviewTextInput"
                     materialDesign:HintAssist.Hint="Отчество"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     DropDownElevation="Dp0"
                     Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
                     Suggestions="{Binding AutoSuggestBox2Suggestions}"
-                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     ValueMember="Key"
                     HorizontalAlignment="Left"
                     Canvas.Left="63"
@@ -150,6 +153,7 @@
         <Viewbox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <DatePicker x:Name="DateDP"
+                            SelectedDateChanged="DatePicker_SelectedDateChanged"
                     Width="438"
                     materialDesign:HintAssist.Hint="Дата рождения"
                     Style="{StaticResource MaterialDesignOutlinedDatePicker}"
@@ -168,7 +172,7 @@
                     DropDownElevation="Dp0"
                     Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
                     Suggestions="{Binding AutoSuggestBox2Suggestions}"
-                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Text="{Binding Login, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
@@ -197,7 +201,7 @@
                     DropDownElevation="Dp0"
                     Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
                     Suggestions="{Binding AutoSuggestBox2Suggestions}"
-                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     ValueMember="Key" HorizontalAlignment="Center" Canvas.Left="63" VerticalAlignment="Top" Width="438" Canvas.Top="-15">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
@@ -235,6 +239,7 @@
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid Width="200">
                     <Button x:Name="AddPhotoBTN"
+                            Click="AddPhotoBTN_Click"
                         Background="#16343C"
                         Foreground="#F4F7EE"
                         Height="35"
@@ -253,6 +258,7 @@
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid Width="200">
                     <Button x:Name="DeletePhotoBTN"
+                            Click="DeletePhotoBTN_Click"
                         Background="Transparent"
                         Foreground="#16343C"
                         Height="35"
@@ -287,7 +293,7 @@
         <Viewbox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ComboBox x:Name="PostCB"
-                          ItemsSource="{Binding Post}"
+                          ItemsSource="{Binding posts}"
                 HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438"
                 materialDesign:HintAssist.Hint="Роль"
                 Style="{StaticResource MaterialDesignOutlinedComboBox}">

@@ -1,9 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using DocumentFormat.OpenXml.InkML;
+using Microsoft.Win32;
 using StrayDogs.DB;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -34,7 +37,7 @@ namespace StrayDogs.Pages
             InitializeComponent();
             contextWorker = worker;
             InitializeDataInPage();
-            this.DataContext = this;
+            this.DataContext = contextWorker;
 
             SurnameTB.TextChanged += TextBox_TextChanged;
             NameTB.TextChanged += TextBox_TextChanged;
@@ -46,7 +49,7 @@ namespace StrayDogs.Pages
         {
             workers = DBConnection.stray_DogsEntities.Employee.ToList();
             posts = DBConnection.stray_DogsEntities.Post.ToList();
-            this.DataContext = this;
+            PostCB.ItemsSource = posts;
             SurnameTB.Text = contextWorker.Surname;
             NameTB.Text = contextWorker.Name;
             PatronymicTB.Text = contextWorker.Patronymic;
@@ -125,10 +128,12 @@ namespace StrayDogs.Pages
                     contextWorker.Name = NameTB.Text.Trim();
                     contextWorker.Patronymic = PatronymicTB.Text.Trim();
                     contextWorker.DateOfBirth = DateDP.SelectedDate;
-                    contextWorker.IdPost = 1;
+
+                    var p = PostCB.SelectedItem as Post;
+                    contextWorker.IdPost = p.Id;
 
                     string login = LoginTB.Text;
-                    bool loginExists = DBConnection.stray_DogsEntities.Employee.Any(w => w.Login == login);
+                    bool loginExists = DBConnection.stray_DogsEntities.Employee.Any(w => w.Login == login && w.Id != contextWorker.Id);
 
                     if (loginExists)
                     {
@@ -175,6 +180,8 @@ namespace StrayDogs.Pages
                     }
 
                     DBConnection.stray_DogsEntities.SaveChanges();
+                    MessageBox.Show("Данные сохранены.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                    NavigationService.Navigate(new MainAdminPage());
                 }
             }
             catch
@@ -199,7 +206,8 @@ namespace StrayDogs.Pages
 
         private void DeletePhotoBTN_Click(object sender, RoutedEventArgs e)
         {
-            PhotoWorker.Source = null;
+            PhotoWorker.Source = new BitmapImage(new Uri("/Image/person.png", UriKind.Relative));
+            contextWorker.Photo = null;
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -212,20 +220,25 @@ namespace StrayDogs.Pages
                 DateTime today = DateTime.Today;
                 int age = today.Year - selectedDate.Value.Year;
 
-                // Учитываем, прошел ли день рождения в этом году
                 if (selectedDate.Value.Date > today.AddYears(-age)) age--;
 
                 if (age < 18)
                 {
                     MessageBox.Show("Сотрудник должен быть старше 18 лет.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-                    datePicker.SelectedDate = null; // Сбрасываем выбранную дату
+                    datePicker.SelectedDate = null;
                 }
             }
         }
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MainDoctorPage());
+            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                DBConnection.stray_DogsEntities.Entry(contextWorker).Reload();
+                NavigationService.Navigate(new MainAdminPage());
+            }
         }
     }
 }

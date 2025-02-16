@@ -1,8 +1,10 @@
-﻿using StrayDogs.DB;
+﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
+using StrayDogs.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,26 +52,38 @@ namespace StrayDogs.Pages
                     }
                     else
                     {
-                        aviary.Number = int.Parse(NumberTB.Text.Trim());
-                    }
-                    aviary.Square = int.Parse(SquareTB.Text.Trim());
+                        if (long.TryParse(NumberTB.Text.Trim(), out long numberVolier) && numberVolier > Int32.MaxValue)
+                        {
+                            MessageBox.Show("Вы превысили значение номера вольера.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        else
+                            aviary.Number = int.Parse(NumberTB.Text.Trim());
 
-                    var a = TypeCB.SelectedItem as TypeAviary;
-                    aviary.IdType = a.Id;
+                        if (int.Parse(SquareTB.Text.Trim()) > 100)
+                        {
+                            MessageBox.Show("Вы превысили значение площади вольера. Максимальное значение вольера равно 100", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                        else
+                            aviary.Square = int.Parse(SquareTB.Text.Trim());
 
-                    DBConnection.stray_DogsEntities.Aviary.Add(aviary);
-                    DBConnection.stray_DogsEntities.SaveChanges();
-                    MessageBox.Show("Вы добавили новый вольер. Вернуться на главную?", "Успех!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        var a = TypeCB.SelectedItem as TypeAviary;
+                        aviary.IdType = a.Id;
 
-                    MessageBoxResult messageBoxResult = new MessageBoxResult();
+                        DBConnection.stray_DogsEntities.Aviary.Add(aviary);
+                        DBConnection.stray_DogsEntities.SaveChanges();
+                        MessageBoxResult result = MessageBox.Show("Вы добавили новый вольер. Вернуться на главную?", "Успех!", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                    if (messageBoxResult == MessageBoxResult.Yes)
-                    {
-                        NavigationService.Navigate(new MainAdminPage());
-                    }
-                    else 
-                    {
-                        
+                        if (result == MessageBoxResult.Yes)
+                            NavigationService.Navigate(new MainAdminPage());
+
+                        if (result == MessageBoxResult.No)
+                        {
+                            NumberTB.Text = "";
+                            SquareTB.Text = "";
+                            TypeCB.SelectedItem = null;
+                        }
                     }
                 }
             }
@@ -78,10 +92,22 @@ namespace StrayDogs.Pages
                 MessageBox.Show("Ошибка. Повторите снова.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void RegexValidation(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            Regex regex = new Regex("[^0-9]");
+            e.Handled = regex.IsMatch(e.Text);
+
+            if (textBox.Text.Length == 0 && e.Text == "0")
+            {
+                e.Handled = true;
+            }
+        }
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите выйти?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
             {

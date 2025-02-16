@@ -59,6 +59,7 @@
         <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4">
             <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox x:Name="NumberTB"
+                                               PreviewTextInput="RegexValidation"
                     materialDesign:HintAssist.Hint="Номер вольера"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     DropDownElevation="Dp0"
@@ -86,6 +87,7 @@
             <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox x:Name="SquareTB"
                     materialDesign:HintAssist.Hint="Площадь вольера"
+                                               PreviewTextInput="RegexValidation"
                     materialDesign:TextFieldAssist.HasClearButton="True"
                     DropDownElevation="Dp0"
                     Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
