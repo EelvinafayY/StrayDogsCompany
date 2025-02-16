@@ -36,7 +36,12 @@ namespace StrayDogs.Pages
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MainDoctorPage());
+            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                NavigationService.Navigate(new MainDoctorPage());
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

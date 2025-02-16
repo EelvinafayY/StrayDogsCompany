@@ -167,26 +167,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DB\Aplication.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\ApplicationStatus.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Appointments.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Aviary.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\DBConnection.cs" />
     <Compile Include="DB\Dog.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Employee.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Gender.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -221,10 +221,10 @@
     <Compile Include="DB\Partials\Aviary.cs" />
     <Compile Include="DB\Partials\Dog.cs" />
     <Compile Include="DB\Post.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Priem_Status.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>Model3.tt</DependentUpon>
@@ -233,13 +233,13 @@
       <DependentUpon>Model3.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\StatusAppointment.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\sysdiagrams.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\TypeAviary.cs">
-      <DependentUpon>Model3.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AccountPage.xaml.cs">
       <DependentUpon>AccountPage.xaml</DependentUpon>
@@ -433,6 +433,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="DB\Model3.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model3.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <EntityDeploy Include="DB\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -440,10 +444,6 @@
     <None Include="DB\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
-    <EntityDeploy Include="DB\Model3.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model3.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="DB\Model3.edmx.diagram">
       <DependentUpon>Model3.edmx</DependentUpon>
     </None>

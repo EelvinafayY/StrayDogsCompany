@@ -110,20 +110,9 @@
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                 ToolTip="MaterialDesignRaisedDarkButton with Round Corners"
-                                Margin="25,36,-61,-36" Click="AddPhotoBTN_Click">
-                                <TextBlock Text="Добавить фото" />
-                            </Button>
-                        </Grid> 
-                        <Grid Width="100">
-                            <Button x:Name="DeletePhotoBTN"
-                                Background="Transparent"
-                                Foreground="#16343C"
-                                Height="35"
-                                materialDesign:ButtonAssist.CornerRadius="15"
-                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="25,57,-61,-57" Click="DeletePhotoBTN_Click">
-                                <TextBlock Text="Удалить фото" />
+                                Margin="25,65, -61,-36" Click="AddPhotoBTN_Click">
+                                <TextBlock Text="Добавить фото"
+                                           x:Name="TextTbBTN"/>
                             </Button>
                         </Grid>
                     </StackPanel>

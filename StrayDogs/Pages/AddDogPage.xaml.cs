@@ -66,7 +66,7 @@ namespace StrayDogs.Pages
             {
                 if (string.IsNullOrWhiteSpace(NumberTB.Text) || string.IsNullOrWhiteSpace(HeightTB.Text) ||
                        string.IsNullOrWhiteSpace(WeightTB.Text) || string.IsNullOrWhiteSpace(AgeTB.Text) ||
-                       string.IsNullOrWhiteSpace(DescriptionTB.Text) || GenderCB.SelectedItem == null || VolierCB.SelectedItem == null)
+                       string.IsNullOrWhiteSpace(DescriptionTB.Text) || GenderCB.SelectedItem == null || VolierCB.SelectedItem == null || dogPhoto.Source == null)
                 {
                     MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
@@ -128,13 +128,6 @@ namespace StrayDogs.Pages
                     {
                         dog.Age = int.Parse(AgeTB.Text.Trim());
                     }
-                    
-                    // ВАРЯ СДЕЛАЙ1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    if (dogPhoto.Source is BitmapImage bitmap && bitmap.UriSource?.OriginalString == "/Image/dogIcon.png")
-                    {
-                        MessageBox.Show("Добавьте фотографию собаки!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-                        return; // Прерываем сохранение
-                    }
 
                     var a = VolierCB.SelectedItem as Aviary;
                     dog.IdAviary = a.Id;
@@ -163,6 +156,8 @@ namespace StrayDogs.Pages
                 dog.Photo = File.ReadAllBytes(openFileDialog.FileName);
                 dogPhoto.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
+
+            TextTbBTN.Text = "Изменить фото";
         }
 
         private void DeletePhotoBTN_Click(object sender, RoutedEventArgs e)
@@ -172,7 +167,12 @@ namespace StrayDogs.Pages
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MainAdminPage());
+            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                NavigationService.Navigate(new MainAdminPage());
+            }
         }
     }
 }

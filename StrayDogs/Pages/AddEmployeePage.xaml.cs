@@ -2,6 +2,7 @@
 using StrayDogs.DB;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,17 +26,22 @@ namespace StrayDogs.Pages
     public partial class AddEmployeePage : Page
     {
         public static Employee employee = new Employee();
+        public static List<Post> posts { get; set; }
 
         public AddEmployeePage()
         {
             InitializeComponent();
-            this.DataContext = this;
 
+            posts = DBConnection.stray_DogsEntities.Post.ToList();
+            
             SurnameTB.TextChanged += TextBox_TextChanged;
             NameTB.TextChanged += TextBox_TextChanged;
             PatronymicTB.TextChanged += TextBox_TextChanged;
             LoginTB.TextChanged += TextBox_TextChanged;
             PasswordTB.TextChanged += TextBox_TextChanged;
+
+            this.DataContext = this;
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -137,10 +143,10 @@ namespace StrayDogs.Pages
                         employee.Password = PasswordTB.Text.Trim();
                     }
 
-                    if (PhotoWorker.Source is BitmapImage bitmap && bitmap.UriSource?.OriginalString == "/Image/person.png")
+                    if (employee.Photo == null)
                     {
-                        MessageBox.Show("Добавьте фотографию собаки!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-                        return; // Прерываем сохранение
+                        MessageBox.Show("Добавьте фото.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
                     }
 
                     DBConnection.stray_DogsEntities.Employee.Add(employee);
@@ -166,6 +172,7 @@ namespace StrayDogs.Pages
                 employee.Photo = File.ReadAllBytes(openFileDialog.FileName);
                 PhotoWorker.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
+            TextTbBTN.Text = "Изменить фото";
         }
 
         private void DeletePhotoBTN_Click(object sender, RoutedEventArgs e)
@@ -196,7 +203,12 @@ namespace StrayDogs.Pages
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MainAdminPage());
+            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                NavigationService.Navigate(new MainAdminPage());
+            }
         }
     }
 }

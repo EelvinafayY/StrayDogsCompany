@@ -32,6 +32,7 @@
           <Property Name="IdDoctor" Type="int" />
           <Property Name="Disease" Type="nvarchar(max)" />
           <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="IdStatusPriem" Type="int" />
         </EntityType>
         <EntityType Name="Aviary">
           <Key>
@@ -87,6 +88,13 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Priem_Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="StatusAppointment">
           <Key>
@@ -160,6 +168,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Appointments_Priem_Status">
+          <End Role="Priem_Status" Type="Self.Priem_Status" Multiplicity="0..1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priem_Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="IdStatusPriem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Appointments_StatusAppointment">
           <End Role="StatusAppointment" Type="Self.StatusAppointment" Multiplicity="0..1" />
           <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
@@ -229,6 +249,7 @@
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Priem_Status" EntityType="Self.Priem_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusAppointment" EntityType="Self.StatusAppointment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeAviary" EntityType="Self.TypeAviary" Schema="dbo" store:Type="Tables" />
@@ -246,6 +267,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Appointments_Employee" Association="Self.FK_Appointments_Employee">
             <End Role="Employee" EntitySet="Employee" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments_Priem_Status" Association="Self.FK_Appointments_Priem_Status">
+            <End Role="Priem_Status" EntitySet="Priem_Status" />
             <End Role="Appointments" EntitySet="Appointments" />
           </AssociationSet>
           <AssociationSet Name="FK_Appointments_StatusAppointment" Association="Self.FK_Appointments_StatusAppointment">
@@ -304,8 +329,10 @@
           <Property Name="IdDoctor" Type="Int32" />
           <Property Name="Disease" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdStatusPriem" Type="Int32" />
           <NavigationProperty Name="Dog" Relationship="Self.FK_Appointments_Dog" FromRole="Appointments" ToRole="Dog" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Appointments_Employee" FromRole="Appointments" ToRole="Employee" />
+          <NavigationProperty Name="Priem_Status" Relationship="Self.FK_Appointments_Priem_Status" FromRole="Appointments" ToRole="Priem_Status" />
           <NavigationProperty Name="StatusAppointment" Relationship="Self.FK_Appointments_StatusAppointment" FromRole="Appointments" ToRole="StatusAppointment" />
         </EntityType>
         <EntityType Name="Aviary">
@@ -372,6 +399,14 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Post" FromRole="Post" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Priem_Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK_Appointments_Priem_Status" FromRole="Priem_Status" ToRole="Appointments" />
         </EntityType>
         <EntityType Name="StatusAppointment">
           <Key>
@@ -447,6 +482,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Appointments_Priem_Status">
+          <End Role="Priem_Status" Type="Self.Priem_Status" Multiplicity="0..1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priem_Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="IdStatusPriem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Appointments_StatusAppointment">
           <End Role="StatusAppointment" Type="Self.StatusAppointment" Multiplicity="0..1" />
           <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
@@ -516,6 +563,7 @@
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="Gender" EntityType="Self.Gender" />
           <EntitySet Name="Post" EntityType="Self.Post" />
+          <EntitySet Name="Priem_Status" EntityType="Self.Priem_Status" />
           <EntitySet Name="StatusAppointment" EntityType="Self.StatusAppointment" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TypeAviary" EntityType="Self.TypeAviary" />
@@ -533,6 +581,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Appointments_Employee" Association="Self.FK_Appointments_Employee">
             <End Role="Employee" EntitySet="Employee" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments_Priem_Status" Association="Self.FK_Appointments_Priem_Status">
+            <End Role="Priem_Status" EntitySet="Priem_Status" />
             <End Role="Appointments" EntitySet="Appointments" />
           </AssociationSet>
           <AssociationSet Name="FK_Appointments_StatusAppointment" Association="Self.FK_Appointments_StatusAppointment">
@@ -590,6 +642,7 @@
                 <ScalarProperty Name="IdDoctor" ColumnName="IdDoctor" />
                 <ScalarProperty Name="Disease" ColumnName="Disease" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="IdStatusPriem" ColumnName="IdStatusPriem" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -648,6 +701,14 @@
           <EntitySetMapping Name="Post">
             <EntityTypeMapping TypeName="Stray_DogsModel.Post">
               <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Priem_Status">
+            <EntityTypeMapping TypeName="Stray_DogsModel.Priem_Status">
+              <MappingFragment StoreEntitySet="Priem_Status">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>

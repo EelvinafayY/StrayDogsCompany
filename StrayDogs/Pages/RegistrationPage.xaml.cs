@@ -167,6 +167,7 @@ namespace StrayDogs.Pages
                 employee.Photo = File.ReadAllBytes(openFileDialog.FileName);
                 Photo.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
+            TextTbBTN.Text = "Изменить фото";
         }
 
         private void DeletePhotoBTN_Click(object sender, RoutedEventArgs e)
@@ -198,7 +199,12 @@ namespace StrayDogs.Pages
 
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AuthorizationPage());
+            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                NavigationService.Navigate(new AuthorizationPage());
+            }
         }
     }
 }
