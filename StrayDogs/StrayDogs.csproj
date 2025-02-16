@@ -220,6 +220,7 @@
     </Compile>
     <Compile Include="DB\Partials\Aviary.cs" />
     <Compile Include="DB\Partials\Dog.cs" />
+    <Compile Include="DB\Partials\Employee.cs" />
     <Compile Include="DB\Post.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

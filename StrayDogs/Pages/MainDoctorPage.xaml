@@ -4,8 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StrayDogs.Pages"
-      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Главная страница доктора">
@@ -29,36 +29,11 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,156" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
+            <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="25,0,0,60" Grid.Row="0" VerticalAlignment="Top">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Text="Добро пожаловать!" Foreground="#16343C" FontSize="28" Opacity="0.9"/>
+                    <TextBlock Text="Добро пожаловать!" Foreground="#16343C" FontSize="28" Opacity="0.9" Canvas.Left="6" Canvas.Top="34" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Canvas>
             </Viewbox>
-
-            <!--<Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,20,0,0" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
-                <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Text="Какая-то маленькая подпись" Foreground="#16343C" FontSize="12" Opacity="0.9"/>
-                </Canvas>
-            </Viewbox>-->
-
-
-            <!--<Viewbox Grid.Column="3" Grid.ColumnSpan="2" Margin="0,4,0,156" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
-                <Canvas Width="600" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <StackPanel Orientation="Vertical" Width="320" Height="140" Margin="5,10,10,0">
-                        <Border BorderBrush="#8BA598" 
-                                            Background="#8BA598" 
-                                            Opacity="0.8" 
-                                            BorderThickness="1" 
-                                            CornerRadius="10" 
-                                            Padding="20">
-                            <StackPanel Width="280" Height="85">
-                                <TextBlock Text="Снова некоторая информация" Width="300" TextWrapping="Wrap" FontSize="22" Foreground="#F4F7EE" Margin="0,0,0,0"/>
-                                <TextBlock FontWeight="Bold" Text="Цифра текст" Width="300" TextWrapping="Wrap" FontSize="16" Foreground="#16343C" Margin="0,5,0,0"/>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </Canvas>
-            </Viewbox>-->
 
             <Viewbox Grid.Row="0" Grid.Column="4"
                  Grid.ColumnSpan="2"
@@ -86,24 +61,70 @@
                 </StackPanel>
             </Viewbox>
 
-            <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,156" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center">
-                <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Text="Приемы" Foreground="#16343C" FontSize="24" Opacity="0.9"/>
+            <Viewbox Grid.Column="1" Grid.ColumnSpan="5" Margin="25,0,0,60" Grid.Row="1" VerticalAlignment="Top" Grid.RowSpan="2">
+                <Canvas Width="1200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Canvas.Left="10" VerticalAlignment="Center">
+                        <TextBlock Text="Приемы" Foreground="#16343C" FontSize="24" Opacity="0.9" Height="36"/>
+                        <StackPanel Orientation="Horizontal" Width="1100" Margin="0 5 0 0">
+                            <ComboBox Height="47" Width="320" DisplayMemberPath="Name" x:Name="PriemStatusCB" SelectedIndex="0" BorderBrush="#3C5D6C"   
+  Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectionChanged="PriemStatusCB_SelectionChanged"/>
+                            <materialDesign:AutoSuggestBox Margin="47 0 0 0" 
+materialDesign:HintAssist.Hint="Поиск по собаке" x:Name="DogSearchTB"
+materialDesign:TextFieldAssist.HasClearButton="True"
+DropDownElevation="Dp0"
+BorderBrush="#3C5D6C"                                             
+Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+Suggestions="{Binding AutoSuggestBox2Suggestions}"
+Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+ValueMember="Key" HorizontalAlignment="Left" VerticalAlignment="Center" Width="320" Height="50" TextChanged="DogSearchTB_TextChanged" >
+                                <materialDesign:AutoSuggestBox.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="60"/>
+                                    </Style>
+                                </materialDesign:AutoSuggestBox.Resources>
+
+                                <materialDesign:AutoSuggestBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Width="200">
+
+                                            <Border
+        Width="200"
+        Height="20"
+        Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+        />
+                                            <TextBlock
+        Margin="30,0,0,0"
+        Text="{Binding Key}" 
+                                  Width="200"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </materialDesign:AutoSuggestBox.ItemTemplate>
+                            </materialDesign:AutoSuggestBox>
+                            <ComboBox Height="47" Width="320"  x:Name="DateSortCB" SelectedIndex="4" BorderBrush="#3C5D6C"   
+Style="{StaticResource MaterialDesignOutlinedComboBox}" DropDownClosed="DateSortCB_DropDownClosed" Margin="47 0 0 0">
+                                <ComboBoxItem Content="Сегодня"/>
+                                <ComboBoxItem Content="Вчера"/>
+                                <ComboBoxItem Content="Последние 7 дней"/>
+                                <ComboBoxItem Content="Последний месяц"/>
+                                <ComboBoxItem Content="Все"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+
                 </Canvas>
             </Viewbox>
 
             <Viewbox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="25,0,0,60" VerticalAlignment="Top">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center"
                             VerticalAlignment="Center">
-                    <ListView x:Name="PriemsLv"
-                          Margin="0 0 0 0" 
+                    <ListView x:Name="PriemsLv" 
                           SelectedIndex="0" 
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
                           Width="950" 
                           Height="200" 
                           Background="#8BA598"
                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                          d:ItemsSource="{Binding appointments}">
+                          d:ItemsSource="{Binding appointments}" HorizontalAlignment="Center" Canvas.Top="-14" VerticalAlignment="Top">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="2"/>
@@ -116,19 +137,21 @@
                                     Margin="0,0,5,0"
                                     BorderThickness="0.1"
                                     CornerRadius="5"
-                                    Padding="12">
-                                    <StackPanel Orientation="Horizontal" Width="400" Height="55" Margin="0,1,0,0">
-                                        <StackPanel Width="360" Height="70" HorizontalAlignment="Left">
+                                    Padding="10">
+                                    <StackPanel Orientation="Horizontal" Width="400" Height="65" Margin="0,1,0,0">
+                                        <StackPanel Width="360" Height="65" HorizontalAlignment="Left">
                                             <StackPanel Orientation="Horizontal" Width="360">
                                                 <TextBlock Text="{Binding StatusAppointment.Name, StringFormat='Тип приема: {0}'}" Margin="5,0,0,0" Foreground="#F4F7EE" 
-                                                   HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Date, StringFormat='dd.MM.yyyy, HH:MM'}" Margin="95,0,0,0" Foreground="#F4F7EE" 
+                                                   HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Width="200"/>
+                                                <TextBlock Text="{Binding Date, StringFormat='dd.MM.yyyy, HH:MM'}" Margin="0,0,-135,0" Foreground="#F4F7EE" 
                                                    HorizontalAlignment="Right" FontSize="14" VerticalAlignment="Center"/>
 
                                             </StackPanel>
 
-                                            <TextBlock Text="{Binding Dog.OrdinalNumber, StringFormat='Собака: {0}'}" Margin="5,10,0,0" Foreground="#F4F7EE" 
+                                            <TextBlock Text="{Binding Dog.OrdinalNumber, StringFormat='Собака: {0}'}" Margin="5,5,0,0" Foreground="#F4F7EE" 
                                                    HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Priem_Status.Name}" Margin="5,10,0,0" Foreground="#F4F7EE" 
+                                                   HorizontalAlignment="Left" FontSize="10" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <Button x:Name="InfoDogPageBTN" Click="InfoDogPageBTN_Click"
@@ -163,7 +186,7 @@ Canvas.Left="250" Canvas.Top="-68" VerticalAlignment="Center"/>
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Labels="{Binding Days}"/>
                         </lvc:CartesianChart.AxisX>
-                        <lvc:CartesianChart.AxisY> 
+                        <lvc:CartesianChart.AxisY>
                             <lvc:Axis Title=""/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>

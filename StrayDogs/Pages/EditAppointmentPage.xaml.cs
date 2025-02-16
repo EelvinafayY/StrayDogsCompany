@@ -1,7 +1,6 @@
 ﻿using StrayDogs.DB;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,39 +21,37 @@ namespace StrayDogs.Pages
     /// </summary>
     public partial class EditAppointmentPage : Page
     {
-
         Appointments contextAppointment;
         public EditAppointmentPage(Appointments appointments)
         {
             InitializeComponent();
-
             contextAppointment = appointments;
+            VrachTB.Text = appointments.Employee.FullName;
             DataContext = contextAppointment = appointments;
-
-
+            VisibilityUser();
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                NavigationService.Navigate(new MainDoctorPage());
-            }
+            NavigationService.GoBack();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(contextAppointment.IdStatusPriem == 1)
+            if (contextAppointment.IdStatusPriem == 1)
             {
                 MessageBox.Show("Данный прием уже был завершен, редактирование невозможно!");
                 return;
             }
             else
             {
-                if(string.IsNullOrWhiteSpace(CommentTb.Text) != true || string.IsNullOrWhiteSpace(DieseTb.Text) != true)
+                if (string.IsNullOrWhiteSpace(CommentTb.Text) != true || string.IsNullOrWhiteSpace(DieseTb.Text) != true)
                 {
+                    if (contextAppointment.Date > DateTime.Now)
+                    {
+                        MessageBox.Show("Вы не можете завершить данный прием, так как время его начала еще не наступило!");
+                        return;
+                    }
                     contextAppointment.IdStatusPriem = 1;
                     contextAppointment.Comment = CommentTb.Text;
                     contextAppointment.Disease = DieseTb.Text;
@@ -66,6 +63,16 @@ namespace StrayDogs.Pages
                         {
                             contextAppointment.Dog.IsDie = true;
                             MessageBox.Show("С этого момента собака считается мертвой(");
+                            var otherDogAppointment = DBConnection.stray_DogsEntities.Appointments
+                                    .Where(a => a.IdDog == contextAppointment.IdDog &&
+                                                a.IdStatusPriem == 2 &&
+                                                a.Id != contextAppointment.Id)
+                                    .ToList();
+
+                            foreach (var application in otherDogAppointment)
+                            {
+                                application.IdStatusPriem = 3;
+                            }
                         }
                         if (result == MessageBoxResult.No)
                         {
@@ -73,7 +80,7 @@ namespace StrayDogs.Pages
                             contextAppointment.Dog.IsDie = false;
                         }
                     }
-                    
+
                     DBConnection.stray_DogsEntities.SaveChanges();
                     NavigationService.Navigate(new MainDoctorPage());
                 }
@@ -85,17 +92,42 @@ namespace StrayDogs.Pages
             }
         }
 
-       
+
         private void DieCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            DieCheck.IsChecked = false;
-            contextAppointment.Dog.IsDie = false;
+            if (contextAppointment.Dog.IsDie == true)
+            {
+                DieCheck.IsChecked = true;
+            }
+            else
+            {
+                DieCheck.IsChecked = false;
+            }
+
         }
 
         private void DieCheck_Checked(object sender, RoutedEventArgs e)
         {
-            DieCheck.IsChecked = true;
-            contextAppointment.Dog.IsDie = true;
+            if (contextAppointment.Dog.IsDie == false)
+            {
+                DieCheck.IsChecked = true;
+            }
+
+        }
+
+        public void VisibilityUser()
+        {
+            if (contextAppointment.IdStatusPriem == 1 || contextAppointment.IdStatusPriem == 3)
+            {
+                OverBtn.Visibility = Visibility.Collapsed;
+                DieseTb.IsReadOnly = true;
+                CommentTb.IsReadOnly = true;
+                DieCheck.Visibility = Visibility.Collapsed;
+                if (contextAppointment.Dog.IsDie == false)
+                {
+                    DieTB.Visibility = Visibility.Collapsed;
+                }
+            }
 
         }
     }

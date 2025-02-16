@@ -21,7 +21,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Data.Entity;
 
 namespace StrayDogs.Pages
 {
@@ -31,14 +30,13 @@ namespace StrayDogs.Pages
     public partial class MainDoctorPage : Page
     {
         public static List<Employee> employees { get; set; }
-        public static List<Appointments> appointments { get; set; }
         public static List<Dog> dogs { get; set; }
 
         Employee loggedEmployee;
         public List<string> Days { get; set; }
-        public SeriesCollection SeriesCollection { get; set; }
 
         public Func<double, string> LabelFormatter { get; set; }
+        public SeriesCollection SeriesCollection { get; set; }
         public List<string> DaysWithAppointments { get; set; } = new List<string>();
         public MainDoctorPage()
         {
@@ -61,13 +59,14 @@ namespace StrayDogs.Pages
             }
 
             employees = new List<Employee>(DBConnection.stray_DogsEntities.Employee.ToList());
-            appointments = new List<Appointments>(DBConnection.stray_DogsEntities.Appointments.Where(x => x.IdDoctor == loggedEmployee.Id).ToList());
+            var appointments = DBConnection.stray_DogsEntities.Appointments.Where(x => x.IdDoctor == loggedEmployee.Id).ToList();
             dogs = new List<Dog>(DBConnection.stray_DogsEntities.Dog.ToList());
 
             PriemsLv.ItemsSource = appointments;
-
+            var priemStatus = DBConnection.stray_DogsEntities.Priem_Status.ToList();
+            priemStatus.Insert(0, new Priem_Status { Name = "Показать все" });
+            PriemStatusCB.ItemsSource = priemStatus;
             LoadAppointmentsData();
-
             this.DataContext = this;
         }
         private void StajersTI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -334,38 +333,59 @@ namespace StrayDogs.Pages
                 }
             }
         }
+
+        private void Refresh()
+        {
+            var filtred = DBConnection.stray_DogsEntities.Appointments.Where(x => x.IdDoctor == loggedEmployee.Id).ToList();
+            var selectedPriemStatus = PriemStatusCB.SelectedItem as Priem_Status;
+            if (selectedPriemStatus != null && PriemStatusCB.SelectedIndex != 0)
+            {
+                filtred = filtred.Where(x => x.IdDoctor == loggedEmployee.Id && x.IdStatusPriem == selectedPriemStatus.Id).ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(DogSearchTB.Text.ToLower()))
+            {
+                filtred = filtred.Where(x => x.Dog.OrdinalNumber.ToLower().Contains(DogSearchTB.Text)).ToList();
+            }
+
+            DateTime now = DateTime.Now.Date;
+            var appointments = DBConnection.stray_DogsEntities.Appointments.Where(x => x.IdDoctor == loggedEmployee.Id).ToList();
+            IEnumerable<Appointments> filteredAppointments = appointments;
+
+            // Фильтрация по дате
+            switch (DateSortCB.SelectedIndex)
+            {
+                case 0: // Сегодня
+                    filtred = filtred.Where(a => a.Date.HasValue && a.Date.Value.Date == now).ToList();
+                    break;
+                case 1: // Вчера
+                    filtred = filtred.Where(a => a.Date.HasValue && a.Date.Value.Date == now.AddDays(-1)).ToList();
+                    break;
+                case 2: // Последние 7 дней
+                    DateTime sevenDaysAgo = now.AddDays(-7);
+                    filtred = filtred.Where(a => a.Date.HasValue && a.Date.Value.Date >= sevenDaysAgo && a.Date.Value.Date <= now).ToList();
+                    break;
+                case 3: // Последний месяц
+                    DateTime oneMonthAgo = now.AddMonths(-1);
+                    filtred = filtred.Where(a => a.Date.HasValue && a.Date.Value.Date >= oneMonthAgo && a.Date.Value.Date <= now).ToList();
+                    break;
+                case 4: // Без фильтра по дате
+                    break;
+                default:
+                    break;
+            }
+
+
+            PriemsLv.ItemsSource = filtred;
+        }
+
+
         private void InfoDogPageBTN_Click(object sender, RoutedEventArgs e)
         {
-            // Проверяем, что выбран элемент в ListView
-            if (PriemsLv.SelectedItem == null)
-            {
-                MessageBox.Show("Пожалуйста, выберите прием для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return; // Прерываем выполнение метода, если ничего не выбрано
-            }
-
-            // Получаем выбранный прием (Appointments) из ListView
-            Appointments selectedAppointment = PriemsLv.SelectedItem as Appointments;
-
-            // Проверяем, что выбранный прием имеет привязанную собаку
-            if (selectedAppointment?.Dog != null)
-            {
-                // Переходим на страницу редактирования собаки, передавая выбранную собаку
-                NavigationService.Navigate(new EditDogDoctorPage(selectedAppointment.Dog));
-            }
-            else
-            {
-                MessageBox.Show("Пожалуйста, выберите прием с собакой для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-
-            if (PriemsLv.SelectedItem == null)
-            {
-                MessageBox.Show("Пожалуйста, выберите прием для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning); return;
-            }
             var selectedAppointmentt = (sender as Button).DataContext as Appointments;
 
             if (selectedAppointmentt != null)
             {
-                
+
                 NavigationService.Navigate(new EditAppointmentPage(selectedAppointmentt));
             }
             else
@@ -374,5 +394,20 @@ namespace StrayDogs.Pages
             }
         }
 
+        private void PriemStatusCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Refresh();
+        }
+
+        private void DogSearchTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Refresh();
+        }
+
+
+        private void DateSortCB_DropDownClosed(object sender, EventArgs e)
+        {
+            Refresh();
+        }
     }
 }
