@@ -33,7 +33,7 @@ namespace StrayDogs.Pages
             InitializeComponent();
 
             posts = DBConnection.stray_DogsEntities.Post.ToList();
-            
+
             SurnameTB.TextChanged += TextBox_TextChanged;
             NameTB.TextChanged += TextBox_TextChanged;
             PatronymicTB.TextChanged += TextBox_TextChanged;
@@ -174,7 +174,14 @@ namespace StrayDogs.Pages
 
                     DBConnection.stray_DogsEntities.Employee.Add(employee);
                     DBConnection.stray_DogsEntities.SaveChanges();
-                    NavigationService.Navigate(new MainAdminPage());
+
+                    MessageBoxResult result = MessageBox.Show($"Сотрудник добавлен.", "Успешно!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    if (result == MessageBoxResult.OK)
+                    {
+                        NavigationService.Navigate(new MainAdminPage());
+                    }
+                    else { NavigationService.Navigate(new MainAdminPage()); }
                 }
             }
             catch

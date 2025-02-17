@@ -204,12 +204,6 @@ namespace StrayDogs.Pages
             }
         }
 
-        private void DeletePhotoBTN_Click(object sender, RoutedEventArgs e)
-        {
-            PhotoWorker.Source = new BitmapImage(new Uri("/Image/person.png", UriKind.Relative));
-            contextWorker.Photo = null;
-        }
-
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DatePicker datePicker = (DatePicker)sender;

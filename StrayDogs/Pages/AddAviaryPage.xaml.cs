@@ -38,9 +38,9 @@ namespace StrayDogs.Pages
         {
             for (int i = 1; i <= 250; i++)
             {
-                string generatedNumber= $"в{(i).ToString("D5")}"; // Генерация логина типа а00001, а00002 и т.д.
+                string generatedNumber = $"в{(i).ToString("D5")}"; // Генерация логина типа а00001, а00002 и т.д.
 
-                bool loginExists = DBConnection.stray_DogsEntities.Aviary.Any(w => w.Number == generatedNumber);
+                bool loginExists = DBConnection.stray_DogsEntities.Aviary.Any(w => w.Number.ToString() == generatedNumber);
 
                 if (!loginExists)
                 {
@@ -79,7 +79,7 @@ namespace StrayDogs.Pages
                             return;
                         }
                         else
-                            aviary.Number = (NumberTB.Text.Trim());
+                            aviary.Number = NumberTB.Text.Trim();
 
                         if (int.Parse(SquareTB.Text.Trim()) > 100)
                         {
@@ -94,17 +94,13 @@ namespace StrayDogs.Pages
 
                         DBConnection.stray_DogsEntities.Aviary.Add(aviary);
                         DBConnection.stray_DogsEntities.SaveChanges();
-                        MessageBoxResult result = MessageBox.Show("Вы добавили новый вольер. Вернуться на главную?", "Успех!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        MessageBoxResult result = MessageBox.Show($"Вольер добавлен.", "Успешно!", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        if (result == MessageBoxResult.Yes)
-                            NavigationService.Navigate(new MainAdminPage());
-
-                        if (result == MessageBoxResult.No)
+                        if (result == MessageBoxResult.OK)
                         {
-                            //NumberTB.Text = "";
-                            SquareTB.Text = "";
-                            TypeCB.SelectedItem = null;
+                            NavigationService.Navigate(new MainAdminPage());
                         }
+                        else { NavigationService.Navigate(new MainAdminPage()); }
                     }
                 }
             }

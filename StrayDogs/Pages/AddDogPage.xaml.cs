@@ -28,6 +28,7 @@ namespace StrayDogs.Pages
         public static List<Gender> genders { get; set; }
         public static List<Aviary> aviaries { get; set; }
         public static List<TypeAviary> typeAviaries { get; set; }
+        public static List<Dog> dogs { get; set; }
 
         public AddDogPage()
         {
@@ -87,7 +88,7 @@ namespace StrayDogs.Pages
             {
                 if (string.IsNullOrWhiteSpace(NumberTB.Text) || string.IsNullOrWhiteSpace(HeightTB.Text) ||
                        string.IsNullOrWhiteSpace(WeightTB.Text) || string.IsNullOrWhiteSpace(AgeTB.Text) ||
-                       string.IsNullOrWhiteSpace(DescriptionTB.Text) || GenderCB.SelectedItem == null || VolierCB.SelectedItem == null || dogPhoto.Source == null)
+                       string.IsNullOrWhiteSpace(DescriptionTB.Text) || GenderCB.SelectedItem == null || VolierCB.SelectedItem == null)
                 {
                     MessageBox.Show("Заполните все поля.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
@@ -150,14 +151,30 @@ namespace StrayDogs.Pages
                         dog.Age = int.Parse(AgeTB.Text.Trim());
                     }
 
+                    if (dog.Photo == null)
+                    {
+                        MessageBox.Show("Добавьте фото.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
                     var a = VolierCB.SelectedItem as Aviary;
                     dog.IdAviary = a.Id;
 
                     var b = GenderCB.SelectedItem as Gender;
                     dog.IdGender = b.Id;
 
+                    dog.Description = DescriptionTB.Text;
+
                     DBConnection.stray_DogsEntities.Dog.Add(dog);
                     DBConnection.stray_DogsEntities.SaveChanges();
+
+                    MessageBoxResult result = MessageBox.Show($"Собака добавлена.", "Успешно!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    if (result == MessageBoxResult.OK)
+                    {
+                        NavigationService.Navigate(new MainAdminPage());
+                    }
+                    else { NavigationService.Navigate(new MainAdminPage()); }
                 }
             }
             catch
@@ -181,11 +198,6 @@ namespace StrayDogs.Pages
             TextTbBTN.Text = "Изменить фото";
         }
 
-        private void DeletePhotoBTN_Click(object sender, RoutedEventArgs e)
-        {
-            dogPhoto.Source = new BitmapImage(new Uri("/Image/dogIcon.png", UriKind.Relative));
-        }
-
         private void BackBTN_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -194,6 +206,29 @@ namespace StrayDogs.Pages
             {
                 NavigationService.Navigate(new MainAdminPage());
             }
+        }
+
+        private void GenderCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (GenderCB.SelectedItem == null)
+            {
+                VolierCB.IsEnabled = false;
+                VolierCB.ItemsSource = null; // Очищаем список вольеров
+                return;
+            }
+
+            VolierCB.IsEnabled = true;
+            var query = DBConnection.stray_DogsEntities.Aviary.AsQueryable(); // Создаем базовый запрос
+
+            if (GenderCB.SelectedIndex == 0)
+            {
+                query = query.Where(i => i.TypeAviary.Name == "Обычный");
+            }
+
+            // Всегда фильтруем только пустые вольеры, независимо от пола:
+            var emptyAviaries = query.Where(a => DBConnection.stray_DogsEntities.Dog.Any(d => d.IdAviary == a.Id)).ToList();
+
+            VolierCB.ItemsSource = emptyAviaries;
         }
     }
 }

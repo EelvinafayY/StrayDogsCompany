@@ -202,7 +202,7 @@
                         HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="220" Margin="60 0 0 0"
                         materialDesign:HintAssist.Hint="Пол"
                         ItemsSource="{Binding genders}"
-                        Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectionChanged="GenderCB_SelectionChanged">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}"/>
@@ -238,6 +238,7 @@
                         </materialDesign:AutoSuggestBox.ItemTemplate>
                     </materialDesign:AutoSuggestBox>
                     <ComboBox x:Name="VolierCB"
+                              IsEnabled="False"
                         HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="220" Margin="180 0 0 0"
                         materialDesign:HintAssist.Hint="Вольер"
                                ItemsSource="{Binding aviaries}"
