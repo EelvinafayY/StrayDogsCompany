@@ -159,32 +159,32 @@
 
         <Viewbox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialDesign:AutoSuggestBox
-                    x:Name="LoginTB"
-                    materialDesign:HintAssist.Hint="Логин"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
-                    DropDownElevation="Dp0"
-                    Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
-                    Suggestions="{Binding AutoSuggestBox2Suggestions}"
-                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
+                <materialDesign:AutoSuggestBox IsReadOnly="True"
+            x:Name="LoginTB"
+            materialDesign:HintAssist.Hint="Логин"
+            materialDesign:TextFieldAssist.HasClearButton="False"
+            DropDownElevation="Dp0"
+            Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+            Suggestions="{Binding AutoSuggestBox2Suggestions}"
+            HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>
                                 <Border
-                                    Width="20"
-                                    Height="20"
-                                    Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
-                                    CornerRadius="10" />
+                            Width="20"
+                            Height="20"
+                            Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+                            CornerRadius="10" />
                                 <TextBlock
-                                    Margin="10,0,0,0"
-                                    Text="{Binding Key}" />
+                            Margin="10,0,0,0"
+                            Text="{Binding Key}" />
                             </DockPanel>
                         </DataTemplate>
                     </materialDesign:AutoSuggestBox.ItemTemplate>
                 </materialDesign:AutoSuggestBox>
             </Canvas>
         </Viewbox>
+
 
         <Viewbox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">

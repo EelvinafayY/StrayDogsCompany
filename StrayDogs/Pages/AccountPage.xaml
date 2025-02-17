@@ -41,7 +41,7 @@
 
             <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:AutoSuggestBox IsReadOnly="True" x:Name="SurnameTB"
+                    <materialDesign:AutoSuggestBox IsReadOnly="True" x:Name="SurnameTB" PreviewTextInput='TextOnly'
   materialDesign:HintAssist.Hint="Фамилия"
   materialDesign:TextFieldAssist.HasClearButton="{Binding IsClearButtonVisible}"
   DropDownElevation="Dp0"
@@ -69,7 +69,7 @@
 
             <Viewbox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:AutoSuggestBox  IsReadOnly="True" x:Name="NameTB"
+                    <materialDesign:AutoSuggestBox  IsReadOnly="True" x:Name="NameTB" PreviewTextInput='TextOnly'
   materialDesign:HintAssist.Hint="Имя"
   materialDesign:TextFieldAssist.HasClearButton="{Binding IsClearButtonVisible}"
   DropDownElevation="Dp0"
@@ -97,7 +97,7 @@
 
             <Viewbox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:AutoSuggestBox IsReadOnly="True" x:Name="PatrNameTB"
+                    <materialDesign:AutoSuggestBox IsReadOnly="True" x:Name="PatrNameTB" PreviewTextInput='TextOnly'
 materialDesign:HintAssist.Hint="Отчество"
   materialDesign:TextFieldAssist.HasClearButton="{Binding IsClearButtonVisible}"
 DropDownElevation="Dp0"
@@ -232,6 +232,26 @@ Width="250" Canvas.Left="200" Canvas.Top="-90">
                     </Image>
                 </Canvas>
             </Viewbox>
+
+            <Viewbox Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3">
+                <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Width="200">
+                        <Button x:Name="AddPhotoBTN"
+                            Click="AddPhotoBTN_Click"
+                        Background="#16343C"
+                        Foreground="#F4F7EE"
+                        Height="35"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="226,-23,-226,23">
+                            <TextBlock
+                            Text="Изменить фото" />
+                        </Button>
+                    </Grid>
+                </Canvas>
+            </Viewbox>
+
 
             <Viewbox Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">

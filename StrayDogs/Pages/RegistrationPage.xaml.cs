@@ -24,11 +24,13 @@ namespace StrayDogs.Pages
     /// </summary>
     public partial class RegistrationPage : Page
     {
+
         public static Employee employee = new Employee();
 
         public RegistrationPage()
         {
             InitializeComponent();
+            GenerateAndDisplayLogin();
             this.DataContext = this;
 
             SurnameTB.TextChanged += TextBox_TextChanged;
@@ -36,6 +38,29 @@ namespace StrayDogs.Pages
             PatronymicTB.TextChanged += TextBox_TextChanged;
             LoginTB.TextChanged += TextBox_TextChanged;
             PasswordTB.TextChanged += TextBox_TextChanged;
+
+
+        }
+
+        private void GenerateAndDisplayLogin()
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                string generatedLogin = $"а{(i).ToString("D5")}"; // Генерация логина типа a00001, a00002 и т.д.
+
+                bool loginExists = DBConnection.stray_DogsEntities.Employee.Any(w => w.Login == generatedLogin);
+
+                if (!loginExists)
+                {
+                    // Устанавливаем сгенерированный логин в текстовое поле
+                    LoginTB.Text = generatedLogin;
+                    break;
+                }
+                else if (i == 100)
+                {
+                    MessageBox.Show("Штаб сотрудников заполнен. Нет доступных логинов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -107,18 +132,19 @@ namespace StrayDogs.Pages
                     }
                     else
                     {
-                        if (LoginTB.Text.Length > 10)
+                        if (LoginTB.Text.Length > 6)
                         {
                             MessageBox.Show("Слишком длинный логин.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }
-                        else if (LoginTB.Text.Length < 6)
+                        else if (LoginTB.Text.Length < 5)
                         {
                             MessageBox.Show("Слишком короткий логин.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                             return;
                         }
                         else
                         {
+
                             employee.Login = LoginTB.Text.Trim();
                         }
                     }
@@ -146,7 +172,14 @@ namespace StrayDogs.Pages
 
                     DBConnection.stray_DogsEntities.Employee.Add(employee);
                     DBConnection.stray_DogsEntities.SaveChanges();
-                    NavigationService.Navigate(new MainAdminPage());
+
+                    MessageBoxResult result = MessageBox.Show($"Регистрация прошла успешно! \nДля продолжения войдите в аккаунт.", "Успешно!", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+
+                    if (result == MessageBoxResult.OK)
+                    {
+                        NavigationService.Navigate(new AuthorizationPage());
+                    }
+                    else { NavigationService.Navigate(new RegistrationPage()); }
                 }
             }
             catch

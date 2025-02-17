@@ -95,8 +95,17 @@ namespace StrayDogs.Pages
 
         private void AddAviaryBT_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddAviaryPage());
+            int aviaryCount = DBConnection.stray_DogsEntities.Aviary.Count();
+            if (aviaryCount >= 250)
+            {
+                MessageBox.Show("Невозможно добавить больше 250 вольеров.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                NavigationService.Navigate(new AddAviaryPage());
+            }
         }
+
 
         private void AddDogBTN_Click(object sender, RoutedEventArgs e)
         {

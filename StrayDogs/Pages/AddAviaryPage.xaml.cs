@@ -30,7 +30,28 @@ namespace StrayDogs.Pages
         {
             InitializeComponent();
             typeAviaries = DBConnection.stray_DogsEntities.TypeAviary.ToList();
+            GenerateAndDisplayNumber();
             this.DataContext = this;
+        }
+
+        private void GenerateAndDisplayNumber()
+        {
+            for (int i = 1; i <= 250; i++)
+            {
+                string generatedNumber= $"в{(i).ToString("D5")}"; // Генерация логина типа а00001, а00002 и т.д.
+
+                bool loginExists = DBConnection.stray_DogsEntities.Aviary.Any(w => w.Number == generatedNumber);
+
+                if (!loginExists)
+                {
+                    NumberTB.Text = generatedNumber; // Обновляем свойство aviary.Number
+                    break;
+                }
+                else if (i == 250)
+                {
+                    MessageBox.Show("Добавление невозможно!. Нет доступного места.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
@@ -58,7 +79,7 @@ namespace StrayDogs.Pages
                             return;
                         }
                         else
-                            aviary.Number = int.Parse(NumberTB.Text.Trim());
+                            aviary.Number = (NumberTB.Text.Trim());
 
                         if (int.Parse(SquareTB.Text.Trim()) > 100)
                         {
@@ -80,7 +101,7 @@ namespace StrayDogs.Pages
 
                         if (result == MessageBoxResult.No)
                         {
-                            NumberTB.Text = "";
+                            //NumberTB.Text = "";
                             SquareTB.Text = "";
                             TypeCB.SelectedItem = null;
                         }

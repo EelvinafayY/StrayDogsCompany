@@ -143,8 +143,8 @@ Style="{StaticResource MaterialDesignOutlinedComboBox}" DropDownClosed="DateSort
                                             <StackPanel Orientation="Horizontal" Width="360">
                                                 <TextBlock Text="{Binding StatusAppointment.Name, StringFormat='Тип приема: {0}'}" Margin="5,0,0,0" Foreground="#F4F7EE" 
                                                    HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Width="200"/>
-                                                <TextBlock Text="{Binding Date, StringFormat='dd.MM.yyyy, HH:MM'}" Margin="0,0,-135,0" Foreground="#F4F7EE" 
-                                                   HorizontalAlignment="Right" FontSize="14" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Date, StringFormat='dd.MM.yyyy, HH:mm'}" Margin="0,0,-135,0" Foreground="#F4F7EE" 
+                                                           HorizontalAlignment="Right" FontSize="14" VerticalAlignment="Center"/>
 
                                             </StackPanel>
 

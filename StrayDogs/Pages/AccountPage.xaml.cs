@@ -1,8 +1,10 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using StrayDogs.DB;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -144,6 +146,24 @@ namespace StrayDogs.Pages
                     return;
                 }
 
+                bool loginExists = DBConnection.stray_DogsEntities.Employee.Any(w => w.Login == LoginBoxText && loginedEmployee.Login != LoginBoxText);
+                if (loginExists)
+                {
+                    MessageBox.Show("Этот логин уже занят. Выберите другой.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                if (PasswordBoxText.Length > 10)
+                {
+                    MessageBox.Show("Слишком длинный пароль.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (PasswordBoxText.Length < 6)
+                {
+                    MessageBox.Show("Слишком короткий пароль.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
                 if (BHDP.SelectedDate == null)
                 {
                     MessageBox.Show("Укажите дату рождения!\n Внимание, сотрудник должен быть старше 18 лет.");
@@ -161,22 +181,88 @@ namespace StrayDogs.Pages
                 var selectedPost = PostCB.SelectedItem as Post;
                 string postName = selectedPost != null ? selectedPost.Name : "Не выбрана";
 
-                var result = MessageBox.Show($"Проверьте верность введенных данных:\n" +
-                    $"ФИО: {SurnameBoxText} {NameBoxText} {PatronymicBoxText},\n" +
-                    $"Дата рождения: {BHDP.Text}, Должность: {postName}, \n" +
-                    $"Логин: {LoginBoxText}, Пароль: {PasswordBoxText}", "", MessageBoxButton.YesNo, MessageBoxImage.Information);
-
-                if (result == MessageBoxResult.Yes)
+                // Проверяем, выбрана ли роль врача (IdPost = 2)
+                if (selectedPost != null && selectedPost.Id == 2)
                 {
-                    loginedEmployee.Surname = SurnameBoxText;
-                    loginedEmployee.Name = NameBoxText;
-                    loginedEmployee.Patronymic = PatronymicBoxText;
-                    loginedEmployee.IdPost = selectedPost.Id;
-                    loginedEmployee.DateOfBirth = Convert.ToDateTime(BHDP.Text);
-                    loginedEmployee.Login = LoginBoxText;
-                    loginedEmployee.Password = PasswordBoxText;
-                    DBConnection.stray_DogsEntities.SaveChanges();
-                    MessageBox.Show("Пользователь обновлен успешно!", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                    var result = MessageBox.Show("Вы уверены, что хотите сменить роль на врача? Приложение будет перезапущено.",
+                                                 "Изменить роль", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.No)
+                    {
+                        // Если нет, возвращаем роль на 1 (например, сотрудник)
+                        Post defaultPost = DBConnection.stray_DogsEntities.Post.FirstOrDefault(p => p.Id == 1); // Должность с Id = 1
+                        if (defaultPost != null)
+                        {
+                            PostCB.SelectedItem = defaultPost; // Возвращаем роль на сотрудника
+                        }
+                    }
+                    else
+                    {
+                        var result2 = MessageBox.Show($"Проверьте верность введенных данных:\n" +
+                             $"ФИО: {SurnameBoxText} {NameBoxText} {PatronymicBoxText},\n" +
+                             $"Дата рождения: {BHDP.Text}, Должность: {postName}, \n" +
+                             $"Логин: {LoginBoxText}, Пароль: {PasswordBoxText}", "",
+                             MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                        if (result2 == MessageBoxResult.Yes)
+                        {
+                            loginedEmployee.Surname = SurnameBoxText;
+                            loginedEmployee.Name = NameBoxText;
+                            loginedEmployee.Patronymic = PatronymicBoxText;
+                            loginedEmployee.IdPost = selectedPost.Id;
+                            loginedEmployee.DateOfBirth = Convert.ToDateTime(BHDP.Text);
+                            loginedEmployee.Login = LoginBoxText;
+                            loginedEmployee.Password = PasswordBoxText;
+                            DBConnection.stray_DogsEntities.SaveChanges();
+
+                            if (selectedPost != null && selectedPost.Id == 2)
+                            {
+                                //ПЕРЕЗАПУСК ПРОГРАММЫ
+                                string exePath = Process.GetCurrentProcess().MainModule.FileName;
+                                Process.Start(exePath);
+                                Application.Current.Shutdown();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Пользователь обновлен успешно!", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+
+                        }
+                    }
+
+                }
+                else
+                {
+                    var result = MessageBox.Show($"Проверьте верность введенных данных:\n" +
+                                                 $"ФИО: {SurnameBoxText} {NameBoxText} {PatronymicBoxText},\n" +
+                                                 $"Дата рождения: {BHDP.Text}, Должность: {postName}, \n" +
+                                                 $"Логин: {LoginBoxText}, Пароль: {PasswordBoxText}", "",
+                                                 MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        loginedEmployee.Surname = SurnameBoxText;
+                        loginedEmployee.Name = NameBoxText;
+                        loginedEmployee.Patronymic = PatronymicBoxText;
+                        loginedEmployee.IdPost = selectedPost.Id;
+                        loginedEmployee.DateOfBirth = Convert.ToDateTime(BHDP.Text);
+                        loginedEmployee.Login = LoginBoxText;
+                        loginedEmployee.Password = PasswordBoxText;
+                        DBConnection.stray_DogsEntities.SaveChanges();
+
+                        if(selectedPost != null && selectedPost.Id == 2)
+                        {
+                            //ПЕРЕЗАПУСК ПРОГРАММЫ
+                            string exePath = Process.GetCurrentProcess().MainModule.FileName;
+                            Process.Start(exePath);
+                            Application.Current.Shutdown();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Пользователь обновлен успешно!", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+
+                    }
                 }
             }
             catch
@@ -184,6 +270,29 @@ namespace StrayDogs.Pages
                 MessageBox.Show("Непредвиденная ошибка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-    
+
+        private void AddPhotoBTN_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "*.png|*.png|*.jpeg|*.jpeg|*.jpg|*.jpg"
+            };
+            if (openFileDialog.ShowDialog().GetValueOrDefault())
+            {
+                loginedEmployee.Photo = File.ReadAllBytes(openFileDialog.FileName);
+                PhotoEmpl.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+        }
+
+        private void TextOnly(System.Object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            e.Handled = IsTextNotAlphabetic(e.Text);
+        }
+
+        private static bool IsTextNotAlphabetic(string str)
+        {
+            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex("[^а-яА-Я]");
+            return reg.IsMatch(str);
+        }
     }
 }

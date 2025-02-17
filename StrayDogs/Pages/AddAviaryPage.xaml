@@ -58,15 +58,14 @@
 
         <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4">
             <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialDesign:AutoSuggestBox x:Name="NumberTB"
-                                               PreviewTextInput="RegexValidation"
+                <materialDesign:AutoSuggestBox IsReadOnly="True"
+                    x:Name="NumberTB"                        
                     materialDesign:HintAssist.Hint="Номер вольера"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:TextFieldAssist.HasClearButton="False"
                     DropDownElevation="Dp0"
                     Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
                     Suggestions="{Binding AutoSuggestBox2Suggestions}"
-                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="87" VerticalAlignment="Center" Width="325" Canvas.Top="-30">
+                    HorizontalAlignment="Left" Canvas.Left="87" VerticalAlignment="Center" Width="325" Canvas.Top="-30">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>

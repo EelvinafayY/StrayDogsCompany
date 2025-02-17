@@ -66,6 +66,15 @@ namespace StrayDogs.Pages
 
         private void RegistrationBTN_Click(object sender, RoutedEventArgs e)
         {
+            int emplCount = DBConnection.stray_DogsEntities.Employee.Count();
+            if (emplCount >= 100)
+            {
+                MessageBox.Show("Невозможно добавить больше 100 администраторов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                NavigationService.Navigate(new AddAviaryPage());
+            }
             NavigationService.Navigate(new RegistrationPage());
         }
 

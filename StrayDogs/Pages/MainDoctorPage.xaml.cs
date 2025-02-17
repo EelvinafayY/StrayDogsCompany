@@ -85,12 +85,13 @@ namespace StrayDogs.Pages
 
             var context = DBConnection.stray_DogsEntities;
 
+
             var appointments = context.Appointments
-                .Where(a => a.IdDoctor == loggedEmployee.Id
-                            && a.Date.HasValue
-                            && a.Date.Value.Month == selectedMonth
-                            && a.Date.Value.Year == selectedYear)
-                .ToList();
+            .Where(a => a.IdDoctor == loggedEmployee.Id
+                        && a.Date.HasValue
+                        && a.Date.Value.Month == selectedMonth
+                        && a.Date.Value.Year == selectedYear)
+            .ToList();
 
             var statuses = context.StatusAppointment
                 .Select(s => s.Name)

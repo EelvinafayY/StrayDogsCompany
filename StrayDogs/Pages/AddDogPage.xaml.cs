@@ -35,7 +35,28 @@ namespace StrayDogs.Pages
             genders = DBConnection.stray_DogsEntities.Gender.ToList();
             aviaries = DBConnection.stray_DogsEntities.Aviary.ToList();
             typeAviaries = DBConnection.stray_DogsEntities.TypeAviary.ToList();
+            GenerateAndDisplayOrigNumber();
             this.DataContext = this;
+        }
+
+        private void GenerateAndDisplayOrigNumber()
+        {
+            for (int i = 1; i <= 1999; i++)
+            {
+                string generatedOrigNumber = $"с{(i).ToString("D5")}"; // Генерация логина типа а00001, а00002 и т.д.
+
+                bool loginExists = DBConnection.stray_DogsEntities.Dog.Any(w => w.OrdinalNumber == generatedOrigNumber);
+
+                if (!loginExists)
+                {
+                    NumberTB.Text = generatedOrigNumber; // Обновляем свойство aviary.Number
+                    break;
+                }
+                else if (i == 1999)
+                {
+                    MessageBox.Show("Добавление невозможно!. Нет доступного места.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

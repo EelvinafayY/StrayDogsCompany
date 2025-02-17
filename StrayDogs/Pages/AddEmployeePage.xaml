@@ -165,14 +165,13 @@
         <Viewbox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:AutoSuggestBox
-                    x:Name="LoginTB"
+                    x:Name="LoginTB" IsReadOnly="True"
                     materialDesign:HintAssist.Hint="Логин"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:TextFieldAssist.HasClearButton="False"
                     DropDownElevation="Dp0"
                     Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
                     Suggestions="{Binding AutoSuggestBox2Suggestions}"
-                    Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
+                    HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel>

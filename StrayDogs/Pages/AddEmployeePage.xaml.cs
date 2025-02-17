@@ -40,8 +40,31 @@ namespace StrayDogs.Pages
             LoginTB.TextChanged += TextBox_TextChanged;
             PasswordTB.TextChanged += TextBox_TextChanged;
 
+            GenerateAndDisplayLogin();
+
             this.DataContext = this;
 
+        }
+
+        private void GenerateAndDisplayLogin()
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                string generatedLogin = $"д{(i).ToString("D5")}"; // Генерация логина типа a00001, a00002 и т.д.
+
+                bool loginExists = DBConnection.stray_DogsEntities.Employee.Any(w => w.Login == generatedLogin);
+
+                if (!loginExists)
+                {
+                    // Устанавливаем сгенерированный логин в текстовое поле
+                    LoginTB.Text = generatedLogin;
+                    break;
+                }
+                else if (i == 100)
+                {
+                    MessageBox.Show("Штаб сотрудников заполнен. Нет доступных логинов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

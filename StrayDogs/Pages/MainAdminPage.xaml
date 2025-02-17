@@ -129,7 +129,7 @@
                                     <StackPanel Width="110" Height="60"
                                                 Margin="5"
                                                     VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Id}" Foreground="#F4F7EE" FontSize="15"/>
+                                        <TextBlock Text="{Binding Number}" Foreground="#F4F7EE" FontSize="15"/>
                                         <TextBlock Text="{Binding TypeAviary.Name}" Foreground="#F4F7EE"/>
                                         <TextBlock Text="{Binding Status}" Foreground="#F4F7EE"/>
                                     </StackPanel>
