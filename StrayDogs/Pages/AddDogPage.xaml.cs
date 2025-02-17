@@ -220,13 +220,14 @@ namespace StrayDogs.Pages
             VolierCB.IsEnabled = true;
             var query = DBConnection.stray_DogsEntities.Aviary.AsQueryable(); // Создаем базовый запрос
 
-            if (GenderCB.SelectedIndex == 0)
+            // Фильтруем по типу вольера, если это необходимо
+            if (GenderCB.SelectedIndex == 0) // Например, 0 - это "Обычный"
             {
                 query = query.Where(i => i.TypeAviary.Name == "Обычный");
             }
 
-            // Всегда фильтруем только пустые вольеры, независимо от пола:
-            var emptyAviaries = query.Where(a => DBConnection.stray_DogsEntities.Dog.Any(d => d.IdAviary == a.Id)).ToList();
+            // Получаем только пустые вольеры:
+            var emptyAviaries = query.Where(a => !DBConnection.stray_DogsEntities.Dog.Any(d => d.IdAviary == a.Id)).ToList();
 
             VolierCB.ItemsSource = emptyAviaries;
         }
