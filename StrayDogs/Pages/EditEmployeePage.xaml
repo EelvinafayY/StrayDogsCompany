@@ -165,10 +165,10 @@
 
         <Viewbox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialDesign:AutoSuggestBox
+                <materialDesign:AutoSuggestBox IsReadOnly="True"
                     x:Name="LoginTB"
                     materialDesign:HintAssist.Hint="Логин"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    materialDesign:TextFieldAssist.HasClearButton="False"
                     DropDownElevation="Dp0"
                     Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
                     Suggestions="{Binding AutoSuggestBox2Suggestions}"

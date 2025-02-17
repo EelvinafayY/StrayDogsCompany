@@ -214,6 +214,12 @@
     <Compile Include="DB\Priem_Status.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\StatusAppointment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

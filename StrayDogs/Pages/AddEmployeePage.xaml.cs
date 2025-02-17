@@ -34,6 +34,8 @@ namespace StrayDogs.Pages
 
             posts = DBConnection.stray_DogsEntities.Post.ToList();
 
+            PostTB.Text = "Врач";
+
             SurnameTB.TextChanged += TextBox_TextChanged;
             NameTB.TextChanged += TextBox_TextChanged;
             PatronymicTB.TextChanged += TextBox_TextChanged;
@@ -48,16 +50,17 @@ namespace StrayDogs.Pages
 
         private void GenerateAndDisplayLogin()
         {
+            
             for (int i = 1; i <= 100; i++)
             {
-                string generatedLogin = $"д{(i).ToString("D5")}"; // Генерация логина типа a00001, a00002 и т.д.
+                string generatedLoginDoctor = $"д{(i).ToString("D5")}"; // Генерация логина типа a00001, a00002 и т.д.
 
-                bool loginExists = DBConnection.stray_DogsEntities.Employee.Any(w => w.Login == generatedLogin);
+                bool loginExists = DBConnection.stray_DogsEntities.Employee.Any(w => w.Login == generatedLoginDoctor);
 
                 if (!loginExists)
                 {
                     // Устанавливаем сгенерированный логин в текстовое поле
-                    LoginTB.Text = generatedLogin;
+                    LoginTB.Text = generatedLoginDoctor;
                     break;
                 }
                 else if (i == 100)
@@ -123,7 +126,7 @@ namespace StrayDogs.Pages
                     employee.Name = NameTB.Text.Trim();
                     employee.Patronymic = PatronymicTB.Text.Trim();
                     employee.DateOfBirth = DateDP.SelectedDate;
-                    employee.IdPost = 1;
+                    employee.IdPost = 2;
 
                     string login = LoginTB.Text;
                     bool loginExists = DBConnection.stray_DogsEntities.Employee.Any(w => w.Login == login);
@@ -169,6 +172,12 @@ namespace StrayDogs.Pages
                     if (employee.Photo == null)
                     {
                         MessageBox.Show("Добавьте фото.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    if (DateDP.SelectedDate != null && (DateTime.Now - (DateTime)DateDP.SelectedDate).TotalDays < 365 * 18 + 4)
+                    {
+                        MessageBox.Show("Клиент не может быть младше 18 лет!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 

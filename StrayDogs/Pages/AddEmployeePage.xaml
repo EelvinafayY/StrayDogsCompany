@@ -153,12 +153,13 @@
         <Viewbox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <DatePicker x:Name="DateDP"
-                    Width="438"
-                    materialDesign:HintAssist.Hint="Дата рождения"
-                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"
-                    HorizontalAlignment="Left"
-                    Canvas.Left="63"
-                    VerticalAlignment="Center"/>
+            Width="438" 
+            materialDesign:HintAssist.Hint="Дата рождения" 
+            Style="{StaticResource MaterialDesignOutlinedDatePicker}" 
+            Text="{Binding loginedEmployee.DateOfBirth, Mode=TwoWay}" 
+            HorizontalAlignment="Left" 
+            Canvas.Left="63" 
+            VerticalAlignment="Center"/>
             </Canvas>
         </Viewbox>
 
@@ -270,17 +271,29 @@
 
         <Viewbox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ComboBox x:Name="PostCB"
-                          ItemsSource="{Binding posts}"
-                HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438"
-                materialDesign:HintAssist.Hint="Роль"
-                Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                    <ComboBox.ItemTemplate>
+                <materialDesign:AutoSuggestBox
+                    x:Name="PostTB" IsReadOnly="True"
+                    materialDesign:HintAssist.Hint="Роль"
+                    materialDesign:TextFieldAssist.HasClearButton="False"
+                    DropDownElevation="Dp0"
+                    Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+                    Suggestions="{Binding AutoSuggestBox2Suggestions}"
+                    HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="438">
+                    <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
+                            <DockPanel>
+                                <Border
+                                    Width="20"
+                                    Height="20"
+                                    Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+                                    CornerRadius="10" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    Text="{Binding Key}" />
+                            </DockPanel>
                         </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                    </materialDesign:AutoSuggestBox.ItemTemplate>
+                </materialDesign:AutoSuggestBox>
             </Canvas>
         </Viewbox>
     </Grid>

@@ -216,8 +216,9 @@ namespace StrayDogs.Pages
                     .ToList();
 
                 filterVoliers = filterVoliers
-                    .Where(i => i.TypeAviary.Name.ToLower().Contains(SearchTB.Text.Trim().ToLower()))
-                    .ToList();
+                                    .Where(i => i.TypeAviary.Name.ToLower().Contains(SearchTB.Text.Trim().ToLower())
+                                     || i.Number.ToLower().Contains(SearchTB.Text.Trim().ToLower()))
+                                    .ToList();
             }
 
             var typeAviary = TypeCB.SelectedItem as TypeAviary;
