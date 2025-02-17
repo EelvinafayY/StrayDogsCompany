@@ -120,6 +120,8 @@ namespace StrayDogs.Pages
             PostCB.Visibility = Visibility;
             PostTB.Visibility = Visibility.Collapsed;
 
+            AddPhotoBTN.Visibility = Visibility.Visible;
+
         }
 
         public class SuggestionItem

@@ -109,12 +109,30 @@ namespace StrayDogs.Pages
 
         private void AddDogBTN_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDogPage());
+            int dogCount = DBConnection.stray_DogsEntities.Dog.Count();
+            if (dogCount >= 1999)
+            {
+                MessageBox.Show("Невозможно добавить больше 1 999 собак.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                NavigationService.Navigate(new AddDogPage());
+            }
+
         }
 
         private void AddEmployeeBT_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddEmployeePage());
+            int emplCount = DBConnection.stray_DogsEntities.Employee.Count();
+            if (emplCount >= 100)
+            {
+                MessageBox.Show("Невозможно добавить больше 100 сотрудников.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {            
+                NavigationService.Navigate(new AddEmployeePage());
+            }
+
         }
 
         private void EditBTN_Click(object sender, RoutedEventArgs e)

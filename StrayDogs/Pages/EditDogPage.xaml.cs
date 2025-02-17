@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StrayDogs.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace StrayDogs.Pages
     /// </summary>
     public partial class EditDogPage : Page
     {
-        public EditDogPage()
+        Dog contextdog;
+        public EditDogPage(Dog dog)
         {
             InitializeComponent();
+            contextdog = dog;
+            DataContext = contextdog = dog;
         }
     }
 }

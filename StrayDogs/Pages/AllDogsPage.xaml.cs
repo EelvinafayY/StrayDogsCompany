@@ -63,7 +63,23 @@ namespace StrayDogs.Pages
 
         private void InfoDogPage_Click(object sender, RoutedEventArgs e)
         {
+            var selectedDog = (sender as Button).DataContext as Dog;
 
+            if (selectedDog != null)
+            {
+                if(loginedEmployee != null)
+                {
+                    if (loginedEmployee.IdPost == 1) //админ
+                    {
+                        NavigationService.Navigate(new EditDogPage(selectedDog));
+                    }
+                    else if(loginedEmployee.IdPost == 2) { NavigationService.Navigate(new EditDogDoctorPage(selectedDog)); }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите прием с собакой для редактирования.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void Refresh(int i) //Поиск по НомеруСобаки, описанию, клетке и наименованию типа клетки
@@ -77,13 +93,13 @@ namespace StrayDogs.Pages
             {
                 filtered = filtered.Where(x => x.OrdinalNumber.ToLower().Contains(searchText) ||
                                                x.Gender.Name.ToLower().Contains(searchText) ||
-                                               x.Description.ToLower().Contains(searchText) ||
                                                (x.Aviary != null && x.Aviary.TypeAviary != null &&
                                                 x.Aviary.TypeAviary.Name.ToLower().Contains(searchText))); // добавлен поиск по типу клетки
             }
 
             DogsLv.ItemsSource = filtered.ToList();
         }
+
 
 
         private void SearchDogsTB_TextChanged(object sender, TextChangedEventArgs e)

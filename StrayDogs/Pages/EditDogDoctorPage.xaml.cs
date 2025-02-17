@@ -30,12 +30,16 @@ namespace StrayDogs.Pages
         public string AgeBoxText { get; set; }
         public string DescriptionBoxText { get; set; }
         public string PhoneBoxText { get; set; }
+        public string GenderBoxText { get; set; }
+        public string AviaryBoxText { get; set; }
         public ObservableCollection<SuggestionItem> OrdinalNumberBoxSuggestions { get; set; }
         public ObservableCollection<SuggestionItem> HeightBoxSuggestions { get; set; }
         public ObservableCollection<SuggestionItem> WeightBoxSuggestions { get; set; }
         public ObservableCollection<SuggestionItem> AgeBoxSuggestions { get; set; }
         public ObservableCollection<SuggestionItem> DescriptionBoxSuggestions { get; set; }
         public ObservableCollection<SuggestionItem> PhoneBoxSuggestions { get; set; }
+        public ObservableCollection<SuggestionItem> GenderBoxSuggestions { get; set; }
+        public ObservableCollection<SuggestionItem> AviaryBoxSuggestions { get; set; }
 
         public static List<Dog> dogs {  get; set; }
         public static List<Gender> genders { get; set; }
@@ -62,20 +66,15 @@ namespace StrayDogs.Pages
             HeightBoxText = contextDog.Height.ToString();
             WeightBoxText = contextDog.Weight.ToString();
             AgeBoxText = contextDog.Age.ToString();
-            DescriptionBoxText = contextDog?.Description;
+            DescriptionBoxText = contextDog.Description;
+            GenderBoxText = contextDog.Gender.Name;
+
+            if(contextDog.IdAviary == null) { AviaryBoxText = " "; }
+            else { AviaryBoxText = contextDog.Aviary.TypeAviary.Name;}
+
+            
             if (contextDog.NumberPhoneHost == null) { PhoneBoxText = " "; }
             else {PhoneBoxText = contextDog.NumberPhoneHost.ToString(); }
-
-
-            GenderCB.SelectedIndex = (int)contextDog.IdGender - 1;
-            if (contextDog.IdAviary != null)
-            {
-                AviaryCB.SelectedIndex = (int)contextDog.IdAviary - 1;
-            }
-            else
-            {
-                AviaryCB.Text = "ddd";
-            }
 
 
             // Устанавливаем значения для флажков, учитывая возможное значение null
@@ -99,7 +98,13 @@ namespace StrayDogs.Pages
 
         private void BeginBTN_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new MainDoctorPage());
+            MessageBoxResult result = MessageBox.Show($"Вы действительно хотите вернуться назад?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                NavigationService.Navigate(new AllDogsPage());
+            }
+
         }
 
         private void appoitmentsBTN_Click(object sender, RoutedEventArgs e)

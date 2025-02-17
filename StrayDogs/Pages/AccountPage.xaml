@@ -236,7 +236,7 @@ Width="250" Canvas.Left="200" Canvas.Top="-90">
             <Viewbox Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid Width="200">
-                        <Button x:Name="AddPhotoBTN"
+                        <Button x:Name="AddPhotoBTN" Visibility="Collapsed"
                             Click="AddPhotoBTN_Click"
                         Background="#16343C"
                         Foreground="#F4F7EE"

@@ -28,24 +28,50 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,156" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
+
+            <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="30 0 0 40">
+                <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialDesign:AutoSuggestBox
+  materialDesign:HintAssist.Hint="Поиск"
+  materialDesign:TextFieldAssist.HasClearButton="True"
+  DropDownElevation="Dp0"
+  BorderBrush="#3C5D6C"   
+                    x:Name="SearchDogsTB"
+  Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+  Suggestions="{Binding AutoSuggestBox2Suggestions}"
+  Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+  ValueMember="Key" HorizontalAlignment="Left" VerticalAlignment="Top" Width="450" Height="50" Canvas.Left="8" Canvas.Top="10" TextChanged="SearchDogsTB_TextChanged">
+                        <materialDesign:AutoSuggestBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="60"/>
+                            </Style>
+                        </materialDesign:AutoSuggestBox.Resources>
+
+                        <materialDesign:AutoSuggestBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Width="200">
+
+                                    <Border
+          Width="200"
+          Height="20"
+          Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+          />
+                                    <TextBlock
+          Margin="30,0,0,0"
+          Text="{Binding Key}" 
+                                    Width="200"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </materialDesign:AutoSuggestBox.ItemTemplate>
+                    </materialDesign:AutoSuggestBox>
+                </Canvas>
+            </Viewbox>
+
+            <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,110" Grid.Row="1">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Text="Все собаки" Foreground="#16343C" FontSize="28" Opacity="0.9"/>
                 </Canvas>
             </Viewbox>
-
-
-            <Viewbox Grid.Column="2" Grid.ColumnSpan="2" Margin="40,30,0,156" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
-                <Canvas Width="600" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBox Width="570" x:Name="SearchDogsTB" Foreground="#16343C"
-                        FontSize="16"
-                        VerticalAlignment="Center"
-                        TextChanged="SearchDogsTB_TextChanged"
-                        materialDesign:HintAssist.Hint="Поиск по собакам"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                </Canvas>
-            </Viewbox>
-            
 
             <Viewbox Grid.Row="0" Grid.Column="4"
                  Grid.ColumnSpan="2"

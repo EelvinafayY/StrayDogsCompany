@@ -54,7 +54,7 @@ materialDesign:TextFieldAssist.HasClearButton="True"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+Text="{Binding OrdinalNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
 ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="65" VerticalAlignment="Center" Width="325" Canvas.Top="-30">
                     <materialDesign:AutoSuggestBox.ItemTemplate>
                         <DataTemplate>
@@ -138,7 +138,7 @@ materialDesign:TextFieldAssist.HasClearButton="True"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+Text="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 ValueMember="Key" Width="220">
 
                         <materialDesign:AutoSuggestBox.ItemTemplate>
@@ -163,7 +163,7 @@ materialDesign:TextFieldAssist.HasClearButton="True"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+Text="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 ValueMember="Key" Width="220" Margin="60 0 0 0">
 
                         <materialDesign:AutoSuggestBox.ItemTemplate>
@@ -188,7 +188,7 @@ materialDesign:TextFieldAssist.HasClearButton="True"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+Text="{Binding Age, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 ValueMember="Key" Width="220" Margin="60 0 0 0">
 
                         <materialDesign:AutoSuggestBox.ItemTemplate>
@@ -207,7 +207,7 @@ ValueMember="Key" Width="220" Margin="60 0 0 0">
                         </materialDesign:AutoSuggestBox.ItemTemplate>
                     </materialDesign:AutoSuggestBox>
 
-                    <ComboBox
+                    <ComboBox x:Name="GenderDogCB"
 HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="220" Margin="60 0 0 0"
 materialDesign:HintAssist.Hint="Пол"
 Style="{StaticResource MaterialDesignOutlinedComboBox}">
@@ -231,7 +231,7 @@ materialDesign:TextFieldAssist.HasClearButton="True"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 ValueMember="Key" Width="500" TextWrapping="Wrap">
 
                         <materialDesign:AutoSuggestBox.ItemTemplate>

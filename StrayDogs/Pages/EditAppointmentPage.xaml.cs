@@ -33,7 +33,21 @@ namespace StrayDogs.Pages
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            if(contextAppointment.IdStatusPriem == 2)
+            {
+                MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    NavigationService.GoBack();
+                }
+            }
+            else
+            {
+                NavigationService.GoBack();
+            }
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -82,6 +96,8 @@ namespace StrayDogs.Pages
                     }
 
                     DBConnection.stray_DogsEntities.SaveChanges();
+
+                    MessageBox.Show($"Прием завершен!", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
                     NavigationService.Navigate(new MainDoctorPage());
                 }
                 else
