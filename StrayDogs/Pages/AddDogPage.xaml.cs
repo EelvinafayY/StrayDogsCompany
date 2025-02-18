@@ -164,6 +164,8 @@ namespace StrayDogs.Pages
                     dog.IdGender = b.Id;
 
                     dog.Description = DescriptionTB.Text;
+                    dog.IsDie = false;
+                    dog.IsGive = false;
 
                     DBConnection.stray_DogsEntities.Dog.Add(dog);
                     DBConnection.stray_DogsEntities.SaveChanges();
