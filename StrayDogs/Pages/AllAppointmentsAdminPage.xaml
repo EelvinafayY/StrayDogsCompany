@@ -87,7 +87,19 @@
 
         <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="30,4,0,156" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Приемы" Foreground="#16343C" FontSize="24" Opacity="0.9"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Приемы" Foreground="#16343C" FontSize="24" Opacity="0.9" Height="36"/>
+
+                    <Button x:Name="AddAppoitmentDocBTN" Click="AddAppoitmentDocBTN_Click"
+                                Background="#16343C" Foreground="#F4F7EE" Margin="750 0 0 0" Height="35"
+                                materialDesign:ButtonAssist.CornerRadius="15"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
+                        <TextBlock
+                                Text="Создать новый прием" />
+                    </Button>
+                </StackPanel>
             </Canvas>
         </Viewbox>
 

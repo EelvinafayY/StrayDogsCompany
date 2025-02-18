@@ -355,5 +355,9 @@ namespace StrayDogs.Pages
             }
         }
 
+        private void AddAppoitmentDocBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddAppointmenDoctorPage());ще 
+        }
     }
 }

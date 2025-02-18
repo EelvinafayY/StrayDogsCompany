@@ -64,7 +64,9 @@
             <Viewbox Grid.Column="1" Grid.ColumnSpan="5" Margin="25,0,0,60" Grid.Row="1" VerticalAlignment="Top" Grid.RowSpan="2">
                 <Canvas Width="1200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Canvas.Left="10" VerticalAlignment="Center">
+                        
                         <TextBlock Text="Приемы" Foreground="#16343C" FontSize="24" Opacity="0.9" Height="36"/>
+
                         <StackPanel Orientation="Horizontal" Width="1100" Margin="0 5 0 0">
                             <ComboBox Height="47" Width="320" DisplayMemberPath="Name" x:Name="PriemStatusCB" SelectedIndex="0" BorderBrush="#3C5D6C"   
   Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectionChanged="PriemStatusCB_SelectionChanged"/>
