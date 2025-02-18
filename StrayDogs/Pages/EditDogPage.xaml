@@ -48,9 +48,9 @@ VerticalAlignment="Top" Canvas.Left="69" Canvas.Top="-2"></TextBlock>
 
         <Viewbox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialDesign:AutoSuggestBox
+                <materialDesign:AutoSuggestBox IsReadOnly="True"
 materialDesign:HintAssist.Hint="Уникальный идентификатор"
-materialDesign:TextFieldAssist.HasClearButton="True"
+materialDesign:TextFieldAssist.HasClearButton="False"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
@@ -77,7 +77,7 @@ ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="65" VerticalAlignment=
         <Viewbox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="158" Canvas.Top="-69" VerticalAlignment="Top">
-                    <Image Source="/Image/logoMenu.png"
+                    <Image Source="{Binding Photo}" x:Name="PhotoDog"
 Height="150"
 Width="150">
                         <Image.Clip>
@@ -87,7 +87,7 @@ Width="150">
                     <StackPanel Orientation="Vertical">
                         <Grid
 Width="100">
-                            <Button
+                            <Button x:Name="PhotoEditBTN" Click="PhotoEditBTN_Click"
                       Background="#16343C"
                        Foreground="#F4F7EE"
                        
@@ -95,7 +95,7 @@ Width="100">
   materialDesign:ButtonAssist.CornerRadius="15"
   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
   Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="25,36,-61,-36">
+  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="25,56,-61,-36">
                                 <TextBlock
     Text="Изменить фото" />
                             </Button>
@@ -103,18 +103,7 @@ Width="100">
 
                         <Grid
 Width="100">
-                            <Button
-                      Background="Transparent"
-                       Foreground="#16343C"
-                       
-  Height="35"
-  materialDesign:ButtonAssist.CornerRadius="15"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Margin="25,57,-61,-57">
-                                <TextBlock
-    Text="Удалить фото" />
-                            </Button>
+                            
                         </Grid>
                     </StackPanel>
                 </StackPanel>
@@ -133,8 +122,8 @@ VerticalAlignment="Top" Canvas.Left="69" Canvas.Top="-2"></TextBlock>
             <Canvas Width="1200" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Canvas.Left="72" Canvas.Top="-30">
                     <materialDesign:AutoSuggestBox
-materialDesign:HintAssist.Hint="Рост"
-materialDesign:TextFieldAssist.HasClearButton="True"
+materialDesign:HintAssist.Hint="Рост" IsReadOnly="True"
+materialDesign:TextFieldAssist.HasClearButton="False"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
@@ -158,8 +147,8 @@ ValueMember="Key" Width="220">
                     </materialDesign:AutoSuggestBox>
 
                     <materialDesign:AutoSuggestBox
-materialDesign:HintAssist.Hint="Вес"
-materialDesign:TextFieldAssist.HasClearButton="True"
+materialDesign:HintAssist.Hint="Вес" IsReadOnly="True"
+materialDesign:TextFieldAssist.HasClearButton="False"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
@@ -183,8 +172,8 @@ ValueMember="Key" Width="220" Margin="60 0 0 0">
                     </materialDesign:AutoSuggestBox>
 
                     <materialDesign:AutoSuggestBox
-materialDesign:HintAssist.Hint="Возраст"
-materialDesign:TextFieldAssist.HasClearButton="True"
+materialDesign:HintAssist.Hint="Возраст" IsReadOnly="True"
+materialDesign:TextFieldAssist.HasClearButton="False"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
@@ -207,17 +196,30 @@ ValueMember="Key" Width="220" Margin="60 0 0 0">
                         </materialDesign:AutoSuggestBox.ItemTemplate>
                     </materialDesign:AutoSuggestBox>
 
-                    <ComboBox x:Name="GenderDogCB"
-HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="220" Margin="60 0 0 0"
-materialDesign:HintAssist.Hint="Пол"
-Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                        ,
-                        <ComboBox.ItemTemplate>
+                    <materialDesign:AutoSuggestBox x:Name="GenderTB"
+materialDesign:HintAssist.Hint="Пол" IsReadOnly="True"
+materialDesign:TextFieldAssist.HasClearButton="False"
+DropDownElevation="Dp0"
+Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
+Suggestions="{Binding AutoSuggestBox2Suggestions}"
+Text="{Binding Gender.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+ValueMember="Key" Width="220" Margin="60 0 0 0">
+
+                        <materialDesign:AutoSuggestBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock/>
+                                <DockPanel>
+                                    <Border
+        Width="20"
+        Height="20"
+        Background="{Binding Value, Converter={StaticResource ColorToBrushConverter}}"
+        CornerRadius="10" />
+                                    <TextBlock
+        Margin="10,0,0,0"
+        Text="{Binding Key}" />
+                                </DockPanel>
                             </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                        </materialDesign:AutoSuggestBox.ItemTemplate>
+                    </materialDesign:AutoSuggestBox>
                 </StackPanel>
             </Canvas>
         </Viewbox>
@@ -225,9 +227,9 @@ Style="{StaticResource MaterialDesignOutlinedComboBox}">
         <Viewbox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4">
             <Canvas Width="800" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Canvas.Left="72" Canvas.Top="-30" >
-                    <materialDesign:AutoSuggestBox 
+                    <materialDesign:AutoSuggestBox  IsReadOnly="True"
 materialDesign:HintAssist.Hint="Харатеристика"
-materialDesign:TextFieldAssist.HasClearButton="True"
+materialDesign:TextFieldAssist.HasClearButton="False"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
@@ -250,20 +252,26 @@ ValueMember="Key" Width="500" TextWrapping="Wrap">
                         </materialDesign:AutoSuggestBox.ItemTemplate>
                     </materialDesign:AutoSuggestBox>
 
-                    <ComboBox
-HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="220" Margin="60 0 0 0"
-materialDesign:HintAssist.Hint="Вольер"
-Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                        ,
+                    <ComboBox x:Name="AviaryCB" IsReadOnly="True"
+        HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment="Center" Width="220" Margin="180 0 0 0"
+        materialDesign:HintAssist.Hint="Вольер"
+               ItemsSource="{Binding aviaries}"
+        Style="{StaticResource MaterialDesignOutlinedComboBox}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Number}"/>
+                                    <TextBlock Text="{Binding TypeAviary.Name, StringFormat=' {0}'}"/>
+                                </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <CheckBox
+
+                    
+                <CheckBox 
+                        IsEnabled="False" 
                         Margin="60 0 0 0"
-    x:Name="RevealPasswordOutlinedEnabled"
+    x:Name="IsDiedCHB"
     Content="Мертв(-а)" 
                         Foreground="#16343C" FontSize="18" Opacity="0.9"/>
                 </StackPanel>
@@ -282,17 +290,17 @@ VerticalAlignment="Top" Canvas.Left="69" Canvas.Top="-2"></TextBlock>
         <Viewbox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Canvas.Left="80" Canvas.Top="-21">
-                    <CheckBox
+                    <CheckBox IsEnabled="False"
     x:Name="IsGiveCB"
     Content="Отдан(-а)" 
                         Foreground="#16343C" FontSize="18" Opacity="0.9"/>
                     <materialDesign:AutoSuggestBox
-materialDesign:HintAssist.Hint="Телефон"
+materialDesign:HintAssist.Hint="Телефон" IsReadOnly="True"
 materialDesign:TextFieldAssist.HasClearButton="True"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding AutoSuggestBox2Suggestions}"
-Text="{Binding AutoSuggestBox2Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+Text="{Binding NumberPhoneHost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 ValueMember="Key" Width="220" Margin="20 0 0 0">
 
                         <materialDesign:AutoSuggestBox.ItemTemplate>
@@ -317,7 +325,7 @@ ValueMember="Key" Width="220" Margin="20 0 0 0">
         <Viewbox Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
-                    <Button 
+                    <Button x:Name="OKBTN" Click="OKBTN_Click"
                         Margin="60 0 0 0"
                     Background="#16343C"
                      Foreground="#F4F7EE"
@@ -331,7 +339,7 @@ ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
   Text="Сохранить" />
                     </Button>
 
-                    <Button 
+                    <Button x:Name="AllAppoitmentsDogBTN" Click="AllAppoitmentsDogBTN_Click"
                     Background="Transparent"
                         Margin="20 0 0 0"
                      Foreground="#16343C"
@@ -352,7 +360,7 @@ ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
             <Canvas Width="500" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid
 Width="200">
-                    <Button
+                    <Button x:Name="BackBTN" Click="BackBTN_Click"
                       Background="#16343C"
                        Foreground="#F4F7EE"
                        

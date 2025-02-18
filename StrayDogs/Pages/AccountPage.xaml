@@ -169,7 +169,7 @@ ValueMember="Key" HorizontalAlignment="Left" Canvas.Left="63" VerticalAlignment=
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <materialDesign:AutoSuggestBox IsReadOnly="True" x:Name="LoginTB"
 materialDesign:HintAssist.Hint="Логин"
-  materialDesign:TextFieldAssist.HasClearButton="{Binding IsClearButtonVisible}"
+  materialDesign:TextFieldAssist.HasClearButton="False"
 DropDownElevation="Dp0"
 Style="{StaticResource MaterialDesignOutlinedAutoSuggestBox}"
 Suggestions="{Binding LoginBoxSuggestions}"
@@ -276,7 +276,7 @@ Width="200">
             <Viewbox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
                 <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ComboBox x:Name="PostCB" IsReadOnly="True" IsEnabled="False" Visibility="Collapsed"
-            Width="438" 
+            Width="438"
             materialDesign:HintAssist.Hint="Роль" 
             Style="{StaticResource MaterialDesignOutlinedComboBox}"
             ItemsSource="{Binding posts}"

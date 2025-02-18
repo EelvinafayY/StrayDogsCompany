@@ -35,7 +35,7 @@
 
         <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
             <Canvas Width="600" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ComboBox
+                <ComboBox x:Name="DateSortCB" SelectionChanged="DateSortCB_SelectionChanged"
 HorizontalAlignment="Left" Canvas.Left="-33" Width="438"
 materialDesign:HintAssist.Hint="Сортировка по дате"
 Style="{StaticResource MaterialDesignOutlinedComboBox}">
@@ -65,7 +65,7 @@ Content="Все" />
                         Height="200" 
                         Background="#8BA598"
                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                        d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Left" Canvas.Left="-88" VerticalAlignment="Center">
+                        d:ItemsSource="{Binding appointments}" HorizontalAlignment="Left" Canvas.Left="-88" VerticalAlignment="Center">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="2"/>
@@ -74,29 +74,33 @@ Content="Все" />
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#3C5D6C"
-                                  Background="#3C5D6C"
-                                  Margin="0,0,5,0"
-                                  BorderThickness="0.1"
-                                  CornerRadius="5"
-                                  Padding="12">
-                                <StackPanel Orientation="Horizontal" Width="400" Height="55" Margin="0,1,0,0">
-                                    <StackPanel Width="360" Height="70" HorizontalAlignment="Left">
-                                        <TextBlock Text="{Binding .}" Margin="5,0,0,0" Foreground="#F4F7EE" 
-                                                 HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{Binding .}" Margin="5,0,0,0" Foreground="#F4F7EE" 
-                                                 HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{Binding .}" Margin="5,0,0,0" Foreground="#F4F7EE" 
-                                                 HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center"/>
+                                    Background="#3C5D6C"
+                                    Margin="0,0,5,0"
+                                    BorderThickness="0.1"
+                                    CornerRadius="5"
+                                    Padding="10">
+                                <StackPanel Orientation="Horizontal" Width="400" Height="65" Margin="0,1,0,0">
+                                    <StackPanel Width="360" Height="65" HorizontalAlignment="Left">
+                                        <StackPanel Orientation="Horizontal" Width="360">
+                                            <TextBlock Text="{Binding StatusAppointment.Name, StringFormat='Тип приема: {0}'}" Margin="5,0,0,0" Foreground="#F4F7EE" 
+                                                   HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Width="200"/>
+                                            <TextBlock Text="{Binding Date, StringFormat='dd.MM.yyyy, HH:mm'}" Margin="0,0,-135,0" Foreground="#F4F7EE" 
+                                                           HorizontalAlignment="Right" FontSize="14" VerticalAlignment="Center"/>
+
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding Priem_Status.Name}" Margin="5,10,0,0" Foreground="#F4F7EE" 
+                                                   HorizontalAlignment="Left" FontSize="10" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Button HorizontalAlignment="Right" Background="#F4F7EE" Foreground="#16343C" BorderBrush="Transparent"
-IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-ToolTip="MaterialDesignFloatingActionMiniDarkButton">
+                                        <Button x:Name="InfoDogPageBTN" Click="InfoDogPageBTN_Click"
+                                                HorizontalAlignment="Right" Background="#F4F7EE" Foreground="#16343C" BorderBrush="Transparent"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+  ToolTip="MaterialDesignFloatingActionMiniDarkButton">
                                             <materialDesign:PackIcon HorizontalAlignment="Right"                                                                  
-                                              Width="25"
-                                              Height="25"
-                                              Kind="Pencil" />
+                                                Width="25"
+                                                Height="25"
+                                                Kind="Pencil" />
                                         </Button>
                                     </StackPanel>
                                 </StackPanel>

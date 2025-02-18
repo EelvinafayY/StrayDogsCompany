@@ -107,7 +107,7 @@ namespace StrayDogs.Pages
             SurnameTB.IsReadOnly = false;
             NameTB.IsReadOnly = false;
             PatrNameTB.IsReadOnly = false;
-            LoginTB.IsReadOnly = false;
+            LoginTB.IsReadOnly = true;
             PasswordTB.IsReadOnly = false;
 
             BHDP.IsEnabled = true;
@@ -252,7 +252,7 @@ namespace StrayDogs.Pages
                         loginedEmployee.Password = PasswordBoxText;
                         DBConnection.stray_DogsEntities.SaveChanges();
 
-                        if(selectedPost != null && selectedPost.Id == 2)
+                        if (selectedPost != null && selectedPost.Id == 2)
                         {
                             //ПЕРЕЗАПУСК ПРОГРАММЫ
                             string exePath = Process.GetCurrentProcess().MainModule.FileName;

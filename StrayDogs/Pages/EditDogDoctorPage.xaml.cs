@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using static StrayDogs.Pages.AccountPage;
 using StrayDogs.DB;
 using System.IO;
+using StrayDogs.Windows;
 
 namespace StrayDogs.Pages
 {
@@ -70,7 +71,7 @@ namespace StrayDogs.Pages
             GenderBoxText = contextDog.Gender.Name;
 
             if(contextDog.IdAviary == null) { AviaryBoxText = " "; }
-            else { AviaryBoxText = contextDog.Aviary.TypeAviary.Name;}
+            else { AviaryBoxText = contextDog.Aviary.Number + contextDog.Aviary.TypeAviary.Name;}
 
             
             if (contextDog.NumberPhoneHost == null) { PhoneBoxText = " "; }
@@ -84,7 +85,7 @@ namespace StrayDogs.Pages
 
             if (contextDog.Photo != null)
             {
-                using (var stream = new MemoryStream(DBConnection.logginedEmployee.Photo))
+                using (var stream = new MemoryStream(contextDog.Photo))
                 {
                     var bitmap = new BitmapImage();
                     bitmap.BeginInit();
@@ -109,7 +110,8 @@ namespace StrayDogs.Pages
 
         private void appoitmentsBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            AllAppointmentsDogWindow allAppointmentsDog = new AllAppointmentsDogWindow(contextDog);
+            allAppointmentsDog.ShowDialog();
         }
 
         public class SuggestionItem
