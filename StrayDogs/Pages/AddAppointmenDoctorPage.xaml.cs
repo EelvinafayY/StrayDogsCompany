@@ -118,33 +118,39 @@ namespace StrayDogs.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var a = VrachCB.SelectedItem as Employee;
-            var b = DogCB.SelectedItem as Dog;
-            var c = StatusCB.SelectedItem as StatusAppointment;
-            DateTime selectedDate = DateDayDP.SelectedDate ?? DateTime.MinValue;
-            TimeSpan selectedTimeSpan = TimeDP.SelectedTime.Value.TimeOfDay;
-            DateTime fullDateTime = selectedDate.Date.Add(selectedTimeSpan);
-
-            if (a == null || b == null || c == null ||
-                fullDateTime == null)
+            try
             {
-                MessageBox.Show("Заполните все поля!");
-                return;
+                var a = VrachCB.SelectedItem as Employee;
+                var b = DogCB.SelectedItem as Dog;
+                var c = StatusCB.SelectedItem as StatusAppointment;
+                DateTime selectedDate = DateDayDP.SelectedDate ?? DateTime.MinValue;
+                //TimeSpan selectedTimeSpan = TimeDP.SelectedTime.Value.TimeOfDay;
+                DateTime fullDateTime = selectedDate.Date.Add(TimeDP.SelectedTime.Value.TimeOfDay);
+
+                if (a == null || b == null || c == null ||
+                    fullDateTime == null)
+                {
+                    MessageBox.Show("Заполните все поля!");
+                    return;
+                }
+                else
+                {
+                    newAppointment.IdDoctor = a.Id;
+                    newAppointment.IdDog = b.Id;
+                    newAppointment.IdStatus = c.Id;
+                    newAppointment.Date = fullDateTime;
+                    newAppointment.IdStatusPriem = 2;
+                    DBConnection.stray_DogsEntities.Appointments.Add(newAppointment);
+                    DBConnection.stray_DogsEntities.SaveChanges();
+                    MessageBox.Show("Прием успешно сохранен!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    NavigationService.Navigate(new AllAppointmentsAdminPage());
+                }
             }
-            else
+            catch 
             {
-                newAppointment.IdDoctor = a.Id;
-                newAppointment.IdDog = b.Id;
-                newAppointment.IdStatus = c.Id;
-                newAppointment.Date = fullDateTime;
-                newAppointment.IdStatusPriem = 2;
-                DBConnection.stray_DogsEntities.Appointments.Add(newAppointment);
-                DBConnection.stray_DogsEntities.SaveChanges();
-                MessageBox.Show("Прием успешно сохранен!");
-
-
-                //ДОБАВИТЬ СЮДА НАВИГАЦИЮ НА НУЖНУЮ СТРАНИЦУ!!!!!
+                MessageBox.Show("Ошибка сохранения приема!", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
 
     }

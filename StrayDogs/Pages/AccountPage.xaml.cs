@@ -219,6 +219,8 @@ namespace StrayDogs.Pages
 
                             if (selectedPost != null && selectedPost.Id == 2)
                             {
+                                MessageBox.Show("Пользователь обновлен успешно!", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+
                                 //ПЕРЕЗАПУСК ПРОГРАММЫ
                                 string exePath = Process.GetCurrentProcess().MainModule.FileName;
                                 Process.Start(exePath);

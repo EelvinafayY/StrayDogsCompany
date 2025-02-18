@@ -347,7 +347,7 @@ namespace StrayDogs.Pages
             if (selectedAppointment?.Dog != null)
             {
                 // Переходим на страницу редактирования собаки, передавая выбранную собаку
-                NavigationService.Navigate(new EditDogDoctorPage(selectedAppointment.Dog));
+                NavigationService.Navigate(new EditAppointmentPage(selectedAppointment));
             }
             else
             {
@@ -357,7 +357,7 @@ namespace StrayDogs.Pages
 
         private void AddAppoitmentDocBTN_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddAppointmenDoctorPage());ще 
+            NavigationService.Navigate(new AddAppointmenDoctorPage());
         }
     }
 }

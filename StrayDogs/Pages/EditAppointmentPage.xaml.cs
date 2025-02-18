@@ -22,22 +22,33 @@ namespace StrayDogs.Pages
     public partial class EditAppointmentPage : Page
     {
         Appointments contextAppointment;
+
+        public bool IsClearButtonVisible { get; set; }
         public EditAppointmentPage(Appointments appointments)
         {
             InitializeComponent();
             contextAppointment = appointments;
             VrachTB.Text = appointments.Employee.FullName;
             DataContext = contextAppointment = appointments;
+            VisibilityAdmin();
             VisibilityUser();
+
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(contextAppointment.IdStatusPriem == 2)
+            if(DBConnection.logginedEmployee.IdPost == 2)
             {
-                MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if(contextAppointment.IdStatusPriem == 2)
+                {
+                    MessageBoxResult result = MessageBox.Show($"Вы действительно хотите отменить все изменения?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-                if (result == MessageBoxResult.Yes)
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        NavigationService.GoBack();
+                    }
+                }
+                else
                 {
                     NavigationService.GoBack();
                 }
@@ -46,6 +57,7 @@ namespace StrayDogs.Pages
             {
                 NavigationService.GoBack();
             }
+
 
 
         }
@@ -145,6 +157,18 @@ namespace StrayDogs.Pages
                 }
             }
 
+        }
+
+        public void VisibilityAdmin()
+        {
+            if(DBConnection.logginedEmployee.IdPost == 1)
+            {
+                OverBtn.Visibility = Visibility.Collapsed;
+                DieseTb.IsReadOnly = true;
+                CommentTb.IsReadOnly = true;
+                DieCheck.IsEnabled = false;
+                IsClearButtonVisible = DBConnection.logginedEmployee.IdPost != 1;
+            }
         }
     }
 }
